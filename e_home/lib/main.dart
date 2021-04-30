@@ -1,6 +1,8 @@
 // TODO: Here you input the utility packages
 import 'package:flutter/material.dart';
 
+/// Shared components should be imported as packages.
+/// Components only relevant to the file should be imported as files
 // TODO: Here you import the screens
 import 'package:e_home/Screen_Welcome/welcome.dart';
 

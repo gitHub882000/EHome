@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Let\'s sign you in.',
+                  'Let\'s sign you up.',
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontFamily: 'Montserrat',
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Welcome back.\nYou’ve been missed!',
+                  'Welcome new member!',
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontFamily: 'Montserrat',
@@ -51,17 +51,23 @@ class Body extends StatelessWidget {
             hintText: 'Your Password',
             onChanged: (value) {},
           ),
+          RoundedPasswordField(
+            hintText: 'Confirm Password',
+            onChanged: (value) {},
+          ),
           SizedBox(
             height: size.height * 0.015,
           ),
           RoundedButton(
-            text: 'SIGN IN',
+            text: 'SIGN UP',
             press: () {},
           ),
           SizedBox(
             height: size.height * 0.01,
           ),
-          AlreadyHaveAccountCheck(),
+          AlreadyHaveAccountCheck(
+            isLogin: false,
+          ),
         ],
       ),
     );

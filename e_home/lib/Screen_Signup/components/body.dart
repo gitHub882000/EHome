@@ -67,6 +67,9 @@ class Body extends StatelessWidget {
           ),
           AlreadyHaveAccountCheck(
             isLogin: false,
+            press: () {
+              Navigator.pushReplacementNamed(context, '/welcome-screen');
+            },
           ),
         ],
       ),

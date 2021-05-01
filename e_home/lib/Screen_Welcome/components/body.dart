@@ -61,7 +61,11 @@ class Body extends StatelessWidget {
           SizedBox(
             height: size.height * 0.01,
           ),
-          AlreadyHaveAccountCheck(),
+          AlreadyHaveAccountCheck(
+            press: () {
+              Navigator.pushReplacementNamed(context, '/signup-screen');
+            },
+          ),
         ],
       ),
     );

@@ -15,25 +15,22 @@ class Background extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return SafeArea(
-      child: Container(
-        height: size.height,
-        width: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              SvgPicture.asset(
-                'assets/images/Welcome/Home_image.svg',
-                width: size.width,
-              ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              child,
-            ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: size.height,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  'assets/images/Welcome/Home_image.svg',
+                  width: size.width,
+                ),
+                child,
+              ],
+            ),
           ),
         ),
       ),

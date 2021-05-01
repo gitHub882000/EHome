@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_home/shared_components/rounded_input_field.dart';
-import 'package:e_home/shared_components/rounded_password_field.dart';
 import 'package:e_home/shared_components/rounded_button.dart';
-import 'package:e_home/shared_components/already_have_account_check.dart';
 import 'background.dart';
 
 class Body extends StatelessWidget {
@@ -15,6 +13,7 @@ class Body extends StatelessWidget {
       child: Column(
         children: [
           Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
             width: size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +23,7 @@ class Body extends StatelessWidget {
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
+                    fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -33,35 +32,51 @@ class Body extends StatelessWidget {
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                     fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
+                    fontSize: 25,
                   ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: size.height * 0.01,
           ),
           RoundedInputField(
             hintText: 'Your Email',
             icon: Icons.person,
             onChanged: (value) {},
           ),
-          RoundedPasswordField(
+          RoundedInputField(
             hintText: 'Your Password',
+            icon: Icons.lock,
+            suffixIcon: Icons.visibility,
             onChanged: (value) {},
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: 15,
           ),
           RoundedButton(
-            text: 'SIGN IN',
+            text: 'Sign In',
             press: () {},
           ),
           SizedBox(
-            height: size.height * 0.01,
+            height: 5,
           ),
-          AlreadyHaveAccountCheck(),
+          RichText(
+            text: TextSpan(
+              style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 13,
+                color: Theme.of(context).accentColor,
+              ),
+              children: <TextSpan>[
+                TextSpan(text: 'Don\'t have an account? '),
+                TextSpan(
+                  text: 'Register',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

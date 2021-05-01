@@ -1,14 +1,10 @@
 // TODO: Here you input the utility packages
 import 'package:flutter/material.dart';
 
-/// Note: If you have widgets that are shared among more than 1 screens,
-/// put those widget definition files into shared_components directory.
-/// Otherwise, put them into the directories whose files need those widgets.
 /// Shared components should be imported as packages.
-/// Components only relevant to the file should be imported as files.
+/// Components only relevant to the file should be imported as files
 // TODO: Here you import the screens
-import 'package:e_home/Screen_Welcome/welcome_scr.dart';
-import 'package:e_home/Screen_Signup/signup_scr.dart';
+import 'package:e_home/Screen_Welcome/welcome.dart';
 
 void main() {
   runApp(EHome());
@@ -53,7 +49,7 @@ class EHome extends StatelessWidget {
           ),
         ),
       ),
-      home: SignUpPage(),
+      home: WelcomePage(),
     );
   }
 }

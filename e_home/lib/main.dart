@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 /// Otherwise, put them into the directories whose files need those widgets.
 /// Shared components should be imported as packages.
 /// Components only relevant to the file should be imported as files.
+///
+/// The folders containing each screen should be in capitalized format:
+/// <Screen_Name>
 // TODO: Here you import the screens
 import 'package:e_home/Screen_Welcome/welcome_scr.dart';
 import 'package:e_home/Screen_Signup/signup_scr.dart';
@@ -53,7 +56,14 @@ class EHome extends StatelessWidget {
           ),
         ),
       ),
-      home: SignUpPage(),
+      home: WelcomePage(),
+
+      // TODO: Here you input the routes to screens
+      // TODO: The route name should follow the format: '/<screen-name>'
+      routes: {
+        '/welcome-screen': (context) => WelcomePage(),
+        '/signup-screen': (context) => SignUpPage(),
+      },
     );
   }
 }

@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 // TODO: Here you import the screens
 import 'package:e_home/Screen_Welcome/welcome_scr.dart';
 import 'package:e_home/Screen_Signup/signup_scr.dart';
+import 'package:e_home/Screen_Homepage/homepage_scr.dart';
 
 void main() {
   runApp(EHome());
@@ -39,7 +40,6 @@ class EHome extends StatelessWidget {
           headline1: TextStyle(
             fontFamily: 'Pacifico',
             fontSize: 50,
-            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
           headline2: TextStyle(
@@ -63,6 +63,7 @@ class EHome extends StatelessWidget {
       routes: {
         '/welcome-screen': (context) => WelcomePage(),
         '/signup-screen': (context) => SignUpPage(),
+        '/homepage-screen': (context) => HomePage(),
       },
     );
   }

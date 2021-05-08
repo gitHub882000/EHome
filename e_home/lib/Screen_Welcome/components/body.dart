@@ -16,27 +16,30 @@ class Body extends StatelessWidget {
         children: [
           Container(
             width: size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Let\'s sign you in.',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Let\'s sign you in.',
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontFamily: 'Montserrat',
+                      fontSize: size.height * 0.032,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  'Welcome back.\nYou’ve been missed!',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
+                  Text(
+                    'Welcome back.\nYou’ve been missed!',
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontFamily: 'Montserrat',
+                      fontSize: size.height * 0.032,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -56,7 +59,9 @@ class Body extends StatelessWidget {
           ),
           RoundedButton(
             text: 'SIGN IN',
-            press: () {},
+            press: () {
+              Navigator.pushReplacementNamed(context, '/homepage-screen');
+            },
           ),
           SizedBox(
             height: size.height * 0.01,

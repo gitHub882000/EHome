@@ -16,27 +16,30 @@ class Body extends StatelessWidget {
         children: [
           Container(
             width: size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Let\'s sign you up.',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
-                    fontWeight: FontWeight.bold,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Let\'s sign you up.',
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontFamily: 'Montserrat',
+                      fontSize: size.height * 0.032,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                Text(
-                  'Welcome new member!',
-                  style: TextStyle(
-                    color: Theme.of(context).accentColor,
-                    fontFamily: 'Montserrat',
-                    fontSize: size.height * 0.032,
+                  Text(
+                    'Welcome new member!',
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontFamily: 'Montserrat',
+                      fontSize: size.height * 0.032,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           SizedBox(

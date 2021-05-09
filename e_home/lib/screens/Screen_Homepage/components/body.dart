@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/resident_avt.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
+import 'package:flutter/widgets.dart';
 import 'background.dart';
 import 'roomcard_list.dart';
 
@@ -27,6 +28,7 @@ class Body extends StatelessWidget {
                 Spacer(),
                 ResidentAvt(
                   image: 'assets/images/Homepage/tham_avt.jpeg',
+                  radius: size.height * 0.03,
                 ),
               ],
             ),
@@ -41,9 +43,53 @@ class Body extends StatelessWidget {
             height: size.height * 0.01,
           ),
           RoomCardList(),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
           TextWithPreIcon(
             spaceSize: size.width * 0.015,
-            isIndent: false,
+            indentSize: 10.0,
+            icon: Container(
+              width: size.height * 0.03,
+              height: size.height * 0.03,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.people_alt_sharp,
+                size: size.height * 0.025,
+                color: Color.fromRGBO(9, 94, 231, 1.0),
+              ),
+            ),
+            text: Text(
+              'Resident',
+              style: TextStyle(
+                color: Theme.of(context).accentColor,
+                fontFamily: 'Montserrat',
+                fontSize: size.height * 0.022,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.015,
+          ),
+          Container(
+            height: size.height * 0.06 + 2,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 2,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+                child: ResidentAvt(
+                  image: 'assets/images/Homepage/tham_avt.jpeg',
+                  radius: size.height * 0.03,
+                  isActive: true,
+                ),
+              ),
+            ),
           ),
         ],
       ),

@@ -39,9 +39,10 @@ class RoomCardList extends StatelessWidget {
             ),
             TextWithPreIcon(
               spaceSize: size.width * 0.015,
+              indentSize: size.width * 0.015,
               icon: Icon(
                 Icons.brightness_5_rounded,
-                size: size.height * 0.026,
+                size: size.height * 0.03,
                 color: Color.fromRGBO(242, 153, 74, 1.0),
               ),
               text: Text(
@@ -56,9 +57,10 @@ class RoomCardList extends StatelessWidget {
             ),
             TextWithPreIcon(
               spaceSize: size.width * 0.015,
+              indentSize: size.width * 0.015,
               icon: Icon(
                 Icons.invert_colors,
-                size: size.height * 0.026,
+                size: size.height * 0.03,
                 color: Color.fromRGBO(45, 156, 219, 1.0),
               ),
               text: Text(

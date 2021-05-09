@@ -8,7 +8,7 @@ class ResidentAvt extends StatelessWidget {
   const ResidentAvt({
     Key key,
     this.image,
-    this.radius = 22,
+    this.radius,
     this.isActive = false,
   }) : super(key: key);
 

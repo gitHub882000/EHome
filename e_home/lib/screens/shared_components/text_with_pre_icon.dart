@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 class TextWithPreIcon extends StatelessWidget {
-  final double spaceSize;
+  final double spaceSize, indentSize;
   final Widget icon, text;
-  final bool isIndent;
 
   const TextWithPreIcon({
     Key key,
     this.spaceSize,
+    this.indentSize = 0,
     this.icon,
     this.text,
-    this.isIndent = true,
   }) : super(key: key);
 
   @override
@@ -20,9 +19,8 @@ class TextWithPreIcon extends StatelessWidget {
 
     return Row(
       children: [
-        if (isIndent)
         SizedBox(
-          width: spaceSize,
+          width: indentSize,
         ),
         icon,
         SizedBox(

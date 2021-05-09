@@ -18,7 +18,7 @@ class RoomCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10.0),
       padding: EdgeInsets.all(5.0),
-      height: size.height * 0.35,
+      height: size.height * 0.38,
       width: size.width * 0.52,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,

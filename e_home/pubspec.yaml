@@ -51,6 +51,9 @@ flutter:
       - assets/images/Welcome/no_avt.png
       - assets/images/Welcome/Home_image.svg
       - assets/images/Homepage/tham_avt.jpeg
+      - assets/images/Homepage/living_room.jpg
+      - assets/images/Homepage/bedroom.jpg
+      - assets/images/Homepage/chatbot_icon.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

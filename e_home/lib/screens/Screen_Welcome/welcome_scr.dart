@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import './components/body.dart';
+import 'components/body.dart';
 
-class HomePage extends StatelessWidget {
+class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

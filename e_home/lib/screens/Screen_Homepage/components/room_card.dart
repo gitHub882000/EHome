@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class RoomCard extends StatelessWidget {
   final String image;
-  final Widget child;
+  final List<Widget> children;
 
   const RoomCard({
     Key key,
     this.image,
-    this.child,
+    this.children,
   }) : super(key: key);
 
   @override
@@ -19,22 +19,29 @@ class RoomCard extends StatelessWidget {
       margin: EdgeInsets.all(10.0),
       padding: EdgeInsets.all(5.0),
       height: size.height * 0.35,
-      width: size.width * 0.55,
+      width: size.width * 0.52,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            width: double.infinity,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30),
             child: Image.asset(
               image,
-              height: size.height * 0.175,
-              fit: BoxFit.fitWidth,
+              height: size.height * 0.19,
+              fit: BoxFit.fill,
             ),
           ),
-          child,
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
+          ),
         ],
       ),
     );

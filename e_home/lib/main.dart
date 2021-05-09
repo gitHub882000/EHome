@@ -10,9 +10,9 @@ import 'package:flutter/material.dart';
 /// The folders containing each screen should be in capitalized format:
 /// <Screen_Name>
 // TODO: Here you import the screens
-import 'package:e_home/Screen_Welcome/welcome_scr.dart';
-import 'package:e_home/Screen_Signup/signup_scr.dart';
-import 'package:e_home/Screen_Homepage/homepage_scr.dart';
+import 'package:e_home/screens/Screen_Welcome/welcome_scr.dart';
+import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
+import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
 
 void main() {
   runApp(EHome());

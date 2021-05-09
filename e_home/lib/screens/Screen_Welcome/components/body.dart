@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:e_home/shared_components/rounded_input_field.dart';
-import 'package:e_home/shared_components/rounded_password_field.dart';
-import 'package:e_home/shared_components/rounded_button.dart';
-import 'package:e_home/shared_components/already_have_account_check.dart';
+import 'package:e_home/screens/shared_components/rounded_input_field.dart';
+import 'package:e_home/screens/shared_components/rounded_password_field.dart';
+import 'package:e_home/screens/shared_components/rounded_button.dart';
+import 'package:e_home/screens/shared_components/already_have_account_check.dart';
 import 'background.dart';
 
 class Body extends StatelessWidget {
@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Let\'s sign you up.',
+                    'Let\'s sign you in.',
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontFamily: 'Montserrat',
@@ -31,7 +31,7 @@ class Body extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Welcome new member!',
+                    'Welcome back.\nYou’ve been missed!',
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontFamily: 'Montserrat',
@@ -54,24 +54,21 @@ class Body extends StatelessWidget {
             hintText: 'Your Password',
             onChanged: (value) {},
           ),
-          RoundedPasswordField(
-            hintText: 'Confirm Password',
-            onChanged: (value) {},
-          ),
           SizedBox(
             height: size.height * 0.015,
           ),
           RoundedButton(
-            text: 'SIGN UP',
-            press: () {},
+            text: 'SIGN IN',
+            press: () {
+              Navigator.pushReplacementNamed(context, '/homepage-screen');
+            },
           ),
           SizedBox(
             height: size.height * 0.01,
           ),
           AlreadyHaveAccountCheck(
-            isLogin: false,
             press: () {
-              Navigator.pushReplacementNamed(context, '/welcome-screen');
+              Navigator.pushReplacementNamed(context, '/signup-screen');
             },
           ),
         ],

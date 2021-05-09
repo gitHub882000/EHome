@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:e_home/shared_components/resident_avt.dart';
+import 'package:e_home/screens/shared_components/resident_avt.dart';
+import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'background.dart';
-import 'room_card.dart';
+import 'roomcard_list.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -39,9 +40,10 @@ class Body extends StatelessWidget {
           SizedBox(
             height: size.height * 0.01,
           ),
-          RoomCard(
-            image: 'assets/images/Homepage/tham_avt.jpeg',
-            child: Text("A"),
+          RoomCardList(),
+          TextWithPreIcon(
+            spaceSize: size.width * 0.015,
+            isIndent: false,
           ),
         ],
       ),

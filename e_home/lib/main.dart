@@ -1,4 +1,5 @@
 // TODO: Here you input the utility packages
+import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,6 +15,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_home/screens/Screen_Welcome/welcome_scr.dart';
 import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
+import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
+import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 
 void main() {
   runApp(EHome());
@@ -47,6 +50,12 @@ class EHome extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          headline3: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 100,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
 
           // Default BodyText
           bodyText1: TextStyle(
@@ -67,6 +76,8 @@ class EHome extends StatelessWidget {
         '/welcome-screen': (context) => WelcomePage(),
         '/signup-screen': (context) => SignUpPage(),
         '/homepage-screen': (context) => HomePage(),
+        '/room-screen': (context) => RoomPage(),
+        '/statistics-screen': (context) => StatisticsPage(),
       },
     );
   }

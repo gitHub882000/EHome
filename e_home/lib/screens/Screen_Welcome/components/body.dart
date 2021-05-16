@@ -23,20 +23,15 @@ class Body extends StatelessWidget {
                 children: [
                   Text(
                     'Let\'s sign you in.',
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: size.height * 0.032,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: size.height * 0.032,
+                        ),
                   ),
                   Text(
                     'Welcome back.\nYou’ve been missed!',
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontFamily: 'Montserrat',
-                      fontSize: size.height * 0.032,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: size.height * 0.032,
+                        ),
                   ),
                 ],
               ),
@@ -59,6 +54,8 @@ class Body extends StatelessWidget {
           ),
           RoundedButton(
             text: 'SIGN IN',
+            color: Theme.of(context).cardColor,
+            textColor: Theme.of(context).accentColor,
             press: () {
               Navigator.pushReplacementNamed(context, '/homepage-screen');
             },

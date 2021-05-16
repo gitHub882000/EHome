@@ -21,7 +21,7 @@ class ResidentAvt extends StatelessWidget {
           height: 2 * radius + 2,
           width: 2 * radius + 2,
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).cardColor,
             shape: BoxShape.circle,
           ),
           child: CircleAvatar(
@@ -40,7 +40,7 @@ class ResidentAvt extends StatelessWidget {
               color: Color.fromRGBO(96, 240, 73, 1.0),
               shape: BoxShape.circle,
               border: Border.all(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).cardColor,
                 width: 1,
               ),
             ),

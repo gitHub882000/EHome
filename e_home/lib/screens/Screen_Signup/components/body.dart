@@ -63,6 +63,8 @@ class Body extends StatelessWidget {
           ),
           RoundedButton(
             text: 'SIGN UP',
+            color: Theme.of(context).cardColor,
+            textColor: Theme.of(context).accentColor,
             press: () {},
           ),
           SizedBox(

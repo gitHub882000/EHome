@@ -1,5 +1,6 @@
 // TODO: Here you input the utility packages
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Note: If you have widgets that are shared among more than 1 screens,
 /// put those widget definition files into shared_components directory.
@@ -27,9 +28,10 @@ class EHome extends StatelessWidget {
       title: 'EHome',
       theme: ThemeData(
         // Default Color
-        primaryColor: Color.fromRGBO(80, 223, 225, 1.0),
+        primaryColor: Color.fromRGBO(55, 60, 89, 1.0),
         accentColor: Colors.white,
-        scaffoldBackgroundColor: Color.fromRGBO(16, 34, 63, 1.0),
+        scaffoldBackgroundColor: Color.fromRGBO(33, 35, 50, 1.0),
+        cardColor: Color.fromRGBO(38, 151, 255, 1.0),
 
         // Default Font Family
         fontFamily: 'Montserrat',
@@ -39,20 +41,21 @@ class EHome extends StatelessWidget {
           // Default Titles
           headline1: TextStyle(
             fontFamily: 'Pacifico',
-            fontSize: 50,
             color: Colors.white,
           ),
           headline2: TextStyle(
-            fontSize: 25,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
 
           // Default BodyText
           bodyText1: TextStyle(
-            fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: Colors.white,
+          ),
+          bodyText2: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white70,
           ),
         ),
       ),

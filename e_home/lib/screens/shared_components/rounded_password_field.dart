@@ -22,13 +22,13 @@ class RoundedPasswordField extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: Theme.of(context).accentColor,
         decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
-            fontSize: size.height * 0.02,
-            fontWeight: FontWeight.w400,
-            letterSpacing: 2,
-          ),
-          icon: Icon(
+          labelText: hintText,
+          labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+                fontSize: size.height * 0.02,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 2,
+              ),
+          prefixIcon: Icon(
             Icons.lock,
             color: Theme.of(context).accentColor,
           ),
@@ -37,6 +37,12 @@ class RoundedPasswordField extends StatelessWidget {
             color: Theme.of(context).accentColor,
           ),
           border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Theme.of(context).cardColor,
+            ),
+          ),
         ),
       ),
     );

@@ -23,17 +23,23 @@ class RoundedInputField extends StatelessWidget {
         onChanged: onChanged,
         cursorColor: Theme.of(context).accentColor,
         decoration: InputDecoration(
-          icon: Icon(
+          prefixIcon: Icon(
             icon ?? null,
             color: Theme.of(context).accentColor,
           ),
-          hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+          labelText: hintText,
+          labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
                 fontSize: size.height * 0.02,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 2,
               ),
           border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Theme.of(context).cardColor,
+            ),
+          ),
         ),
       ),
     );

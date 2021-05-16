@@ -1,5 +1,6 @@
 // TODO: Here you input the utility packages
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Note: If you have widgets that are shared among more than 1 screens,
@@ -15,7 +16,9 @@ import 'package:e_home/screens/Screen_Welcome/welcome_scr.dart';
 import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(EHome());
 }
 

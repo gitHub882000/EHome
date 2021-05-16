@@ -21,7 +21,7 @@ class RoomCardList extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return SizedBox(
-      height: size.height * 0.35,
+      height: size.height * 0.4,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: roomsData.length,
@@ -30,11 +30,8 @@ class RoomCardList extends StatelessWidget {
           children: [
             Text(
               roomsData[index].name,
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
                 fontSize: size.height * 0.032,
-                fontWeight: FontWeight.bold,
               ),
             ),
             TextWithPreIcon(
@@ -47,11 +44,8 @@ class RoomCardList extends StatelessWidget {
               ),
               text: Text(
                 '${roomsData[index].lightDevices.length} light devices',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Montserrat',
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: size.height * 0.022,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -65,11 +59,8 @@ class RoomCardList extends StatelessWidget {
               ),
               text: Text(
                 '${roomsData[index].airConditioners.length} air conditioners',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Montserrat',
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
                   fontSize: size.height * 0.022,
-                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

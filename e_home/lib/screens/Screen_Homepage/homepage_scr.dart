@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
             color: Theme.of(context).accentColor,
             shape: BoxShape.circle,
             border: Border.all(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).cardColor,
               width: 1,
             ),
           ),

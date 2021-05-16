@@ -23,7 +23,9 @@ class Body extends StatelessWidget {
               children: [
                 Text(
                   'EHome',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline1.copyWith(
+                        fontSize: size.height * 0.064,
+                      ),
                 ),
                 Spacer(),
                 ResidentAvt(
@@ -65,11 +67,8 @@ class Body extends StatelessWidget {
             ),
             text: Text(
               'Resident',
-              style: TextStyle(
-                color: Theme.of(context).accentColor,
-                fontFamily: 'Montserrat',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
                 fontSize: size.height * 0.022,
-                fontWeight: FontWeight.bold,
               ),
             ),
           ),

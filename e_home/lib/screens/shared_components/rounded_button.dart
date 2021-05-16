@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 5),
       width: size.width * 0.8,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(15),
         child: TextButton(
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(color),
@@ -33,11 +33,9 @@ class RoundedButton extends StatelessWidget {
           onPressed: press,
           child: Text(
             text,
-            style: TextStyle(
-              fontSize: size.height * 0.0192,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            ),
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: size.height * 0.0192,
+                ),
           ),
         ),
       ),

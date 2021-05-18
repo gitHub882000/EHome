@@ -1,4 +1,4 @@
-import 'package:fl_chart/fl_chart.dart';
+/* import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'package:e_home/screens/Screen_Statistics/components/line_titles.dart';
@@ -48,3 +48,4 @@ class LineChartWidget extends StatelessWidget {
       );
 }
 
+ */

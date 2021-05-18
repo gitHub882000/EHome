@@ -1,7 +1,6 @@
 // TODO: Here you input the utility packages
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// Note: If you have widgets that are shared among more than 1 screens,
 /// put those widget definition files into shared_components directory.
@@ -15,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_home/screens/Screen_Welcome/welcome_scr.dart';
 import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
+import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +39,19 @@ class EHome extends StatelessWidget {
         // Default Font Family
         fontFamily: 'Montserrat',
 
+        // Default App Bar Theme
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color.fromRGBO(33, 35, 50, 1.0),
+          centerTitle: true,
+          foregroundColor: Colors.white,
+          elevation: 0.0,
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+
         // Default Text Theme
         textTheme: TextTheme(
           // Default Titles
@@ -48,7 +61,7 @@ class EHome extends StatelessWidget {
           ),
           headline2: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Colors.white54,
           ),
 
           // Default BodyText
@@ -70,6 +83,7 @@ class EHome extends StatelessWidget {
         '/welcome-screen': (context) => WelcomePage(),
         '/signup-screen': (context) => SignUpPage(),
         '/homepage-screen': (context) => HomePage(),
+        '/chatroom-screen': (context) => ChatroomPage(),
       },
     );
   }

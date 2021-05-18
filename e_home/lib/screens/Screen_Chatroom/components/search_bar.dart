@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:e_home/screens/shared_components/text_field_container.dart';
 
-class RoundedPasswordField extends StatelessWidget {
+class SearchBar extends StatelessWidget {
   final ValueChanged<String> onChanged;
-  final String hintText;
 
-  const RoundedPasswordField({
+  const SearchBar({
     Key key,
-    this.onChanged,
-    this.hintText,
+    @required this.onChanged,
   }) : super(key: key);
 
   @override
@@ -16,32 +13,35 @@ class RoundedPasswordField extends StatelessWidget {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
 
-    return TextFieldContainer(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      width: size.width * 0.9,
+      height: size.height * 0.06,
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(25),
+      ),
       child: TextField(
-        obscureText: true,
         onChanged: onChanged,
         cursorColor: Theme.of(context).accentColor,
         style: TextStyle(
           color: Theme.of(context).accentColor,
         ),
         decoration: InputDecoration(
-          labelText: hintText,
-          labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
+          prefixIcon: Icon(
+            Icons.search,
+            color: Theme.of(context).accentColor,
+            size: size.height * 0.03,
+          ),
+          hintText: 'Search',
+          hintStyle: Theme.of(context).textTheme.bodyText1.copyWith(
                 fontSize: size.height * 0.02,
                 fontWeight: FontWeight.w400,
                 letterSpacing: 2,
               ),
-          prefixIcon: Icon(
-            Icons.lock,
-            color: Theme.of(context).accentColor,
-          ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: Theme.of(context).accentColor,
-          ),
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(25),
             borderSide: BorderSide(
               color: Theme.of(context).cardColor,
             ),
@@ -49,5 +49,6 @@ class RoundedPasswordField extends StatelessWidget {
         ),
       ),
     );
+    ;
   }
 }

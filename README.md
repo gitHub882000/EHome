@@ -1,2 +1,3 @@
 # EHome
-Backend for ehome
+An Android Application to manage devices at home
+There is also backend for ehome

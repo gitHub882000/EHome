@@ -8,6 +8,7 @@ import 'roomcard_list.dart';
 
 class Body extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
+
   const Body({
     Key key,
     this.scaffoldKey,
@@ -18,6 +19,10 @@ class Body extends StatelessWidget {
   /// ******
   void handleDrawerClick() {
     scaffoldKey.currentState.openEndDrawer();
+  }
+
+  void handleRoomClick(BuildContext context) {
+    Navigator.pushNamed(context, '/roompage-screen');
   }
 
   /// ******
@@ -74,7 +79,9 @@ class Body extends StatelessWidget {
           SizedBox(
             height: size.height * 0.01,
           ),
-          RoomCardList(),
+          RoomCardList(
+            onRoomTap: () => this.handleRoomClick(context),
+          ),
           SizedBox(
             height: size.height * 0.02,
           ),

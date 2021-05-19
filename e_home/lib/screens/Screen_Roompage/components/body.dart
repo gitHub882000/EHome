@@ -1,12 +1,13 @@
+import 'package:e_home/models/ChoosenRoom.dart';
+import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
+import 'package:intl/intl.dart';
+import 'package:e_home/screens/Screen_Homepage/components/roomcard_list.dart';
 import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/resident_avt.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/src/widgets/image.dart';
 import 'background.dart';
-import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
-import 'package:intl/intl.dart';
-import 'package:e_home/screens/Screen_Homepage/components/roomcard_list.dart';
 
 // Import models
 import 'package:e_home/models/Room.dart';
@@ -22,7 +23,8 @@ class Body extends StatelessWidget {
     String finalDate = date.toString();
 
     //Get data from Homepage
-    String roomData = ModalRoute.of(context).settings.arguments as String;
+    ChoosenRoomModel thisRoom =
+        ModalRoute.of(context).settings.arguments as ChoosenRoomModel;
 
     return Background(
       child: Column(
@@ -35,7 +37,7 @@ class Body extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${roomData}',
+                  '${thisRoom.name}',
                   style: Theme.of(context).textTheme.headline1.copyWith(
                         fontSize: size.height * 0.064,
                       ),

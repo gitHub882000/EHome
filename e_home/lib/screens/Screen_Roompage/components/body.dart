@@ -90,6 +90,8 @@ class _BodyState extends State<Body> {
 }
 
 Future<Device> sendData(String name,String value) async {
+  //var url = Uri.parse('https://example.com/whatsit/create');
+  //var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
   final response = await http.post(
     Uri.https('jsonplaceholder.typicode.com', 'albums'),
     headers: <String, String>{

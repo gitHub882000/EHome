@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'background.dart';
 import 'package:e_home/screens/shared_components/icon_coin.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
 
-class Body extends StatelessWidget {
+class _BodyState extends State<Body> {
+  bool switch_state = false;
+
   @override
   Widget build(BuildContext context) {
     // This size provides us total height and width of our screen
@@ -41,7 +49,7 @@ class Body extends StatelessWidget {
                   width: 10.0,
                 ),
                 Text(
-                  '78',
+                  '77',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: size.height * 0.024,
                       ),
@@ -49,8 +57,34 @@ class Body extends StatelessWidget {
               ],
             ),
           ),
+          Center(
+            child: Switch(
+              value: switch_state,
+              onChanged: (bool s)
+              {
+                setState(() {
+                  switch_state = s;
+                  print(switch_state);
+                });
+
+
+              },
+            ),
+          ),
         ],
       ),
     );
   }
+}
+
+Future<http.Response> createAlbum(String title) {
+  return http.post(
+    Uri.https('jsonplaceholder.typicode.com', 'albums'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'title': title,
+    }),
+  );
 }

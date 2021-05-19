@@ -1,13 +1,13 @@
-class Album {
-  final int id;
-  final String title;
+class Device {
+  final String name;
+  final String value;
 
-  Album({this.id, this.title});
+  Device({this.name, this.value});
 
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      id: json['id'],
-      title: json['title'],
+  factory Device.fromJson(Map<String, dynamic> json) {
+    return Device(
+      name: json['name'],
+      value: json['value'],
     );
   }
 }

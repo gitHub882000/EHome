@@ -3,6 +3,8 @@ import 'background.dart';
 import 'package:e_home/screens/shared_components/icon_coin.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:e_home/models/Device.dart';
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -10,6 +12,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool switch_state = false;
+  Future<Device> _futureDevice;
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +68,15 @@ class _BodyState extends State<Body> {
                 setState(() {
                   switch_state = s;
                   print(switch_state);
+                  if (switch_state)
+                    {
+                      _futureDevice = sendData("1", "on");
+                    }
+                  else
+                    {
+                      _futureDevice = sendData("1", "off");
+                    }
+
                 });
 
 
@@ -77,14 +89,26 @@ class _BodyState extends State<Body> {
   }
 }
 
-Future<http.Response> createAlbum(String title) {
-  return http.post(
+Future<Device> sendData(String name,String value) async {
+  final response = await http.post(
     Uri.https('jsonplaceholder.typicode.com', 'albums'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'title': title,
+      'name': name,
+      'value': value,
     }),
   );
+
+  if (response.statusCode == 201) {
+    // If the server did return a 201 response,
+    // then parse the JSON.
+    print(response.body);
+    return Device.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 response,
+    // then throw an exception.
+    throw Exception('Failed ');
+  }
 }

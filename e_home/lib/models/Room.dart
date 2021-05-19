@@ -1,13 +1,61 @@
-class Room {
-  final String name;
-  final String image;
-  final List<LightDevice> lightDevices;
-  final List<AirConditioner> airConditioners;
-  final List<TempSensor> tempSensors;
-  final List<LightSensor> lightSensors;
-  final List<SoundSensor> soundSensors;
+import 'package:flutter/material.dart';
 
+class RoomsModel {
+  static List<Room> roomsData = [
+    Room(
+      id: 1,
+      name: 'Bedroom',
+      image: 'assets/images/Homepage/bedroom.jpg',
+      lightDevices: [
+        LightDevice(name: 'LED', isActive: true),
+        LightDevice(name: 'LED', isActive: false),
+      ],
+      airConditioners: [
+        AirConditioner(name: 'Ax125', isActive: true),
+      ],
+      tempSensors: TempSensor(name: 'DHT11', value: 25),
+      lightSensors: LightSensor(name: 'Light Sensor', value: 100),
+      soundSensors: SoundSensor(name: 'Sound Sensor', value: 35),
+    ),
+    Room(
+      id: 2,
+      name: 'Living room',
+      image: 'assets/images/Homepage/living_room.jpg',
+      lightDevices: [
+        LightDevice(name: 'LED', isActive: true),
+        LightDevice(name: 'LED', isActive: false),
+        LightDevice(name: 'LED', isActive: true),
+        LightDevice(name: 'LED', isActive: true),
+      ],
+      airConditioners: [
+        AirConditioner(name: 'As125', isActive: true),
+        AirConditioner(name: 'As124', isActive: true),
+      ],
+      tempSensors: TempSensor(name: 'DHT11', value: 30),
+      lightSensors: LightSensor(name: 'Light Sensor', value: 300),
+      soundSensors: SoundSensor(name: 'Sound Sensor', value: 85),
+    ),
+  ];
+
+  Room getById(int id) => Room(
+      id: id,
+      name: roomsData[id % roomsData.length].name,
+      image: roomsData[id % roomsData.length].image,
+      lightDevices: roomsData[id % roomsData.length].lightDevices,
+      airConditioners: roomsData[id % roomsData.length].airConditioners,
+      tempSensors: roomsData[id % roomsData.length].tempSensors,
+      lightSensors: roomsData[id % roomsData.length].lightSensors,
+      soundSensors: roomsData[id % roomsData.length].soundSensors);
+
+  Room getByPosition(int position) {
+    return getById(position);
+  }
+}
+
+@immutable
+class Room {
   Room({
+    this.id,
     this.name,
     this.image,
     this.lightDevices,
@@ -16,100 +64,84 @@ class Room {
     this.lightSensors,
     this.soundSensors,
   });
+
+  final int id;
+  final String name;
+  final String image;
+  final List<LightDevice> lightDevices;
+  final List<AirConditioner> airConditioners;
+  final TempSensor tempSensors;
+  final LightSensor lightSensors;
+  final SoundSensor soundSensors;
+
+  @override
+  int get hashCode => id;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Room && runtimeType == other.runtimeType && other.id == id;
+
+  Map<String, dynamic> toRoom() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'image': image,
+      'lightDevices': lightDevices,
+      'airConditioners': airConditioners,
+      'tempSensors': tempSensors,
+      'lightSensors': lightSensors,
+      'soundSensors': soundSensors,
+    };
+  }
 }
 
 class LightDevice {
-  final String name;
-  final bool isActive;
-
   LightDevice({
     this.name,
     this.isActive,
   });
+
+  final String name;
+  final bool isActive;
 }
 
 class AirConditioner {
-  final String name;
-  final bool isActive;
-
   AirConditioner({
     this.name,
     this.isActive,
   });
+
+  final String name;
+  final bool isActive;
 }
 
 class TempSensor {
-  final String name;
-  final int value;
-
   TempSensor({
     this.name,
     this.value,
   });
+
+  final String name;
+  final int value;
 }
 
 class LightSensor {
-  final String name;
-  final int value;
-
   LightSensor({
     this.name,
     this.value,
   });
+
+  final String name;
+  final int value;
 }
 
 class SoundSensor {
-  final String name;
-  final int value;
-
   SoundSensor({
     this.name,
     this.value,
   });
-}
 
-List roomsData = [
-  Room(
-    name: 'Bedroom',
-    image: 'assets/images/Homepage/bedroom.jpg',
-    lightDevices: [
-      LightDevice(name: 'LED', isActive: true),
-      LightDevice(name: 'LED', isActive: false),
-    ],
-    airConditioners: [
-      AirConditioner(name: 'Ax125', isActive: true),
-    ],
-    tempSensors: [
-      TempSensor(name: 'DHT11', value: 25),
-    ],
-    lightSensors: [
-      LightSensor(name: 'Light Sensor', value: 100),
-    ],
-    soundSensors: [
-      SoundSensor(name: 'Sound Sensor', value: 35),
-    ],
-  ),
-  Room(
-    name: 'Living room',
-    image: 'assets/images/Homepage/living_room.jpg',
-    lightDevices: [
-      LightDevice(name: 'LED', isActive: true),
-      LightDevice(name: 'LED', isActive: false),
-      LightDevice(name: 'LED', isActive: true),
-      LightDevice(name: 'LED', isActive: true),
-    ],
-    airConditioners: [
-      AirConditioner(name: 'As125', isActive: true),
-      AirConditioner(name: 'As124', isActive: true),
-    ],
-    tempSensors: [
-      TempSensor(name: 'DHT11', value: 30),
-    ],
-    lightSensors: [
-      LightSensor(name: 'Light Sensor', value: 300),
-    ],
-    soundSensors: [
-      SoundSensor(name: 'Sound Sensor', value: 85),
-    ],
-  ),
-];
+  final String name;
+  final int value;
+}

@@ -1,5 +1,4 @@
 // TODO: Here you input the utility packages
-import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -52,7 +51,7 @@ class EHome extends StatelessWidget {
           ),
           headline3: TextStyle(
             fontFamily: 'Montserrat',
-            fontSize: 100,
+            fontSize: 85,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -66,6 +65,7 @@ class EHome extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white70,
           ),
+          /* bodyText3: TextStyle(color: Colors.grey), */
         ),
       ),
       home: WelcomePage(),

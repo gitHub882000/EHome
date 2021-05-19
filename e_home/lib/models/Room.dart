@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:e_home/models/ChoosenRoom.dart';
 
 class RoomsModel {
   static List<Room> roomsData = [
@@ -49,6 +50,19 @@ class RoomsModel {
 
   Room getByPosition(int position) {
     return getById(position);
+  }
+
+  Map<String, dynamic> toRoom() {
+    return <String, dynamic>{
+      'id': roomsData.iterator.current.id,
+      'name': roomsData.iterator.current.name,
+      'image': roomsData.iterator.current.image,
+      'lightDevices': roomsData.iterator.current.lightDevices,
+      'airConditioners': roomsData.iterator.current.airConditioners,
+      'tempSensors': roomsData.iterator.current.tempSensors,
+      'lightSensors': roomsData.iterator.current.lightSensors,
+      'soundSensors': roomsData.iterator.current.soundSensors,
+    };
   }
 }
 

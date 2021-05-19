@@ -23,8 +23,7 @@ class Body extends StatelessWidget {
     String finalDate = date.toString();
 
     //Get data from Homepage
-    ChoosenRoomModel thisRoom =
-        ModalRoute.of(context).settings.arguments as ChoosenRoomModel;
+    int key = ModalRoute.of(context).settings.arguments as int;
 
     return Background(
       child: Column(
@@ -37,7 +36,7 @@ class Body extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${thisRoom.name}',
+                  '${RoomsModel.roomsData[key].name}',
                   style: Theme.of(context).textTheme.headline1.copyWith(
                         fontSize: size.height * 0.064,
                       ),
@@ -54,7 +53,7 @@ class Body extends StatelessWidget {
             height: size.height * 0.01,
           ),
           Text(
-            '32°C',
+            '${RoomsModel.roomsData[key].tempSensors.value}°C',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline3,
           ),
@@ -81,7 +80,7 @@ class Body extends StatelessWidget {
                       color: Color.fromRGBO(45, 156, 219, 1.0),
                     ),
                     text: Text(
-                      '${roomsData[index].soundSensors.SoundSensor.value} dB',
+                      '${RoomsModel.roomsData[key].soundSensors.value} dB',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: size.height * 0.05,
                           ),
@@ -96,7 +95,7 @@ class Body extends StatelessWidget {
                       color: Color.fromRGBO(255, 255, 51, 1.0),
                     ),
                     text: Text(
-                      '${roomsData[index].lightSensors.LightSensor.value} Lux',
+                      '${RoomsModel.roomsData[key].lightSensors.value} Lux',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: size.height * 0.05,
                           ),

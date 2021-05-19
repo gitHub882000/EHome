@@ -3,10 +3,10 @@ An Android Application to manage devices at home <br />
 There is also backend for ehome
 
 # BACKEND HOW TO USE API
-get value from adafruit: send GET request to http://localhost:5000/listener/<username>/test1  <br />
+get value from adafruit: send GET request to http://localhost:5000/listener/username/test1  <br />
 => the value return is the current state of the the device on ADAFRUIT server <br />
 
-post value to adafruit: send GET request to http://localhost:5000/publisher/<username>  <br />
+send value to adafruit: send POST request to http://localhost:5000/publisher/<username>  <br />
 with the content of the http pakage like this: <br />
 {
     "name":"test1",

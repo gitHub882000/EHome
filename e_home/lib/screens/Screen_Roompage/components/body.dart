@@ -1,7 +1,7 @@
-import 'package:e_home/models/ChoosenRoom.dart';
+import 'package:e_home/main.dart';
+import 'package:e_home/screens/Screen_Roompage/components/devices_view.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:intl/intl.dart';
-import 'package:e_home/screens/Screen_Homepage/components/roomcard_list.dart';
 import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/resident_avt.dart';
@@ -24,6 +24,7 @@ class Body extends StatelessWidget {
 
     //Get data from Homepage
     int key = ModalRoute.of(context).settings.arguments as int;
+    Room receivedRoom = RoomsModel.roomsData[key];
 
     return Background(
       child: Column(
@@ -36,7 +37,7 @@ class Body extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '${RoomsModel.roomsData[key].name}',
+                  '${receivedRoom.name}',
                   style: Theme.of(context).textTheme.headline1.copyWith(
                         fontSize: size.height * 0.064,
                       ),
@@ -53,7 +54,7 @@ class Body extends StatelessWidget {
             height: size.height * 0.01,
           ),
           Text(
-            '${RoomsModel.roomsData[key].tempSensors.value}°C',
+            '${receivedRoom.tempSensors.value}°C',
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline3,
           ),
@@ -67,37 +68,37 @@ class Body extends StatelessWidget {
           ),
           Container(
             alignment: Alignment.center,
-            height: size.height * 0.2,
+            height: size.height * 0.15,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextWithPreIcon(
                   spaceSize: size.width * 0.015,
-                  indentSize: size.width * 0.2,
+                  indentSize: size.width * 0.27,
                   icon: Icon(
                     Icons.volume_up_outlined,
-                    size: size.height * 0.08,
+                    size: size.height * 0.06,
                     color: Color.fromRGBO(45, 156, 219, 1.0),
                   ),
                   text: Text(
-                    '${RoomsModel.roomsData[key].soundSensors.value} dB',
+                    '${receivedRoom.soundSensors.value} dB',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: size.height * 0.07,
+                          fontSize: size.height * 0.05,
                         ),
                   ),
                 ),
                 TextWithPreIcon(
                   spaceSize: size.width * 0.015,
-                  indentSize: size.width * 0.14,
+                  indentSize: size.width * 0.22,
                   icon: Icon(
                     Icons.lightbulb_outlined,
-                    size: size.height * 0.08,
+                    size: size.height * 0.06,
                     color: Color.fromRGBO(255, 255, 51, 1.0),
                   ),
                   text: Text(
-                    '${RoomsModel.roomsData[key].lightSensors.value} Lux',
+                    '${receivedRoom.lightSensors.value} Lux',
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: size.height * 0.07,
+                          fontSize: size.height * 0.05,
                         ),
                   ),
                 ),
@@ -105,7 +106,7 @@ class Body extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.07,
           ),
           Container(
             alignment: Alignment.center,
@@ -119,7 +120,11 @@ class Body extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.03,
+          ),
+          DevicesView(receivedRoom),
+          SizedBox(
+            height: size.height * 0.025,
           ),
           Container(
             alignment: Alignment.bottomLeft,
@@ -133,10 +138,8 @@ class Body extends StatelessWidget {
                 icon: const Icon(Icons.analytics_outlined),
                 iconSize: 40,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => StatisticsPage()),
-                  );
+                  Navigator.pushNamed(context, '/statistics-screen',
+                      arguments: key);
                 },
               ),
             ),

@@ -1,5 +1,4 @@
 import 'package:e_home/models/ChoosenRoom.dart';
-import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
@@ -21,13 +20,13 @@ class RoomCardList extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   /* WidgetsBinding.instance.addPostFrameCallback((_) {
-                    context
-                        .read<ChoosenRoomModel>()
-                        .add(RoomsModel.roomsData[index]);
-                    ChoosenRoomModel arg;
-                    arg.data = context.read<Room>();
-                    Iterable<Room> arg = context.read<ChoosenRoomModel>().roomData;
-                  }); */
+                context
+                    .read<ChoosenRoomModel>()
+                    .add(RoomsModel.roomsData[index]);
+                ChoosenRoomModel arg;
+                arg.data = context.read<Room>();
+                Iterable<Room> arg = context.read<ChoosenRoomModel>().roomData;
+              }); */
                   Navigator.pushNamed(context, '/room-screen',
                       arguments: index);
                 },

@@ -51,19 +51,6 @@ class RoomsModel {
   Room getByPosition(int position) {
     return getById(position);
   }
-
-  Map<String, dynamic> toRoom() {
-    return <String, dynamic>{
-      'id': roomsData.iterator.current.id,
-      'name': roomsData.iterator.current.name,
-      'image': roomsData.iterator.current.image,
-      'lightDevices': roomsData.iterator.current.lightDevices,
-      'airConditioners': roomsData.iterator.current.airConditioners,
-      'tempSensors': roomsData.iterator.current.tempSensors,
-      'lightSensors': roomsData.iterator.current.lightSensors,
-      'soundSensors': roomsData.iterator.current.soundSensors,
-    };
-  }
 }
 
 @immutable
@@ -96,17 +83,17 @@ class Room {
       identical(this, other) ||
       other is Room && runtimeType == other.runtimeType && other.id == id;
 
-  Map<String, dynamic> toRoom() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'image': image,
-      'lightDevices': lightDevices,
-      'airConditioners': airConditioners,
-      'tempSensors': tempSensors,
-      'lightSensors': lightSensors,
-      'soundSensors': soundSensors,
-    };
+  Map toMap(Room room) {
+    var data = Map<String, dynamic>();
+    data['id'] = room.id;
+    data['name'] = room.name;
+    data['image'] = room.image;
+    data['lightDevices'] = room.lightDevices;
+    data['airConditioners'] = room.airConditioners;
+    data['tempSensors'] = room.tempSensors;
+    data['lightSensors'] = room.lightSensors;
+    data['soundSensors'] = room.soundSensors;
+    return data;
   }
 }
 
@@ -117,7 +104,7 @@ class LightDevice {
   });
 
   final String name;
-  final bool isActive;
+  bool isActive;
 }
 
 class AirConditioner {
@@ -127,7 +114,7 @@ class AirConditioner {
   });
 
   final String name;
-  final bool isActive;
+  bool isActive;
 }
 
 class TempSensor {

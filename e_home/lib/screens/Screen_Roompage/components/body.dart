@@ -1,3 +1,4 @@
+import 'package:e_home/screens/shared_components/services.dart';
 import 'package:flutter/material.dart';
 import 'background.dart';
 import 'package:e_home/screens/shared_components/icon_coin.dart';
@@ -5,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:e_home/models/Device.dart';
+
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
@@ -51,35 +53,23 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   width: 10.0,
                 ),
-                Text(
-                  '77',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontSize: size.height * 0.024,
-                      ),
-                ),
+                FirebaseServices(),
               ],
             ),
           ),
           Center(
             child: Switch(
               value: switch_state,
-              onChanged: (bool s)
-              {
+              onChanged: (bool s) {
                 setState(() {
                   switch_state = s;
                   print(switch_state);
-                  if (switch_state)
-                    {
-                      _futureDevice = sendData("1", "on");
-                    }
-                  else
-                    {
-                      _futureDevice = sendData("1", "off");
-                    }
-
+                  if (switch_state) {
+                    _futureDevice = sendData("test5", "ON");
+                  } else {
+                    _futureDevice = sendData("test5", "OFF");
+                  }
                 });
-
-
               },
             ),
           ),
@@ -89,7 +79,7 @@ class _BodyState extends State<Body> {
   }
 }
 
-Future<Device> sendData(String name,String value) async {
+Future<Device> sendData(String name, String value) async {
   //var url = Uri.parse('https://example.com/whatsit/create');
   //var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
   final response = await http.post(

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:e_home/screens/shared_components/rounded_input_field.dart';
 import 'package:e_home/screens/shared_components/rounded_password_field.dart';
 import 'package:e_home/screens/shared_components/rounded_button.dart';
 import 'package:e_home/screens/shared_components/already_have_account_check.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:e_home/models/auth.dart';
 import 'background.dart';
 
 class Body extends StatefulWidget {
@@ -13,36 +14,39 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _auth = FirebaseAuth.instance;
+  // final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
-  String email;
-  String password;
+  String _email;
+  String _password;
+  String _authCode = '';
 
   /// ******
   /// Controller methods
   /// ******
-  void _handleLoginClick(BuildContext context) async {
+  Future<void> _handleLoginClick(BuildContext context) async {
+    Auth _auth = Auth();
+
     if (_formKey.currentState.validate()) {
       setState(() {
         _isLoading = true;
       });
       try {
-        final userCredential = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
+        await _auth.signInWithEmailAndPassword(
+            email: _email, password: _password);
+        Navigator.pushReplacementNamed(context, '/homepage-screen');
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
-      } catch (e) {
-        print(e);
+        _authCode = e.code == 'user-not-found'
+            ? 'Email does not exist.'
+            : e.code == 'wrong-password'
+                ? 'Incorrect password.'
+                : e.code == 'unknown'
+                    ? 'Authentication information missing.'
+                    : e.code;
       }
       setState(() {
         _isLoading = false;
       });
-      Navigator.pushReplacementNamed(context, '/homepage-screen');
     }
   }
 
@@ -91,26 +95,37 @@ class _BodyState extends State<Body> {
                   ),
                   RoundedInputField(
                     hintText: 'Your Email',
-                    icon: Icons.person,
+                    icon: Icons.email_rounded,
                     onChanged: (value) {
-                      email = value;
+                      _email = value;
                     },
                   ),
                   RoundedPasswordField(
                     hintText: 'Your Password',
                     onChanged: (value) {
-                      password = value;
+                      _password = value;
                     },
                   ),
+                  Container(
+                    width: size.width * 0.8,
+                    child: Text(
+                      _authCode,
+                      style: Theme.of(context).textTheme.headline2.copyWith(
+                            fontWeight: FontWeight.normal,
+                            fontSize: size.height * 0.018,
+                            color: Colors.redAccent,
+                          ),
+                    ),
+                  ),
                   SizedBox(
-                    height: size.height * 0.015,
+                    height: size.height * 0.008,
                   ),
                   RoundedButton(
                     text: 'SIGN IN',
                     color: Theme.of(context).cardColor,
                     textColor: Theme.of(context).accentColor,
-                    press: () {
-                      _handleLoginClick(context);
+                    press: () async {
+                      await _handleLoginClick(context);
                     },
                   ),
                 ],

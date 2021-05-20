@@ -75,6 +75,9 @@ class EHome extends StatelessWidget {
             color: Colors.white70,
           ),
         ),
+
+        // Default Dialog Theme
+        dialogTheme: DialogTheme(),
       ),
       home: WelcomePage(),
 

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/text_field_container.dart';
 
-class RoundedPasswordField extends StatelessWidget {
+// ignore: must_be_immutable
+class RoundedPasswordField extends StatefulWidget {
   final ValueChanged<String> onChanged;
   final String hintText;
 
-  const RoundedPasswordField({
+  RoundedPasswordField({
     Key key,
     this.onChanged,
     this.hintText,
   }) : super(key: key);
+
+  @override
+  _RoundedPasswordFieldState createState() => _RoundedPasswordFieldState();
+}
+
+class _RoundedPasswordFieldState extends State<RoundedPasswordField> {
+  bool _isVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +26,14 @@ class RoundedPasswordField extends StatelessWidget {
 
     return TextFieldContainer(
       child: TextField(
-        obscureText: true,
-        onChanged: onChanged,
+        obscureText: !_isVisible,
+        onChanged: widget.onChanged,
         cursorColor: Theme.of(context).accentColor,
         style: TextStyle(
           color: Theme.of(context).accentColor,
         ),
         decoration: InputDecoration(
-          labelText: hintText,
+          labelText: widget.hintText,
           labelStyle: Theme.of(context).textTheme.bodyText1.copyWith(
                 fontSize: size.height * 0.02,
                 fontWeight: FontWeight.w400,
@@ -35,9 +43,16 @@ class RoundedPasswordField extends StatelessWidget {
             Icons.lock,
             color: Theme.of(context).accentColor,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: Theme.of(context).accentColor,
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _isVisible = !_isVisible;
+              });
+            },
+            child: Icon(
+              _isVisible ? Icons.visibility_off : Icons.visibility,
+              color: Theme.of(context).accentColor,
+            ),
           ),
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(

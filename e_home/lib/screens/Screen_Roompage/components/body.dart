@@ -63,7 +63,6 @@ class _BodyState extends State<Body> {
               onChanged: (bool s) {
                 setState(() {
                   switch_state = s;
-                  print(switch_state);
                   if (switch_state) {
                     _futureDevice = sendData("test5", "ON");
                   } else {
@@ -80,19 +79,20 @@ class _BodyState extends State<Body> {
 }
 
 Future<Device> sendData(String name, String value) async {
-  //var url = Uri.parse('https://example.com/whatsit/create');
-  //var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  final response = await http.post(
-    Uri.https('jsonplaceholder.typicode.com', 'albums'),
-    headers: <String, String>{
+  // var url = Uri.parse('localhost:5000/publisher/khang');
+  // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  String apiUrl = "http://10.0.2.2:5000/publisher/khang";
+
+  final json = {
+    "name": name,
+    "value": value,
+  };
+  print(json);
+  http.Response response = await http.post(Uri.parse(apiUrl),
+      headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{
-      'name': name,
-      'value': value,
-    }),
-  );
-
+      body: jsonEncode(json));
   if (response.statusCode == 201) {
     // If the server did return a 201 response,
     // then parse the JSON.
@@ -101,6 +101,6 @@ Future<Device> sendData(String name, String value) async {
   } else {
     // If the server did not return a 201 response,
     // then throw an exception.
-    throw Exception('Failed ');
+    print(response.statusCode);
   }
 }

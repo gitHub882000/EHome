@@ -12,6 +12,8 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool switch_state = false;
+  final _controller = TextEditingController();
+  String _value;
   Future<Device> _futureDevice;
 
   @override
@@ -81,6 +83,33 @@ class _BodyState extends State<Body> {
 
 
               },
+            ),
+          ),
+          Center(
+            child: Column(
+              children: [
+                Container(
+
+                  child: TextField(
+                    controller: _controller,
+                    cursorColor: Colors.white,
+                  ),
+                  padding: EdgeInsets.all(32),
+                  color: Colors.red,
+                ),
+                Container(
+                  child: FlatButton(
+                    child: Text("Input value"),
+                    color: Colors.white70,
+                    onPressed: (){
+                      setState(() {
+                        _value = _controller.text;
+                        print(_value);
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],

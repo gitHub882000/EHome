@@ -81,7 +81,7 @@ class _BodyState extends State<Body> {
 Future<Device> sendData(String name, String value) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  String apiUrl = "http://10.0.2.2:5000/publisher/khang";
+  String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
 
   final json = {
     "name": name,
@@ -90,8 +90,8 @@ Future<Device> sendData(String name, String value) async {
   print(json);
   http.Response response = await http.post(Uri.parse(apiUrl),
       headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
       body: jsonEncode(json));
   if (response.statusCode == 201) {
     // If the server did return a 201 response,

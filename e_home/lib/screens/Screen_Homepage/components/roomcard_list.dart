@@ -1,8 +1,7 @@
-import 'package:e_home/models/ChoosenRoom.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 
+// Import models
 import 'package:e_home/models/Room.dart';
 
 class RoomCardList extends StatelessWidget {

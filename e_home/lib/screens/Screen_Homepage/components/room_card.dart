@@ -1,4 +1,3 @@
-import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
 import 'package:flutter/material.dart';
 
 class RoomCard extends StatelessWidget {

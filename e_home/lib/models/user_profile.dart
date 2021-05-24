@@ -19,4 +19,15 @@ class UserProfile extends ChangeNotifier {
     this.photoUrl = photoUrl;
     notifyListeners();
   }
+
+  void clearProfile() {
+    name = '';
+    phone = '';
+    photoUrl = '';
+    notifyListeners();
+  }
+
+  bool isMissingInfo() {
+    return name == '' || phone == '' || photoUrl == '';
+  }
 }

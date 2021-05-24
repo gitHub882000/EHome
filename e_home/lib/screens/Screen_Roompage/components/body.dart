@@ -10,7 +10,6 @@ import 'background.dart';
 // Import models
 import 'package:e_home/models/Room.dart';
 
-class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // This size provides us total height and width of our screen
@@ -94,5 +93,32 @@ class Body extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+Future<Device> sendData(String name, String value) async {
+  // var url = Uri.parse('localhost:5000/publisher/khang');
+  // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+  String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
+
+  final json = {
+    "name": name,
+    "value": value,
+  };
+  print(json);
+  http.Response response = await http.post(Uri.parse(apiUrl),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(json));
+  if (response.statusCode == 201) {
+    // If the server did return a 201 response,
+    // then parse the JSON.
+    print(response.body);
+    return Device.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 201 response,
+    // then throw an exception.
+    print(response.statusCode);
   }
 }

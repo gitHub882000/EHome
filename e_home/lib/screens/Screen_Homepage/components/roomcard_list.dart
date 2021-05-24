@@ -16,13 +16,6 @@ class RoomCardList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: RoomsModel.roomsData.length,
             itemBuilder: (context, index) {
-              /* // Get an instance of RoomsModel
-              RoomsModel _roomsModel;
-              int numAC(RoomsModel _roomsModel) =>
-                  _roomsModel.countDeviceByType('Air Conditioner', index);
-              int numLight(RoomsModel _roomsModel) =>
-                  _roomsModel.countDeviceByType('Light', index); */
-
               return GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/room-screen',

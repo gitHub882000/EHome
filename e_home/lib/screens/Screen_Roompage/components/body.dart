@@ -1,12 +1,10 @@
-import 'package:e_home/main.dart';
+import 'package:e_home/screens/Screen_Roompage/components/room_states_view.dart';
+import 'package:e_home/screens/Screen_Roompage/components/today_states_view.dart';
 import 'package:e_home/screens/Screen_Roompage/components/devices_view.dart';
-import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:intl/intl.dart';
-import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/resident_avt.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/src/widgets/image.dart';
 import 'background.dart';
 
 // Import models
@@ -24,107 +22,56 @@ class Body extends StatelessWidget {
 
     //Get data from Homepage
     int key = ModalRoute.of(context).settings.arguments as int;
-    Room receivedRoom = RoomsModel.roomsData[key];
+    Room _room = RoomsModel.roomsData[key];
 
-    return Background(
-      child: Column(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '${_room.name}',
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              .copyWith(fontSize: size.height * 0.04),
+        ),
+      ),
+      body: Column(
         children: [
+          TodayStatesView(),
           SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.02,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-            child: Row(
-              children: [
-                Text(
-                  '${receivedRoom.name}',
-                  style: Theme.of(context).textTheme.headline1.copyWith(
-                        fontSize: size.height * 0.064,
-                      ),
-                ),
-                Spacer(),
-                ResidentAvt(
-                  image: 'assets/images/Homepage/tham_avt.jpeg',
-                  radius: size.height * 0.03,
-                ),
-              ],
-            ),
-          ),
+          Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
+              child: Text(
+                'Room states',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: size.height * 0.025),
+                textAlign: TextAlign.left,
+              )),
           SizedBox(
             height: size.height * 0.01,
           ),
-          Text(
-            '${receivedRoom.tempSensors.value}°C',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline3,
-          ),
-          Text(
-            "${finalDate}",
-            style: TextStyle(fontSize: 20),
-            textAlign: TextAlign.center,
-          ),
+          RoomStatesView(key),
           SizedBox(
-            height: size.height * 0.03,
+            height: size.height * 0.02,
           ),
           Container(
-            alignment: Alignment.center,
-            height: size.height * 0.15,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextWithPreIcon(
-                  spaceSize: size.width * 0.015,
-                  indentSize: size.width * 0.27,
-                  icon: Icon(
-                    Icons.volume_up_outlined,
-                    size: size.height * 0.06,
-                    color: Color.fromRGBO(45, 156, 219, 1.0),
-                  ),
-                  text: Text(
-                    '${receivedRoom.soundSensors.value} dB',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: size.height * 0.05,
-                        ),
-                  ),
-                ),
-                TextWithPreIcon(
-                  spaceSize: size.width * 0.015,
-                  indentSize: size.width * 0.22,
-                  icon: Icon(
-                    Icons.lightbulb_outlined,
-                    size: size.height * 0.06,
-                    color: Color.fromRGBO(255, 255, 51, 1.0),
-                  ),
-                  text: Text(
-                    '${receivedRoom.lightSensors.value} Lux',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                          fontSize: size.height * 0.05,
-                        ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
+              child: Text(
+                'Devices',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: size.height * 0.025),
+                textAlign: TextAlign.left,
+              )),
+          DevicesView(_room),
           SizedBox(
-            height: size.height * 0.07,
-          ),
-          Container(
-            alignment: Alignment.center,
-            padding: const EdgeInsets.fromLTRB(30.0, 0.0, 10.0, 0.0),
-            child: Text(
-              'You should turn off the air conditioner and get rid of the loud noise',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  .copyWith(fontSize: size.height * 0.02),
-            ),
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          DevicesView(receivedRoom),
-          SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.005,
           ),
           Container(
             alignment: Alignment.bottomLeft,

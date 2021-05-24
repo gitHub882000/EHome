@@ -59,6 +59,9 @@ flutter:
       - assets/images/Homepage/living_room.jpg
       - assets/images/Homepage/bedroom.jpg
       - assets/images/Homepage/chatbot_icon.svg
+      - assets/images/Weather/morning.svg
+      - assets/images/Weather/afternoon.svg
+      - assets/images/Weather/night.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -16,16 +16,15 @@ class RoomCardList extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: RoomsModel.roomsData.length,
             itemBuilder: (context, index) {
+              /* // Get an instance of RoomsModel
+              RoomsModel _roomsModel;
+              int numAC(RoomsModel _roomsModel) =>
+                  _roomsModel.countDeviceByType('Air Conditioner', index);
+              int numLight(RoomsModel _roomsModel) =>
+                  _roomsModel.countDeviceByType('Light', index); */
+
               return GestureDetector(
                 onTap: () {
-                  /* WidgetsBinding.instance.addPostFrameCallback((_) {
-                context
-                    .read<ChoosenRoomModel>()
-                    .add(RoomsModel.roomsData[index]);
-                ChoosenRoomModel arg;
-                arg.data = context.read<Room>();
-                Iterable<Room> arg = context.read<ChoosenRoomModel>().roomData;
-              }); */
                   Navigator.pushNamed(context, '/room-screen',
                       arguments: index);
                 },
@@ -72,7 +71,8 @@ class RoomCardList extends StatelessWidget {
                                   color: Color.fromRGBO(242, 153, 74, 1.0),
                                 ),
                                 text: Text(
-                                  '${RoomsModel.roomsData[index].lightDevices.length} light devices',
+                                  /* '${RoomsModel.roomsData[index].lightDevices.length} lights', */
+                                  '${RoomsModel.countDeviceByType('Light', index)} Lights',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1
@@ -85,12 +85,13 @@ class RoomCardList extends StatelessWidget {
                                 spaceSize: size.width * 0.015,
                                 indentSize: size.width * 0.015,
                                 icon: Icon(
-                                  Icons.invert_colors,
+                                  Icons.ac_unit,
                                   size: size.height * 0.03,
                                   color: Color.fromRGBO(45, 156, 219, 1.0),
                                 ),
                                 text: Text(
-                                  '${RoomsModel.roomsData[index].airConditioners.length} air conditioners',
+                                  /* '${RoomsModel.roomsData[index].airConditioners.length} air conditioners', */
+                                  '${RoomsModel.countDeviceByType('Air Conditioner', index)} Air Conditioners',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyText1

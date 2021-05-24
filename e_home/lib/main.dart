@@ -55,6 +55,19 @@ class EHome extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
+          headline4: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[400]),
+          headline5: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.normal,
+              color: Colors.white),
+          headline6: TextStyle(
+              fontFamily: 'Montserrat',
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
+              color: Colors.white),
 
           // Default BodyText
           bodyText1: TextStyle(
@@ -65,7 +78,6 @@ class EHome extends StatelessWidget {
             fontWeight: FontWeight.bold,
             color: Colors.white70,
           ),
-          /* bodyText3: TextStyle(color: Colors.grey), */
         ),
       ),
       home: WelcomePage(),

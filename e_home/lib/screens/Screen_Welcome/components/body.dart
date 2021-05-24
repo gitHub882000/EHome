@@ -8,6 +8,7 @@ import 'package:e_home/screens/shared_components/rounded_button.dart';
 import 'package:e_home/screens/shared_components/already_have_account_check.dart';
 import 'package:e_home/screens/shared_components/profile_form.dart';
 import 'package:e_home/models/auth.dart';
+import 'package:e_home/models/user_profile.dart';
 import 'background.dart';
 
 class Body extends StatefulWidget {
@@ -35,11 +36,16 @@ class _BodyState extends State<Body> {
   /// ******
   /// Controller methods
   /// ******
-  void _handleProfileOKClick() {
-
+  void _handleProfileOKClick(BuildContext bCtx, UserProfile userProfile) async {
+    await _auth.postUserProfile(
+      userProfile: userProfile,
+    );
+    Navigator.pop(bCtx);
+    Navigator.pushReplacementNamed(context, '/homepage-screen');
   }
 
-  void _handleBlankProfile(BuildContext context, Size size) {
+  void _handleBlankProfile(Size size) {
+    final userProfile = Provider.of<UserProfile>(context, listen: false);
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -80,17 +86,15 @@ class _BodyState extends State<Body> {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  
-                },
+                onPressed: () => _handleProfileOKClick(context, userProfile),
                 child: Text(
                   'OK',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontSize: size.height * 0.02,
-                    fontWeight: FontWeight.w400,
-                    letterSpacing: 2,
-                    color: Theme.of(context).cardColor,
-                  ),
+                        fontSize: size.height * 0.02,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: 2,
+                        color: Theme.of(context).cardColor,
+                      ),
                 ),
               ),
             ],
@@ -100,7 +104,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Future<void> _handleLoginClick(BuildContext context, Size size) async {
+  Future<void> _handleLoginClick(Size size) async {
     if (_formKey.currentState.validate()) {
       setState(() {
         _isLoading = true;
@@ -115,7 +119,7 @@ class _BodyState extends State<Body> {
         if (!isProfileBlank)
           Navigator.pushReplacementNamed(context, '/homepage-screen');
         else
-          _handleBlankProfile(context, size);
+          _handleBlankProfile(size);
       } on FirebaseAuthException catch (e) {
         _authCode = e.code == 'user-not-found'
             ? 'Email does not exist.'
@@ -206,7 +210,7 @@ class _BodyState extends State<Body> {
                     color: Theme.of(context).cardColor,
                     textColor: Theme.of(context).accentColor,
                     press: () async {
-                      await _handleLoginClick(context, size);
+                      await _handleLoginClick(size);
                     },
                   ),
                 ],

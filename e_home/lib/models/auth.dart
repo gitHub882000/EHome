@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:e_home/models/user_profile.dart';
 
 class Auth extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
@@ -14,11 +15,20 @@ class Auth extends ChangeNotifier {
   };
 
   Future<bool> isProfileBlank() async {
-    final value = await firestoreInstance.collection('users').doc(user.uid).get();
+    final value =
+        await firestoreInstance.collection('users').doc(user.uid).get();
     if (value.data()['name'] == '')
       return true;
     else
       return false;
+  }
+
+  Future<void> postUserProfile({UserProfile userProfile}) async {
+    await firestoreInstance.collection('users').doc(user.uid).update({
+      'name': userProfile.name,
+      'phone': userProfile.phone,
+      'photoUrl': userProfile.photoUrl,
+    });
   }
 
   Future<void> signUpWithEmailAndPassword({

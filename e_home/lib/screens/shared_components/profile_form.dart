@@ -18,7 +18,7 @@ class ProfileForm extends StatelessWidget {
         children: [
           _TextFormField(
             onChanged: (value) {
-              userProfile.name = value;
+              userProfile.setName(value);
             },
             size: size,
             labelText: 'Name',
@@ -26,7 +26,7 @@ class ProfileForm extends StatelessWidget {
           ),
           _TextFormField(
             onChanged: (value) {
-              userProfile.phone = value;
+              userProfile.setPhone(value);
             },
             size: size,
             labelText: 'Phone',
@@ -35,7 +35,7 @@ class ProfileForm extends StatelessWidget {
           ),
           _TextFormField(
             onChanged: (value) {
-              userProfile.photoUrl = value;
+              userProfile.setPhotoUrl(value);
             },
             size: size,
             labelText: 'Photo Url',

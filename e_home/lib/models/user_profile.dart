@@ -5,9 +5,18 @@ class UserProfile extends ChangeNotifier {
   String phone = '';
   String photoUrl = '';
 
-  void setProfile(String name, String phone, String photoUrl) {
+  void setName(String name) {
     this.name = name;
+    notifyListeners();
+  }
+
+  void setPhone(String phone) {
     this.phone = phone;
+    notifyListeners();
+  }
+
+  void setPhotoUrl(String photoUrl) {
     this.photoUrl = photoUrl;
+    notifyListeners();
   }
 }

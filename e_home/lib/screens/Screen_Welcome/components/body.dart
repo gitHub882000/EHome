@@ -45,10 +45,12 @@ class _BodyState extends State<Body> {
   }
 
   void _handleBlankProfile(Size size) {
-    final userProfile = Provider.of<UserProfile>(context, listen: false);
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {
+        // userProfile provider
+        final userProfile = Provider.of<UserProfile>(context, listen: false);
+
         return GestureDetector(
           onTap: () {
             FocusScopeNode currentFocus = FocusScope.of(context);
@@ -74,7 +76,10 @@ class _BodyState extends State<Body> {
             ),
             actions: [
               TextButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  Navigator.pop(context);
+                  userProfile.clearProfile();
+                },
                 child: Text(
                   'Cancel',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
@@ -85,17 +90,32 @@ class _BodyState extends State<Body> {
                       ),
                 ),
               ),
-              TextButton(
-                onPressed: () => _handleProfileOKClick(context, userProfile),
-                child: Text(
-                  'OK',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+              Consumer<UserProfile>(
+                builder: (context, userProfile, child) {
+                  return userProfile.isMissingInfo()
+                      ? Text(
+                    'Missing Info!',
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      fontSize: size.height * 0.02,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: 2,
+                      color: Colors.red,
+                    ),
+                  )
+                      : TextButton(
+                    onPressed: () =>
+                        _handleProfileOKClick(context, userProfile),
+                    child: Text(
+                      'OK',
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: size.height * 0.02,
                         fontWeight: FontWeight.w400,
                         letterSpacing: 2,
                         color: Theme.of(context).cardColor,
                       ),
-                ),
+                    ),
+                  );
+                },
               ),
             ],
           ),

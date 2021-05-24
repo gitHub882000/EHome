@@ -36,10 +36,8 @@ class _BodyState extends State<Body> {
   /// ******
   /// Controller methods
   /// ******
-  void _handleProfileOKClick(BuildContext bCtx, UserProfile userProfile) async {
-    await _auth.postUserProfile(
-      userProfile: userProfile,
-    );
+  void _handleProfileOKClick(BuildContext bCtx) async {
+    await _auth.postUserProfile();
     Navigator.pop(bCtx);
     Navigator.pushReplacementNamed(context, '/homepage-screen');
   }
@@ -94,27 +92,28 @@ class _BodyState extends State<Body> {
                 builder: (context, userProfile, child) {
                   return userProfile.isMissingInfo()
                       ? Text(
-                    'Missing Info!',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      fontSize: size.height * 0.02,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 2,
-                      color: Colors.red,
-                    ),
-                  )
+                          'Missing Info!',
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                fontSize: size.height * 0.02,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 2,
+                                color: Colors.red,
+                              ),
+                        )
                       : TextButton(
-                    onPressed: () =>
-                        _handleProfileOKClick(context, userProfile),
-                    child: Text(
-                      'OK',
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontSize: size.height * 0.02,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: 2,
-                        color: Theme.of(context).cardColor,
-                      ),
-                    ),
-                  );
+                          onPressed: () =>
+                              _handleProfileOKClick(context),
+                          child: Text(
+                            'OK',
+                            style:
+                                Theme.of(context).textTheme.bodyText1.copyWith(
+                                      fontSize: size.height * 0.02,
+                                      fontWeight: FontWeight.w400,
+                                      letterSpacing: 2,
+                                      color: Theme.of(context).cardColor,
+                                    ),
+                          ),
+                        );
                 },
               ),
             ],
@@ -132,7 +131,7 @@ class _BodyState extends State<Body> {
       try {
         await _auth.signInWithEmailAndPassword(
             email: _email, password: _password);
-        final bool isProfileBlank = await _auth.isProfileBlank();
+        final bool isProfileBlank = _auth.isProfileBlank();
         setState(() {
           _isLoading = false;
         });

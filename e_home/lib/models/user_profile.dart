@@ -20,6 +20,16 @@ class UserProfile extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setProfile({
+    String name,
+    String phone,
+    String photoUrl,
+  }) {
+    this.name = name;
+    this.phone = phone;
+    this.photoUrl = photoUrl;
+  }
+
   void clearProfile() {
     name = '';
     phone = '';

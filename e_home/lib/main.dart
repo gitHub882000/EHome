@@ -34,8 +34,11 @@ class EHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<Auth>(create: (context) => Auth()),
         ChangeNotifierProvider<UserProfile>(create: (context) => UserProfile()),
+        ChangeNotifierProxyProvider<UserProfile, Auth>(
+          create: (context) => Auth(null),
+          update: (context, userProfile, auth) => Auth(userProfile),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

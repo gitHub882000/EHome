@@ -7,6 +7,7 @@ class Auth extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final firestoreInstance = FirebaseFirestore.instance;
   User user;
+  UserProfile _userProfile;
   final blankUserDoc = {
     'name': '',
     'phone': '',
@@ -14,20 +15,17 @@ class Auth extends ChangeNotifier {
     'isAtHome': true,
   };
 
-  Future<bool> isProfileBlank() async {
-    final value =
-        await firestoreInstance.collection('users').doc(user.uid).get();
-    if (value.data()['name'] == '')
-      return true;
-    else
-      return false;
+  Auth(this._userProfile);
+
+  bool isProfileBlank() {
+    return _userProfile.name == '';
   }
 
-  Future<void> postUserProfile({UserProfile userProfile}) async {
+  Future<void> postUserProfile() async {
     await firestoreInstance.collection('users').doc(user.uid).update({
-      'name': userProfile.name,
-      'phone': userProfile.phone,
-      'photoUrl': userProfile.photoUrl,
+      'name': _userProfile.name,
+      'phone': _userProfile.phone,
+      'photoUrl': _userProfile.photoUrl,
     });
   }
 
@@ -45,6 +43,13 @@ class Auth extends ChangeNotifier {
           .collection('users')
           .doc(user.uid)
           .set(this.blankUserDoc);
+
+      // Initialize user profile
+      _userProfile.setProfile(
+        name: '',
+        phone: '',
+        photoUrl: '',
+      );
     } on FirebaseAuthException catch (e) {
       throw e;
     }
@@ -58,6 +63,15 @@ class Auth extends ChangeNotifier {
       final userCredential = await auth.signInWithEmailAndPassword(
           email: email, password: password);
       user = userCredential.user;
+
+      // Fetch data from Firestore to userProfile
+      final value =
+          await firestoreInstance.collection('users').doc(user.uid).get();
+      _userProfile.setProfile(
+        name: value.data()['name'],
+        phone: value.data()['phone'],
+        photoUrl: value.data()['photoUrl'],
+      );
     } on FirebaseAuthException catch (e) {
       throw e;
     }

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
-class Auth {
+class Auth extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final firestoreInstance = FirebaseFirestore.instance;
   User user;
@@ -12,13 +13,12 @@ class Auth {
     'isAtHome': true,
   };
 
-  Future<bool> isProfileBlank() {
-    firestoreInstance.collection('users').doc(user.uid).get().then((value) {
-      if (value.data()['name'] == '')
-        return true;
-      else
-        return false;
-    });
+  Future<bool> isProfileBlank() async {
+    final value = await firestoreInstance.collection('users').doc(user.uid).get();
+    if (value.data()['name'] == '')
+      return true;
+    else
+      return false;
   }
 
   Future<void> signUpWithEmailAndPassword({

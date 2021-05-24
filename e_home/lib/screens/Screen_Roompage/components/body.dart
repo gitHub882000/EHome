@@ -1,75 +1,93 @@
-import 'package:e_home/screens/shared_components/services.dart';
+import 'package:e_home/screens/Screen_Roompage/components/room_states_view.dart';
+import 'package:e_home/screens/Screen_Roompage/components/today_states_view.dart';
+import 'package:e_home/screens/Screen_Roompage/components/devices_view.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:e_home/screens/shared_components/resident_avt.dart';
+import 'package:flutter/widgets.dart';
 import 'background.dart';
-import 'package:e_home/screens/shared_components/icon_coin.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
-import 'package:e_home/models/Device.dart';
-
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-  bool switch_state = false;
-  Future<Device> _futureDevice;
+// Import models
+import 'package:e_home/models/Room.dart';
 
   @override
   Widget build(BuildContext context) {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
 
-    return Background(
-      child: Column(
+    //Get today date in expected format
+    var date = new DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
+    String finalDate = date.toString();
+
+    //Get data from Homepage
+    int key = ModalRoute.of(context).settings.arguments as int;
+    Room _room = RoomsModel.roomsData[key];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          '${_room.name}',
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              .copyWith(fontSize: size.height * 0.04),
+        ),
+      ),
+      body: Column(
         children: [
-          Container(
-            height: size.width * 0.25,
-            width: size.width * 0.25,
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  10.0,
-                ),
-              ),
-            ),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 5.0,
-                ),
-                IconCoin(
-                  height: size.height * 0.06,
-                  width: size.height * 0.06,
-                  backgroundColor: Colors.yellow.withOpacity(0.1),
-                  borderRadius: 10.0,
-                  child: Icon(
-                    Icons.lightbulb,
-                    color: Colors.yellow,
-                  ),
-                ),
-                SizedBox(
-                  width: 10.0,
-                ),
-                FirebaseServices(),
-              ],
-            ),
+          TodayStatesView(),
+          SizedBox(
+            height: size.height * 0.02,
           ),
-          Center(
-            child: Switch(
-              value: switch_state,
-              onChanged: (bool s) {
-                setState(() {
-                  switch_state = s;
-                  if (switch_state) {
-                    _futureDevice = sendData("test5", "ON");
-                  } else {
-                    _futureDevice = sendData("test5", "OFF");
-                  }
-                });
-              },
+          Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
+              child: Text(
+                'Room states',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: size.height * 0.025),
+                textAlign: TextAlign.left,
+              )),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          RoomStatesView(key),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.fromLTRB(20.0, 0, 10.0, 0),
+              child: Text(
+                'Devices',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: size.height * 0.025),
+                textAlign: TextAlign.left,
+              )),
+          DevicesView(_room),
+          SizedBox(
+            height: size.height * 0.005,
+          ),
+          Container(
+            alignment: Alignment.bottomLeft,
+            padding: const EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 0.0),
+            child: Ink(
+              decoration: const ShapeDecoration(
+                color: Colors.white,
+                shape: CircleBorder(),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.analytics_outlined),
+                iconSize: 40,
+                onPressed: () {
+                  Navigator.pushNamed(context, '/statistics-screen',
+                      arguments: key);
+                },
+              ),
             ),
           ),
         ],

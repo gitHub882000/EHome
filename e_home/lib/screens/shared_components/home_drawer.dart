@@ -11,6 +11,10 @@ class HomeDrawer extends StatelessWidget {
     Navigator.pushNamed(context, '/chatroom-screen');
   }
 
+  void _handleNotificationClick(BuildContext context) {
+    Navigator.pushNamed(context, '/notification-screen');
+  }
+
   void _handleLogoutClick(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.pushReplacementNamed(context, '/welcome-screen');
@@ -55,6 +59,12 @@ class HomeDrawer extends StatelessWidget {
                 title: 'Chatroom',
                 iconData: Icons.chat_bubble,
                 press: () => _handleChatroomClick(context),
+                size: size,
+              ),
+              _DrawerListTile(
+                title: 'Notification',
+                iconData: Icons.notifications,
+                press: () => _handleNotificationClick(context),
                 size: size,
               ),
               _DrawerListTile(

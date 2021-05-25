@@ -16,6 +16,7 @@ import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
 import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
 import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
+import 'package:e_home/screens/Screen_Notification/notification_scr.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,6 +90,7 @@ class EHome extends StatelessWidget {
         '/homepage-screen': (context) => HomePage(),
         '/chatroom-screen': (context) => ChatroomPage(),
         '/roompage-screen': (context) => RoomPage(),
+        '/notification-screen': (context) => NotificationPage(),
       },
     );
   }

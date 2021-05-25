@@ -11,7 +11,7 @@ class FirebaseServices extends StatelessWidget {
           .snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (!snapshot.hasData) return Text('Loading...');
+        if (!snapshot.hasData) return Text('...');
         return Text(snapshot.data.get('value'));
       },
     );

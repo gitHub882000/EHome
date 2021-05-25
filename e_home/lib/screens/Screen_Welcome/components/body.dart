@@ -45,6 +45,7 @@ class _BodyState extends State<Body> {
   void _handleBlankProfile(Size size) {
     showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         // userProfile provider
         final userProfile = Provider.of<UserProfile>(context, listen: false);

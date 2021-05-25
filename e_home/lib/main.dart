@@ -66,36 +66,6 @@ class EHome extends StatelessWidget {
             ),
           ),
 
-        // Default Text Theme
-        textTheme: TextTheme(
-          // Default Titles
-          headline1: TextStyle(
-            fontFamily: 'Pacifico',
-            color: Colors.white,
-          ),
-          headline2: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-          headline3: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 85,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          headline4: TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[400]),
-          headline5: TextStyle(
-              fontFamily: 'Montserrat',
-              fontWeight: FontWeight.normal,
-              color: Colors.white),
-          headline6: TextStyle(
-              fontFamily: 'Montserrat',
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.normal,
-              color: Colors.white),
-
           // Default Text Theme
           textTheme: TextTheme(
             // Default Titles

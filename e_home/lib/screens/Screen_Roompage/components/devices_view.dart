@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_home/models/Room.dart';
-import 'package:e_home/screens/shared_components/services.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_switch/custom_switch.dart';
 import 'package:http/http.dart' as http;
@@ -10,8 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:e_home/models/DeviceModel.dart';
 
 class DevicesView extends StatefulWidget {
-  DevicesView(this.room);
-  final Room room;
+  DevicesView(this.roomId);
+  final String roomId;
   @override
   _DevicesViewState createState() => _DevicesViewState();
 }
@@ -22,14 +20,14 @@ class _DevicesViewState extends State<DevicesView> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Room _room = widget.room;
+    String _roomId = widget.roomId;
 
     return SizedBox(
         height: size.height * 0.25,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection('Room list')
-              .doc('PnEjfdlyUw7QYhPoHTmA')
+              .doc('${_roomId}')
               .collection('devices')
               .snapshots(),
           builder:
@@ -73,7 +71,7 @@ class _DevicesViewState extends State<DevicesView> {
                     width: size.width * 0.4,
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(children: [
                       Container(

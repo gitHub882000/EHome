@@ -83,16 +83,6 @@ class EHome extends StatelessWidget {
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.normal,
                 color: Colors.white),
-
-            // Default BodyText
-            bodyText1: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-            bodyText2: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white70,
-            ),
           ),
 
           // Default App Bar Theme

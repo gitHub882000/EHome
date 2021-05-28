@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,23 +35,17 @@ class RoomCardList extends StatelessWidget {
                     String _roomId = snapshot.data.docs[index].id;
 
                     // Classify the type of devices and count them
-                    int classifyAndCountDevices(String _type) {
+                    /* int classifyAndCountDevices(String _type) {
                       int count = 0;
                       dynamic _devices = _room['devices'];
                       _roomObj.;
-
-                      /* _devices.map((dynamic device) {
-                        if (device['name'].toString().startsWith('${_type}'))
-                          count++;
-                      });
-                      return count; */
 
                       _devices.forEach((dynamic device) {
                         if (device['name'].toString().startsWith('${_type}'))
                           count++;
                       });
                       return count;
-                    }
+                    } */
 
                     return GestureDetector(
                       onTap: () {
@@ -104,8 +97,8 @@ class RoomCardList extends StatelessWidget {
                                             Color.fromRGBO(242, 153, 74, 1.0),
                                       ),
                                       text: Text(
-                                        /* '${RoomsModel.countDeviceByType('Light', index)} Lights', */
-                                        '${classifyAndCountDevices('Light')} Lights',
+                                        '${RoomsModel.countDeviceByType('Light', index)} Lights',
+                                        /* '${classifyAndCountDevices('Light')} Lights', */
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1
@@ -124,8 +117,8 @@ class RoomCardList extends StatelessWidget {
                                             Color.fromRGBO(45, 156, 219, 1.0),
                                       ),
                                       text: Text(
-                                        /* '${RoomsModel.countDeviceByType('Air Conditioner', index)} Air Conditioners', */
-                                        '${classifyAndCountDevices('Air Conditioner')} Air Conditioners',
+                                        '${RoomsModel.countDeviceByType('Air Conditioner', index)} Air Conditioners',
+                                        /* '${classifyAndCountDevices('Air Conditioner')} Air Conditioners', */
                                         style: Theme.of(context)
                                             .textTheme
                                             .bodyText1

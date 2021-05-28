@@ -1,15 +1,19 @@
+import 'dart:convert';
 import 'package:e_home/screens/Screen_Roompage/components/room_states_view.dart';
 import 'package:e_home/screens/Screen_Roompage/components/today_states_view.dart';
 import 'package:e_home/screens/Screen_Roompage/components/devices_view.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:e_home/screens/shared_components/resident_avt.dart';
 import 'package:flutter/widgets.dart';
-import 'background.dart';
+import 'package:http/http.dart' as http;
 
 // Import models
 import 'package:e_home/models/Room.dart';
+import 'package:e_home/models/DeviceModel.dart';
 
+import 'background.dart';
+
+class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // This size provides us total height and width of our screen
@@ -24,15 +28,6 @@ import 'package:e_home/models/Room.dart';
     Room _room = RoomsModel.roomsData[key];
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '${_room.name}',
-          style: Theme.of(context)
-              .textTheme
-              .headline1
-              .copyWith(fontSize: size.height * 0.04),
-        ),
-      ),
       body: Column(
         children: [
           TodayStatesView(),
@@ -96,10 +91,10 @@ import 'package:e_home/models/Room.dart';
   }
 }
 
-Future<Device> sendData(String name, String value) async {
+Future<DeviceModel> sendData(String name, String value) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
+  String apiUrl = 'https://ehomee.azurewebsites.net/publisher/khang';
 
   final json = {
     "name": name,
@@ -115,7 +110,8 @@ Future<Device> sendData(String name, String value) async {
     // If the server did return a 201 response,
     // then parse the JSON.
     print(response.body);
-    return Device.fromJson(jsonDecode(response.body));
+
+    return DeviceModel.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 response,
     // then throw an exception.

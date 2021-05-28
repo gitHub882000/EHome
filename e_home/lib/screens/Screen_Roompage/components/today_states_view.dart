@@ -30,10 +30,6 @@ class TodayStatesView extends StatelessWidget {
     var date = new DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
     String finalDate = date.toString();
 
-    /* //Get current time (in Hours)
-    String time = new DateFormat("HH").format(DateTime.now()).toString();
-    int currentTime = int.parse('${time}'); */
-
     return Container(
         height: size.height * 0.18,
         width: size.width,

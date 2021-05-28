@@ -39,7 +39,7 @@ class RoomsModel {
         Device(type: 'Light', name: 'LED', isActive: true),
         Device(type: 'Light', name: 'LED', isActive: true),
         Device(type: 'Air Conditioner', name: 'Ax125', isActive: true),
-        Device(type: 'Air Conditioner', name: 'Ax124', isActive: true),
+        Device(type: 'Air Conditioner', name: 'Ax124', isActive: false),
       ],
       /* lightDevices: [
           LightDevice(name: 'LED', isActive: true),

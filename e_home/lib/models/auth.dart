@@ -68,9 +68,9 @@ class Auth extends ChangeNotifier {
       final value =
           await firestoreInstance.collection('users').doc(user.uid).get();
       _userProfile.setProfile(
-        name: value.data()['name'],
-        phone: value.data()['phone'],
-        photoUrl: value.data()['photoUrl'],
+        name: value.data()['name'].toString(),
+        phone: value.data()['phone'].toString(),
+        photoUrl: value.data()['photoUrl'].toString(),
       );
     } on FirebaseAuthException catch (e) {
       throw e;

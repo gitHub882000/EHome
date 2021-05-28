@@ -80,8 +80,8 @@ class Body extends StatelessWidget {
             height: size.height * 0.01,
           ),
           RoomCardList(
-            onRoomTap: () => this.handleRoomClick(context),
-          ),
+              /* onRoomTap: () => this.handleRoomClick(context), */
+              ),
           SizedBox(
             height: size.height * 0.02,
           ),

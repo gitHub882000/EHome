@@ -17,7 +17,9 @@ class Background extends StatelessWidget {
       child: Container(
         height: size.height,
         width: double.infinity,
-        child: child,
+        child: SingleChildScrollView(
+          child: child,
+        ),
       ),
     );
   }

@@ -34,6 +34,10 @@ dependencies:
   http: 0.13.3
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   provider: ^5.0.0
+  intl: ^0.17.0
+  fl_chart: ^0.36.1
+  custom_switch: ^0.0.1
+  html: ^0.15.0
 
 dev_dependencies:
   flutter_test:
@@ -51,12 +55,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/Welcome/no_avt.png
-    - assets/images/Welcome/Home_image.svg
-    - assets/images/Homepage/tham_avt.jpeg
-    - assets/images/Homepage/living_room.jpg
-    - assets/images/Homepage/bedroom.jpg
-    - assets/images/Homepage/chatbot_icon.svg
+      - assets/images/Welcome/no_avt.png
+      - assets/images/Welcome/Home_image.svg
+      - assets/images/Homepage/tham_avt.jpeg
+      - assets/images/Homepage/living_room.jpg
+      - assets/images/Homepage/bedroom.jpg
+      - assets/images/Homepage/chatbot_icon.svg
+      - assets/images/Weather/morning.svg
+      - assets/images/Weather/afternoon.svg
+      - assets/images/Weather/night.svg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

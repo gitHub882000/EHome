@@ -26,7 +26,7 @@ class _DevicesViewState extends State<DevicesView> {
         height: size.height * 0.25,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('Room list')
+              .collection('roomList')
               .doc('${_roomId}')
               .collection('devices')
               .snapshots(),
@@ -39,6 +39,7 @@ class _DevicesViewState extends State<DevicesView> {
               itemBuilder: (context, index) {
                 // Get current device
                 dynamic _device = snapshot.data.docs[index];
+                String _deviceId = snapshot.data.docs[index].id;
 
                 // Get the type of device to choose icon
                 Widget fitIcon() {
@@ -103,8 +104,7 @@ class _DevicesViewState extends State<DevicesView> {
                           SizedBox(
                             height: size.height * 0.025,
                           ),
-                          /* FirebaseServices(), */
-                          CustomSwitch(
+                          /* CustomSwitch(
                             value: switchState,
                             activeColor: Colors.blue[600],
                             onChanged: (value) {
@@ -120,6 +120,36 @@ class _DevicesViewState extends State<DevicesView> {
                                       '${_device.get('name')}',
                                       'false',
                                       '${_device.get('type')}');
+                                }
+                              });
+                            },
+                          ), */
+                          CustomSwitch(
+                            value: switchState,
+                            activeColor: Colors.blue[600],
+                            onChanged: (value) {
+                              setState(() {
+                                switchState = value;
+                                if (switchState) {
+                                  FirebaseFirestore.instance
+                                      .collection('roomList')
+                                      .doc('${_roomId}')
+                                      .collection('devices')
+                                      .doc('${_deviceId}')
+                                      .update({
+                                    'isActive': 'true'
+                                  }).then((value) => print(
+                                          "${_deviceId} Updated: ${switchState}"));
+                                } else {
+                                  FirebaseFirestore.instance
+                                      .collection('roomList')
+                                      .doc('${_roomId}')
+                                      .collection('devices')
+                                      .doc('${_deviceId}')
+                                      .update({
+                                    'isActive': 'false'
+                                  }).then((value) => print(
+                                          "${_deviceId} Updated: ${switchState}"));
                                 }
                               });
                             },

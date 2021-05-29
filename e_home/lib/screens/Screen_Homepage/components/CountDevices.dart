@@ -19,7 +19,7 @@ class CountDevices extends StatelessWidget {
 
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection('Room list')
+          .collection('roomList')
           .doc('${roomId}')
           .collection('devices')
           .snapshots(),

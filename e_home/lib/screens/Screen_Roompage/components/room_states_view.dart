@@ -17,7 +17,7 @@ class RoomStatesView extends StatelessWidget {
             borderRadius: BorderRadius.circular(8)),
         child: StreamBuilder(
             stream: FirebaseFirestore.instance
-                .collection('Room list')
+                .collection('roomList')
                 .doc('${roomId}')
                 .snapshots(),
             builder: (BuildContext context,

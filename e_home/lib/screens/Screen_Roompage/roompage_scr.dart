@@ -25,7 +25,7 @@ class RoomPage extends StatelessWidget {
 
     return StreamBuilder(
         stream: FirebaseFirestore.instance
-            .collection('Room list')
+            .collection('roomList')
             .doc('${_roomId}')
             .snapshots(),
         builder:

@@ -17,7 +17,7 @@ class RoomCardList extends StatelessWidget {
         height: size.height * 0.4,
         child: StreamBuilder(
             stream:
-                FirebaseFirestore.instance.collection('Room list').snapshots(),
+                FirebaseFirestore.instance.collection('roomList').snapshots(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) return const CircularProgressIndicator();

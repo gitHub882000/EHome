@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/home_drawer.dart';
 import 'package:e_home/screens/shared_components/home_app_bar.dart';
-import 'package:e_home/models/Room.dart';
 import 'components/body.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RoomPage extends StatelessWidget {
   /// ******
@@ -21,16 +21,28 @@ class RoomPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     //Get data from Homepage
-    int key = ModalRoute.of(context).settings.arguments as int;
-    Room _room = RoomsModel.roomsData[key];
+    String _roomId = ModalRoute.of(context).settings.arguments as String;
 
-    return Scaffold(
-      endDrawer: HomeDrawer(),
-      appBar: HomeAppBar(
-        title: '${_room.name}',
-        onPressed: _handleBackClick,
-      ),
-      body: Body(),
-    );
+    return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('roomList')
+            .doc('${_roomId}')
+            .snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (!snapshot.hasData)
+            return const CircularProgressIndicator();
+          else {
+            dynamic _room = snapshot.data.data();
+            return Scaffold(
+              endDrawer: HomeDrawer(),
+              appBar: HomeAppBar(
+                title: '${_room['name']}',
+                onPressed: _handleBackClick,
+              ),
+              body: Body(),
+            );
+          }
+        });
   }
 }

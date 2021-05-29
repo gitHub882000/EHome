@@ -43,7 +43,7 @@ class TodayStatesView extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(100.0, 0, 10.0, 0),
               decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(15)),
+                  borderRadius: BorderRadius.circular(10)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,

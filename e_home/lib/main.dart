@@ -1,4 +1,5 @@
 // TODO: Here you input the utility packages
+import 'package:e_home/screens/Screen_Statistics/statistics_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
@@ -71,18 +72,21 @@ class EHome extends StatelessWidget {
               color: Colors.white,
             ),
             headline4: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[400]),
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[400],
+            ),
             headline5: TextStyle(
-                fontFamily: 'Montserrat',
-                fontWeight: FontWeight.normal,
-                color: Colors.white),
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
             headline6: TextStyle(
-                fontFamily: 'Montserrat',
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.normal,
-                color: Colors.white),
+              fontFamily: 'Montserrat',
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.normal,
+              color: Colors.white,
+            ),
 
             // Default BodyText
             bodyText1: TextStyle(
@@ -121,6 +125,7 @@ class EHome extends StatelessWidget {
           '/homepage-screen': (context) => HomePage(),
           '/chatroom-screen': (context) => ChatroomPage(),
           '/room-screen': (context) => RoomPage(),
+          '/statistics-screen': (context) => StatisticsPage(),
         },
       ),
     );

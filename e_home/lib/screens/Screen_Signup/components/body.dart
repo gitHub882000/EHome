@@ -45,6 +45,7 @@ class _BodyState extends State<Body> {
   void _handleBlankProfile(Size size) {
     showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         // userProfile provider
         final userProfile = Provider.of<UserProfile>(context, listen: false);
@@ -101,8 +102,7 @@ class _BodyState extends State<Body> {
                               ),
                         )
                       : TextButton(
-                          onPressed: () =>
-                              _handleProfileOKClick(context),
+                          onPressed: () => _handleProfileOKClick(context),
                           child: Text(
                             'OK',
                             style:
@@ -131,14 +131,10 @@ class _BodyState extends State<Body> {
       try {
         await _auth.signUpWithEmailAndPassword(
             email: _email, password: _password);
-        final bool isProfileBlank = _auth.isProfileBlank();
         setState(() {
           _isLoading = false;
         });
-        if (!isProfileBlank)
-          Navigator.pushReplacementNamed(context, '/homepage-screen');
-        else
-          _handleBlankProfile(size);
+        _handleBlankProfile(size);
       } on FirebaseAuthException catch (e) {
         _authCode = e.code == 'email-already-in-use'
             ? 'Email already exists.'

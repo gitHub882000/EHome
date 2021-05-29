@@ -23,14 +23,14 @@ environment:
 dependencies:
   provider: ^5.0.0
   flutter_svg: ^0.22.0
-  firebase_auth: ^1.1.4
   firebase_core: ^1.1.1
   cloud_firestore: ^2.1.0
+  firebase_auth: ^1.1.4
   modal_progress_hud_nsn: ^0.1.0-nullsafety-1
   flutter_secure_storage: ^4.2.0
   flutter:
     sdk: flutter
-  intl: ^0.17.0 
+  intl: ^0.17.0
   fl_chart: ^0.36.1
   custom_switch: ^0.0.1
   http: ^0.13.3
@@ -63,9 +63,6 @@ flutter:
       - assets/images/Homepage/living_room.jpg
       - assets/images/Homepage/bedroom.jpg
       - assets/images/Homepage/chatbot_icon.svg
-      - assets/images/Weather/morning.svg
-      - assets/images/Weather/afternoon.svg
-      - assets/images/Weather/night.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

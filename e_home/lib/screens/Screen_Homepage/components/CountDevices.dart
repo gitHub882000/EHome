@@ -17,23 +17,27 @@ class CountDevices extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return StreamBuilder(
-      stream: FirebaseFirestore.instance
-          .collection('roomList')
-          .doc('${roomId}')
-          .collection('devices')
-          .snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        int count = 0;
-        snapshot.data.docs.forEach((device) {
-          if (device.get('name').toString().startsWith('${type}')) count++;
-        });
-        return Text('${count} ${checkDeviceType()}',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                .copyWith(fontSize: size.height * 0.023));
-      },
-    );
+    return SizedBox(
+        height: size.height * 0.03,
+        width: size.width * 0.44,
+        child: StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('roomList')
+              .doc('${roomId}')
+              .collection('devices')
+              .snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            int count = 0;
+            snapshot.data.docs.forEach((device) {
+              if (device.get('name').toString().startsWith('${type}')) count++;
+            });
+            return Text('${count} ${checkDeviceType()}',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: size.height * 0.023));
+          },
+        ));
   }
 }

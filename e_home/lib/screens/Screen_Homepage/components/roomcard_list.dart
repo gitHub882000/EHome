@@ -40,7 +40,7 @@ class RoomCardList extends StatelessWidget {
                         margin: EdgeInsets.all(10.0),
                         padding: EdgeInsets.all(5.0),
                         height: size.height * 0.38,
-                        width: size.width * 0.52,
+                        width: size.width * 0.54,
                         decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(15),
@@ -73,20 +73,20 @@ class RoomCardList extends StatelessWidget {
                                     ),
                                     TextWithPreIcon(
                                         spaceSize: size.width * 0.015,
-                                        indentSize: size.width * 0.015,
+                                        indentSize: size.width * 0.01,
                                         icon: Icon(
                                           Icons.brightness_5_rounded,
-                                          size: size.height * 0.03,
+                                          size: size.height * 0.025,
                                           color:
                                               Color.fromRGBO(242, 153, 74, 1.0),
                                         ),
                                         text: CountDevices(_roomId, 'Light')),
                                     TextWithPreIcon(
                                         spaceSize: size.width * 0.015,
-                                        indentSize: size.width * 0.015,
+                                        indentSize: size.width * 0.01,
                                         icon: Icon(
                                           Icons.ac_unit,
-                                          size: size.height * 0.03,
+                                          size: size.height * 0.025,
                                           color:
                                               Color.fromRGBO(45, 156, 219, 1.0),
                                         ),

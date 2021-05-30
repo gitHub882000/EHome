@@ -48,78 +48,151 @@ class Body extends StatelessWidget {
             ),
             child: SizedBox(
               width: double.infinity,
-              child: DataTable(
-                columns: [
-                  DataColumn(
-                    label: Text(
-                      'Date',
-                      style: Theme.of(context).textTheme.headline6.copyWith(
-                            fontSize: size.height * 0.02,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columns: [
+                    DataColumn(
+                      label: Text(
+                        'Date',
+                        style: Theme.of(context).textTheme.headline6.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: size.height * 0.02,
+                            ),
+                      ),
+                    ),
+                    DataColumn(
+                      label: Row(
+                        children: [
+                          IconCoin(
+                            borderRadius: 5,
+                            padding: EdgeInsets.all(3.0),
+                            height: size.width * 0.06,
+                            width: size.width * 0.06,
+                            backgroundColor:
+                                Theme.of(context).accentColor.withOpacity(0.1),
+                            child: Icon(
+                              Icons.lightbulb,
+                              color: Theme.of(context).accentColor,
+                              size: size.width * 0.04,
+                            ),
                           ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: IconCoin(
-                      borderRadius: 5,
-                      padding: EdgeInsets.all(3.0),
-                      height: size.width * 0.06,
-                      width: size.width * 0.06,
-                      backgroundColor:
-                          Theme.of(context).accentColor.withOpacity(0.1),
-                      child: Icon(
-                        Icons.lightbulb,
-                        color: Theme.of(context).accentColor,
-                        size: size.width * 0.04,
+                          Text(
+                            '(lx)',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.016),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  DataColumn(
-                    label: IconCoin(
-                      borderRadius: 5,
-                      padding: EdgeInsets.all(3.0),
-                      height: size.width * 0.06,
-                      width: size.width * 0.06,
-                      backgroundColor:
-                      Theme.of(context).accentColor.withOpacity(0.1),
-                      child: Icon(
-                        Icons.thermostat_outlined,
-                        color: Theme.of(context).accentColor,
-                        size: size.width * 0.04,
+                    DataColumn(
+                      label: Row(
+                        children: [
+                          IconCoin(
+                            borderRadius: 5,
+                            padding: EdgeInsets.all(3.0),
+                            height: size.width * 0.06,
+                            width: size.width * 0.06,
+                            backgroundColor:
+                                Theme.of(context).accentColor.withOpacity(0.1),
+                            child: Icon(
+                              Icons.thermostat_outlined,
+                              color: Theme.of(context).accentColor,
+                              size: size.width * 0.04,
+                            ),
+                          ),
+                          Text(
+                            '(\u2103)',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.016),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  DataColumn(
-                    label: IconCoin(
-                      borderRadius: 5,
-                      padding: EdgeInsets.all(3.0),
-                      height: size.width * 0.06,
-                      width: size.width * 0.06,
-                      backgroundColor:
-                      Theme.of(context).accentColor.withOpacity(0.1),
-                      child: Icon(
-                        Water_drop.water_drop_black_24dp,
-                        color: Theme.of(context).accentColor,
-                        size: size.width * 0.04,
+                    DataColumn(
+                      label: Row(
+                        children: [
+                          IconCoin(
+                            borderRadius: 5,
+                            padding: EdgeInsets.all(3.0),
+                            height: size.width * 0.06,
+                            width: size.width * 0.06,
+                            backgroundColor:
+                            Theme.of(context).accentColor.withOpacity(0.1),
+                            child: Icon(
+                              Water_drop.water_drop_black_24dp,
+                              color: Theme.of(context).accentColor,
+                              size: size.width * 0.04,
+                            ),
+                          ),
+                          Text(
+                            '(%)',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: size.height * 0.016),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  DataColumn(
-                    label: IconCoin(
-                      borderRadius: 5,
-                      padding: EdgeInsets.all(3.0),
-                      height: size.width * 0.06,
-                      width: size.width * 0.06,
-                      backgroundColor:
-                      Theme.of(context).accentColor.withOpacity(0.1),
-                      child: Icon(
-                        Icons.surround_sound,
-                        color: Theme.of(context).accentColor,
-                        size: size.width * 0.04,
+                    DataColumn(
+                      label: Row(
+                        children: [
+                          IconCoin(
+                            borderRadius: 5,
+                            padding: EdgeInsets.all(3.0),
+                            height: size.width * 0.06,
+                            width: size.width * 0.06,
+                            backgroundColor:
+                                Theme.of(context).accentColor.withOpacity(0.1),
+                            child: Icon(
+                              Icons.surround_sound,
+                              color: Theme.of(context).accentColor,
+                              size: size.width * 0.04,
+                            ),
+                          ),
+                          Text(
+                            '(dB)',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                .copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: size.height * 0.016),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                ],
-                rows: [],
+                  ],
+                  rows: [
+                    // DataRow(
+                    //   cells: [
+                    //     DataCell(
+                    //       Text(''),
+                    //     ),
+                    //     DataCell(
+                    //       Text('\u2103'),
+                    //     ),
+                    //     DataCell(
+                    //       Text('Sth'),
+                    //     ),
+                    //     DataCell(
+                    //       Text('Sth'),
+                    //     ),
+                    //   ],
+                    // ),
+                  ],
+                ),
               ),
             ),
           ),

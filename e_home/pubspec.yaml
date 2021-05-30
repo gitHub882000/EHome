@@ -75,14 +75,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Montserrat
-      fonts:
-        - asset: fonts/Montserrat-Bold.ttf
-          weight: 700
-        - asset: fonts/Montserrat-Regular.ttf
-        - asset: fonts/Montserrat-Italic.ttf
-    - family: Pacifico
-      fonts:
-        - asset: fonts/Pacifico-Regular.ttf
+     - family: Montserrat
+       fonts:
+         - asset: fonts/Montserrat-Bold.ttf
+           weight: 700
+         - asset: fonts/Montserrat-Regular.ttf
+         - asset: fonts/Montserrat-Italic.ttf
+     - family: Pacifico
+       fonts:
+         - asset: fonts/Pacifico-Regular.ttf
+     - family: Water_drop
+       fonts:
+         - asset: fonts/Water_drop.ttf
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

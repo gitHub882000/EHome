@@ -15,7 +15,10 @@ class Auth extends ChangeNotifier {
     'isAtHome': true,
   };
 
-  Auth(this._userProfile);
+  void setUserProfile(UserProfile userProfile) {
+    _userProfile = userProfile;
+    notifyListeners();
+  }
 
   bool isProfileBlank() {
     return _userProfile.name == '';
@@ -50,6 +53,7 @@ class Auth extends ChangeNotifier {
         phone: '',
         photoUrl: '',
       );
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       throw e;
     }
@@ -72,6 +76,7 @@ class Auth extends ChangeNotifier {
         phone: value.data()['phone'].toString(),
         photoUrl: value.data()['photoUrl'].toString(),
       );
+      notifyListeners();
     } on FirebaseAuthException catch (e) {
       throw e;
     }

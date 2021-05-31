@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 
 class RealtimeSensors {
-  // This is for listening realtime update
+  /// This is for listening realtime update
   final _sensorReference = FirebaseFirestore.instance.collection('Tam_feed');
   StreamController<Map<String, int>> _controller =
       StreamController<Map<String, int>>();
 
+  // TODO: This value may be useful when seeing RealTimeSensors as a provider.
   Map<String, int> realtimeData = {
     'LIGHT': 0,
     'TEMP': 0,
@@ -14,6 +15,7 @@ class RealtimeSensors {
     'SOUND': 0,
   };
 
+  /// Constantly listening to realtime update
   Stream listenToSensors() {
     _sensorReference.snapshots().listen((snapshot) {
       snapshot.docChanges.forEach((docChange) {
@@ -27,6 +29,7 @@ class RealtimeSensors {
     return _controller.stream;
   }
 
+  /// Convert Document Data into Map<String, int> and save at this.realtimeData
   void convertDocData(Map<String, dynamic> sensorData) {
     String data = sensorData['data'];
 

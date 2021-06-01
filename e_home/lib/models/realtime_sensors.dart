@@ -3,7 +3,11 @@ import 'dart:async';
 
 class RealtimeSensors {
   /// This is for listening realtime update
-  final _sensorReference = FirebaseFirestore.instance.collection('Tam_feed');
+  final _sensorReference =
+      FirebaseFirestore.instance.collection('Tam_feed').where(
+            'name',
+            isNotEqualTo: 'RELAY',
+          );
   StreamController<Map<String, int>> _controller =
       StreamController<Map<String, int>>();
 
@@ -19,11 +23,8 @@ class RealtimeSensors {
   Stream listenToSensors() {
     _sensorReference.snapshots().listen((snapshot) {
       snapshot.docChanges.forEach((docChange) {
-        if (docChange.type == DocumentChangeType.added ||
-            docChange.type == DocumentChangeType.modified) {
-          convertDocData(docChange.doc.data());
-          _controller.add(realtimeData);
-        }
+        convertDocData(docChange.doc.data());
+        _controller.add(realtimeData);
       });
     });
     return _controller.stream;

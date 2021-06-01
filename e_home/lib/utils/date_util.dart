@@ -4,16 +4,10 @@ import 'package:intl/intl.dart';
 DateTime convertDateFormat(String date) {
   return DateTime(
     // Year
-    int.parse('20' + date.substring(15)),
+    int.parse('20' + date.substring(6)),
     // Month
-    int.parse(date.substring(9, 11)),
-    // Day
-    int.parse(date.substring(12, 14)),
-    // Hour
     int.parse(date.substring(0, 2)),
-    // Minute
+    // Day
     int.parse(date.substring(3, 5)),
-    // Second
-    int.parse(date.substring(6, 8)),
   );
 }

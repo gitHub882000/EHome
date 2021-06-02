@@ -11,6 +11,7 @@ class SensorHistory {
           );
   StreamController<Map<String, List<dynamic>>> _controller =
       StreamController<Map<String, List<dynamic>>>();
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;
 
   // TODO: This value may be useful when seeing SensorHistory as a provider.
   Map<String, List<dynamic>> historyData = {
@@ -23,9 +24,9 @@ class SensorHistory {
 
   /// Constantly listening to realtime update
   Stream listenToSensorHistory() {
-    _sensorReference.snapshots().listen((snapshot) {
+    _subscription = _sensorReference.snapshots().listen((snapshot) {
       convertDocHistory(snapshot.docs);
-      _controller.add(historyData);
+      if (!_controller.isClosed) _controller.sink.add(historyData);
     });
     return _controller.stream;
   }
@@ -49,9 +50,9 @@ class SensorHistory {
       }
       List<Map<String, dynamic>> history = (doc.data()['history'] as List)
           .map((element) => {
-        'date': element['date'],
-        'data': element['data'],
-      })
+                'date': element['date'],
+                'data': element['data'],
+              })
           .toList();
       if (!convertDateFormat(history[0]['date']).isBefore(maxFirstDay)) {
         if (doc.data()['name'] == 'TEMP-HUMID') {
@@ -73,5 +74,6 @@ class SensorHistory {
 
   void dispose() {
     _controller.close();
+    _subscription.cancel();
   }
 }

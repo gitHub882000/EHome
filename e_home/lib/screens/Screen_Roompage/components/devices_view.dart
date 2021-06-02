@@ -15,29 +15,28 @@ class DevicesView extends StatefulWidget {
 }
 
 class _DevicesViewState extends State<DevicesView> {
-  Future<DeviceModel> _deviceModel;
+  //Future<DeviceModel> _deviceModel;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String _roomId = widget.roomId;
+    //String _roomId = widget.roomId;
 
     return SizedBox(
         height: size.height * 0.25,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('roomList')
-              .doc('${_roomId}')
-              .collection('devices')
+              .collection('feeds')
+              .doc('XwTfxCpODmdmgU8djq4U')
               .snapshots(),
           builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
             if (!snapshot.hasData) return const CircularProgressIndicator();
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data.size,
+              itemCount: 1,
               itemBuilder: (context, index) {
-                // Get current device
+                /* // Get current device
                 dynamic _device = snapshot.data.docs[index];
                 String _deviceId = snapshot.data.docs[index].id;
 
@@ -63,7 +62,16 @@ class _DevicesViewState extends State<DevicesView> {
                 if (_device.get('isActive') == true)
                   switchState = true;
                 else
-                  switchState = false;
+                  switchState = false; */
+
+                // Get the state of the current device as boolean
+                bool switch_state;
+                if (snapshot.data.get('value') == 'ON')
+                  switch_state = true;
+                else
+                  switch_state = false;
+
+                Future<DeviceModel> _futureDevice;
 
                 return Container(
                     margin: EdgeInsets.all(10.0),
@@ -85,7 +93,13 @@ class _DevicesViewState extends State<DevicesView> {
                               decoration: BoxDecoration(
                                   color: Color.fromRGBO(130, 130, 130, 1.0),
                                   borderRadius: BorderRadius.circular(5)),
-                              child: fitIcon())),
+                              child:
+                                  //fitIcon()
+                                  Icon(
+                                Icons.lightbulb,
+                                size: size.height * 0.04,
+                                color: Colors.white,
+                              ))),
                       SizedBox(
                         height: size.height * 0.025,
                       ),
@@ -94,7 +108,8 @@ class _DevicesViewState extends State<DevicesView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            '${_device.get('name')}',
+                            //'${_device.get('name')}',
+                            'Light',
                             style:
                                 Theme.of(context).textTheme.headline5.copyWith(
                                       fontSize: size.height * 0.023,
@@ -103,56 +118,20 @@ class _DevicesViewState extends State<DevicesView> {
                           SizedBox(
                             height: size.height * 0.025,
                           ),
-                          /* CustomSwitch(
-                            value: switchState,
-                            activeColor: Colors.blue[600],
-                            onChanged: (value) {
-                              setState(() {
-                                switchState = value;
-                                if (switchState) {
-                                  _deviceModel = sendData(
-                                      '${_device.get('name')}',
-                                      'true',
-                                      '${_device.get('type')}');
-                                } else {
-                                  _deviceModel = sendData(
-                                      '${_device.get('name')}',
-                                      'false',
-                                      '${_device.get('type')}');
-                                }
-                              });
-                            },
-                          ), */
                           CustomSwitch(
-                            value: switchState,
+                            value: switch_state,
                             activeColor: Colors.blue[600],
-                            onChanged: (value) {
+                            onChanged: (bool value) {
                               setState(() {
-                                switchState = value;
-                                if (switchState) {
-                                  FirebaseFirestore.instance
-                                      .collection('roomList')
-                                      .doc('${_roomId}')
-                                      .collection('devices')
-                                      .doc('${_deviceId}')
-                                      .update({
-                                    'isActive': 'true'
-                                  }).then((value) => print(
-                                          "${_deviceId} Updated: ${switchState}"));
+                                switch_state = value;
+                                if (switch_state) {
+                                  _futureDevice = sendData('LIGHT', 'ON');
                                 } else {
-                                  FirebaseFirestore.instance
-                                      .collection('roomList')
-                                      .doc('${_roomId}')
-                                      .collection('devices')
-                                      .doc('${_deviceId}')
-                                      .update({
-                                    'isActive': 'false'
-                                  }).then((value) => print(
-                                          "${_deviceId} Updated: ${switchState}"));
+                                  _futureDevice = sendData('LIGHT', 'OFF');
                                 }
                               });
                             },
-                          )
+                          ),
                         ],
                       ),
                     ]));
@@ -163,12 +142,15 @@ class _DevicesViewState extends State<DevicesView> {
   }
 }
 
-Future<DeviceModel> sendData(String name, String isActive, String type) async {
+Future<DeviceModel> sendData(String name, String value) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  String apiUrl = 'https://ehomee.azurewebsites.net/publisher/khang';
+  String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
 
-  final json = {'name': name, 'isActive': isActive, 'type': type};
+  final json = {
+    'name': name,
+    'value': value,
+  };
   print(json);
   http.Response response = await http.post(Uri.parse(apiUrl),
       headers: <String, String>{
@@ -179,7 +161,6 @@ Future<DeviceModel> sendData(String name, String isActive, String type) async {
     // If the server did return a 201 response,
     // then parse the JSON.
     print(response.body);
-
     return DeviceModel.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 response,

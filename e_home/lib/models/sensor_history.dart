@@ -10,7 +10,7 @@ class SensorHistory {
             isNotEqualTo: 'RELAY',
           );
   StreamController<Map<String, List<dynamic>>> _controller =
-      StreamController<Map<String, List<dynamic>>>();
+      StreamController<Map<String, List<dynamic>>>.broadcast();
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;
 
   // TODO: This value may be useful when seeing SensorHistory as a provider.

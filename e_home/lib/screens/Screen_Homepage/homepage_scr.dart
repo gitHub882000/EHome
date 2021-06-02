@@ -1,10 +1,18 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'components/body.dart';
 import 'package:e_home/screens/shared_components/home_drawer.dart';
+import 'package:e_home/models/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final String uid;
+  HomePage({Key key, this.uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +23,9 @@ class HomePage extends StatelessWidget {
       ),
       endDrawer: HomeDrawer(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () async {
+          await print(auth.currentUser.uid);
+        },
         child: Container(
           height: double.infinity,
           width: double.infinity,

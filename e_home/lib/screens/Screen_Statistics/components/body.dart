@@ -6,10 +6,26 @@ import 'package:intl/intl.dart';
 import 'background.dart';
 import 'package:e_home/models/sensor_history.dart';
 
-// ignore: must_be_immutable
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   SensorHistory _sensorHistory = SensorHistory();
 
+  /// ******
+  /// Utility methods
+  /// ******
+  @override
+  void dispose() {
+    _sensorHistory.dispose();
+    super.dispose();
+  }
+
+  /// ******
+  /// View method
+  /// ******
   @override
   Widget build(BuildContext context) {
     // This size provides us total height and width of our screen

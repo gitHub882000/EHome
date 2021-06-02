@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/icon_coin.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
@@ -221,8 +222,236 @@ class _BodyState extends State<Body> {
                   ),
             ),
           ),
-          SizedBox(
-            height: size.height * 0.015,
+          Container(
+            width: size.width,
+            height: size.height * 0.4,
+            margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(
+                      width: 38,
+                    ),
+                    const Text(
+                      'Transactions',
+                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                    const Text(
+                      'state',
+                      style: TextStyle(color: Color(0xff77839a), fontSize: 16),
+                    ),
+                  ],
+                ),
+                Flexible(
+                  child: StreamBuilder(
+                    stream: _sensorHistory.listenToSensorHistory(),
+                    builder: (context, historyMap) {
+                      return BarChart(
+                        BarChartData(
+                          maxY: 40.0,
+                          barTouchData: BarTouchData(
+                            enabled: false,
+                            touchTooltipData: BarTouchTooltipData(
+                              tooltipBgColor: Colors.transparent,
+                              tooltipPadding: const EdgeInsets.all(0),
+                              tooltipMargin: 8.0,
+                              getTooltipItem: (
+                                group,
+                                groupIndex,
+                                rod,
+                                rodIndex,
+                              ) {
+                                return BarTooltipItem(
+                                  rod.y < 40.0 ? rod.y.toStringAsFixed(2) : '',
+                                  Theme.of(context).textTheme.headline6.copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: size.height * 0.014,
+                                      ),
+                                );
+                              },
+                            ),
+                          ),
+                          titlesData: FlTitlesData(
+                            show: true,
+                            bottomTitles: SideTitles(
+                              showTitles: true,
+                              getTextStyles: (value) =>
+                                  Theme.of(context).textTheme.bodyText2.copyWith(
+                                        fontSize: size.width * 0.03,
+                                      ),
+                              margin: 10,
+                              getTitles: (value) => DateFormat('MM-dd')
+                                  .format(historyMap.data['DATE'][value.toInt()]),
+                            ),
+                            leftTitles: SideTitles(
+                              showTitles: true,
+                              reservedSize: size.width * 0.04,
+                              margin: size.width * 0.06,
+                              getTextStyles: (value) =>
+                                  Theme.of(context).textTheme.bodyText2.copyWith(
+                                        fontSize: size.width * 0.03,
+                                      ),
+                              getTitles: (value) {
+                                if (value == 0) {
+                                  return '$value';
+                                } else if (value == 15) {
+                                  return '$value';
+                                } else if (value == 30) {
+                                  return '$value';
+                                } else {
+                                  return '';
+                                }
+                              },
+                            ),
+                          ),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          barGroups: List.generate(
+                            7,
+                            (index) {
+                              double data = historyMap.data['TEMP'][index];
+                              return BarChartGroupData(
+                                x: index,
+                                barRods: [
+                                  BarChartRodData(
+                                    y: data > 0 ? data : 40.0,
+                                    colors: data > 0
+                                        ? [
+                                            Colors.lightBlueAccent,
+                                            Colors.greenAccent,
+                                          ]
+                                        : [
+                                            Theme.of(context).primaryColor,
+                                          ],
+                                    width: size.width * 0.025,
+                                  ),
+                                ],
+                                showingTooltipIndicators: [0],
+                              );
+                            },
+                          ),
+                          // [
+                          //   BarChartGroupData(
+                          //     x: 0,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 8,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 1,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 10,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 2,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 14,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 3,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 15,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 4,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 13,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 5,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 10,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          //   BarChartGroupData(
+                          //     x: 6,
+                          //     barRods: [
+                          //       BarChartRodData(
+                          //         y: 10,
+                          //         colors: [
+                          //           Colors.lightBlueAccent,
+                          //           Colors.greenAccent
+                          //         ],
+                          //         width: size.width * 0.025,
+                          //       ),
+                          //     ],
+                          //     showingTooltipIndicators: [0],
+                          //   ),
+                          // ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),

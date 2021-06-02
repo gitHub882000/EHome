@@ -19,23 +19,13 @@ class StatisticsPage extends StatelessWidget {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
 
-    return GestureDetector(
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-
-        if (!currentFocus.hasPrimaryFocus &&
-            currentFocus.focusedChild != null) {
-          FocusManager.instance.primaryFocus.unfocus();
-        }
-      },
-      child: Scaffold(
-        endDrawer: HomeDrawer(),
-        appBar: HomeAppBar(
-          title: 'Statistics',
-          onPressed: _handleBackClick,
-        ),
-        body: Body(),
+    return Scaffold(
+      endDrawer: HomeDrawer(),
+      appBar: HomeAppBar(
+        title: 'Statistics',
+        onPressed: _handleBackClick,
       ),
+      body: Body(),
     );
   }
 }

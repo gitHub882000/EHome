@@ -4,6 +4,7 @@ import 'package:e_home/screens/shared_components/icon_coin.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:e_home/icons/water_drop_icons.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 import 'background.dart';
 import 'package:e_home/models/sensor_history.dart';
 
@@ -224,7 +225,7 @@ class _BodyState extends State<Body> {
           ),
           Container(
             width: size.width,
-            height: size.height * 0.4,
+            height: size.height * 0.5,
             margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
             padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
             decoration: BoxDecoration(
@@ -240,19 +241,37 @@ class _BodyState extends State<Body> {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const SizedBox(
-                      width: 38,
+                    IconCoin(
+                      borderRadius: 5,
+                      padding: EdgeInsets.all(3.0),
+                      height: size.width * 0.07,
+                      width: size.width * 0.07,
+                      backgroundColor: Colors.yellowAccent.withOpacity(0.1),
+                      child: Icon(
+                        Icons.lightbulb,
+                        color: Colors.yellowAccent,
+                        size: size.width * 0.045,
+                      ),
                     ),
-                    const Text(
-                      'Transactions',
-                      style: TextStyle(color: Colors.white, fontSize: 22),
+                    SizedBox(
+                      width: size.width * 0.03,
                     ),
-                    const SizedBox(
-                      width: 4,
+                    Text(
+                      'Light',
+                      style: Theme.of(context).textTheme.headline1.copyWith(
+                            fontSize: size.height * 0.03,
+                            fontStyle: FontStyle.italic,
+                            letterSpacing: 3.0,
+                          ),
                     ),
-                    const Text(
-                      'state',
-                      style: TextStyle(color: Color(0xff77839a), fontSize: 16),
+                    SizedBox(
+                      width: size.width * 0.03,
+                    ),
+                    Text(
+                      'states',
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(
+                        fontSize: size.height * 0.025,
+                      ),
                     ),
                   ],
                 ),
@@ -277,7 +296,10 @@ class _BodyState extends State<Body> {
                               ) {
                                 return BarTooltipItem(
                                   rod.y < 40.0 ? rod.y.toStringAsFixed(2) : '',
-                                  Theme.of(context).textTheme.headline6.copyWith(
+                                  Theme.of(context)
+                                      .textTheme
+                                      .headline6
+                                      .copyWith(
                                         fontWeight: FontWeight.w600,
                                         fontSize: size.height * 0.014,
                                       ),
@@ -289,22 +311,26 @@ class _BodyState extends State<Body> {
                             show: true,
                             bottomTitles: SideTitles(
                               showTitles: true,
-                              getTextStyles: (value) =>
-                                  Theme.of(context).textTheme.bodyText2.copyWith(
-                                        fontSize: size.width * 0.03,
-                                      ),
+                              getTextStyles: (value) => Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .copyWith(
+                                    fontSize: size.width * 0.03,
+                                  ),
                               margin: 10,
-                              getTitles: (value) => DateFormat('MM-dd')
-                                  .format(historyMap.data['DATE'][value.toInt()]),
+                              getTitles: (value) => DateFormat('MM-dd').format(
+                                  historyMap.data['DATE'][value.toInt()]),
                             ),
                             leftTitles: SideTitles(
                               showTitles: true,
                               reservedSize: size.width * 0.04,
                               margin: size.width * 0.06,
-                              getTextStyles: (value) =>
-                                  Theme.of(context).textTheme.bodyText2.copyWith(
-                                        fontSize: size.width * 0.03,
-                                      ),
+                              getTextStyles: (value) => Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  .copyWith(
+                                    fontSize: size.width * 0.03,
+                                  ),
                               getTitles: (value) {
                                 if (value == 0) {
                                   return '$value';

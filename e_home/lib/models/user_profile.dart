@@ -28,6 +28,7 @@ class UserProfile extends ChangeNotifier {
     this.name = name;
     this.phone = phone;
     this.photoUrl = photoUrl;
+    notifyListeners();
   }
 
   void clearProfile() {

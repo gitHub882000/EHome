@@ -94,7 +94,6 @@ class _DevicesViewState extends State<DevicesView> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            /* '${_room.airConditioners[index].name}', */
                             '${_device.get('name')}',
                             style:
                                 Theme.of(context).textTheme.headline5.copyWith(

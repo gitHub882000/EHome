@@ -15,7 +15,10 @@ class Auth extends ChangeNotifier {
     'isAtHome': true,
   };
 
-  Auth(this._userProfile);
+  void setUserProfile(UserProfile userProfile) {
+    _userProfile = userProfile;
+    notifyListeners();
+  }
 
   bool isProfileBlank() {
     return _userProfile.name == '';

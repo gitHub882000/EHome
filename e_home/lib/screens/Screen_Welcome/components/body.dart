@@ -17,6 +17,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool isInit = true;
   Auth _auth;
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
@@ -29,7 +30,10 @@ class _BodyState extends State<Body> {
   /// ******
   @override
   void didChangeDependencies() {
-    _auth = Provider.of<Auth>(context, listen: false);
+    if (isInit)
+      _auth = Provider.of<Auth>(context, listen: false);
+    else
+      isInit = false;
     super.didChangeDependencies();
   }
 
@@ -102,8 +106,7 @@ class _BodyState extends State<Body> {
                               ),
                         )
                       : TextButton(
-                          onPressed: () =>
-                              _handleProfileOKClick(context),
+                          onPressed: () => _handleProfileOKClick(context),
                           child: Text(
                             'OK',
                             style:

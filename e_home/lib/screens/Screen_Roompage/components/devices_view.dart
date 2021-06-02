@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_switch/custom_switch.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 // Import models
 import 'package:e_home/models/DeviceModel.dart';
@@ -26,8 +27,8 @@ class _DevicesViewState extends State<DevicesView> {
         height: size.height * 0.25,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('feeds')
-              .doc('XwTfxCpODmdmgU8djq4U')
+              .collection('Tam_feed')
+              .doc('bc1EFVcnrsWfJieBsVin')
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -64,9 +65,14 @@ class _DevicesViewState extends State<DevicesView> {
                 else
                   switchState = false; */
 
+                //Get update string in expected format
+                String update = new DateFormat('HH:mm:ss MM-dd-yy')
+                    .format(DateTime.now())
+                    .toString();
+
                 // Get the state of the current device as boolean
                 bool switch_state;
-                if (snapshot.data.get('value') == 'ON')
+                if (snapshot.data.get('data') == '1')
                   switch_state = true;
                 else
                   switch_state = false;
@@ -125,9 +131,11 @@ class _DevicesViewState extends State<DevicesView> {
                               setState(() {
                                 switch_state = value;
                                 if (switch_state) {
-                                  _futureDevice = sendData('LIGHT', 'ON');
+                                  _futureDevice = sendData('CSE_BBC1', '1',
+                                      'RELAY', 'bk-iot-relay', '${update}');
                                 } else {
-                                  _futureDevice = sendData('LIGHT', 'OFF');
+                                  _futureDevice = sendData('CSE_BBC1', '0',
+                                      'RELAY', 'bk-iot-relay', '${update}');
                                 }
                               });
                             },
@@ -142,14 +150,18 @@ class _DevicesViewState extends State<DevicesView> {
   }
 }
 
-Future<DeviceModel> sendData(String name, String value) async {
+Future<DeviceModel> sendData(String account, String data, String name,
+    String topic, String update) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
   String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
 
   final json = {
+    'account': account,
+    'data': data,
     'name': name,
-    'value': value,
+    'topic': topic,
+    'update': update
   };
   print(json);
   http.Response response = await http.post(Uri.parse(apiUrl),

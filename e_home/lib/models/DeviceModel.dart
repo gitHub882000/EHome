@@ -1,13 +1,19 @@
 class DeviceModel {
-  DeviceModel({this.name, this.value});
+  DeviceModel({this.account, this.data, this.name, this.topic, this.update});
 
+  final String account;
+  final String data;
   final String name;
-  final String value;
+  final String topic;
+  final String update;
 
   factory DeviceModel.fromJson(dynamic json) {
     return DeviceModel(
+      account: json['account'].toString(),
+      data: json['data'].toString(),
       name: json['name'].toString(),
-      value: json['value'].toString(),
+      topic: json['topic'].toString(),
+      update: json['update'].toString(),
     );
   }
 }

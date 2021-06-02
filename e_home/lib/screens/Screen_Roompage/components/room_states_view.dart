@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,6 +10,72 @@ class RoomStatesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Widget checkStatus(double data, String type) {
+      TextStyle warning = TextStyle(
+          fontFamily: 'Montserrat',
+          fontWeight: FontWeight.normal,
+          color: Colors.red[600]);
+
+      if (type == 'Sound') {
+        if (data <= 100)
+          return Text(
+            'Normal',
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(fontSize: size.height * 0.025),
+          );
+        return Text(
+          'Warning',
+          style: warning.copyWith(fontSize: size.height * 0.025),
+        );
+      }
+
+      if (type == 'Light') {
+        if (data != null)
+          return Text(
+            'Normal',
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(fontSize: size.height * 0.025),
+          );
+        return Text(
+          'Warning',
+          style: warning.copyWith(fontSize: size.height * 0.025),
+        );
+      }
+
+      if (type == 'Temperature') {
+        if (data >= 27 && data <= 30)
+          return Text(
+            'Normal',
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(fontSize: size.height * 0.025),
+          );
+        return Text(
+          'Warning',
+          style: warning.copyWith(fontSize: size.height * 0.025),
+        );
+      }
+
+      if (type == 'Humidity') {
+        if (data >= 40 && data <= 60)
+          return Text(
+            'Normal',
+            style: Theme.of(context)
+                .textTheme
+                .headline5
+                .copyWith(fontSize: size.height * 0.025),
+          );
+        return Text(
+          'Warning',
+          style: warning.copyWith(fontSize: size.height * 0.025),
+        );
+      }
+    }
 
     return Container(
         height: size.height * 0.26,
@@ -16,16 +84,21 @@ class RoomStatesView extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(8)),
         child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('roomList')
-                .doc('${roomId}')
-                .snapshots(),
-            builder: (BuildContext context,
-                AsyncSnapshot<DocumentSnapshot> snapshot) {
+            stream:
+                FirebaseFirestore.instance.collection('Tam_feed').snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData)
                 return const CircularProgressIndicator();
               else {
-                dynamic _room = snapshot.data.data();
+                String _soundData =
+                    snapshot.data.docs[0].get('data').toString();
+                String _lightData =
+                    snapshot.data.docs[2].get('data').toString();
+                List<String> _tempAndHumidData =
+                    snapshot.data.docs[1].get('data').toString().split("-");
+                String _tempData = _tempAndHumidData[0];
+                String _humidityData = _tempAndHumidData[1];
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -167,7 +240,7 @@ class RoomStatesView extends StatelessWidget {
                           height: size.height * 0.02,
                         ),
                         Text(
-                          '${_room['Sensor Sound']} dB',
+                          '${_soundData} dB',
                           style: Theme.of(context).textTheme.headline5.copyWith(
                                 fontSize: size.height * 0.025,
                               ),
@@ -176,7 +249,7 @@ class RoomStatesView extends StatelessWidget {
                           height: size.height * 0.02,
                         ),
                         Text(
-                          '${_room['Sensor Light']} Lux',
+                          '${_lightData} Lux',
                           style: Theme.of(context).textTheme.headline5.copyWith(
                                 fontSize: size.height * 0.025,
                               ),
@@ -185,7 +258,7 @@ class RoomStatesView extends StatelessWidget {
                           height: size.height * 0.02,
                         ),
                         Text(
-                          '${_room['Sensor Temperature']}°C',
+                          '${_tempData}°C',
                           style: Theme.of(context).textTheme.headline5.copyWith(
                                 fontSize: size.height * 0.025,
                               ),
@@ -194,7 +267,7 @@ class RoomStatesView extends StatelessWidget {
                           height: size.height * 0.02,
                         ),
                         Text(
-                          '${_room['Sensor Humidity']}%',
+                          '${_humidityData}%',
                           style: Theme.of(context).textTheme.headline5.copyWith(
                                 fontSize: size.height * 0.025,
                               ),
@@ -218,39 +291,19 @@ class RoomStatesView extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        Text(
-                          'Normal',
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: size.height * 0.025,
-                              ),
-                        ),
+                        checkStatus(double.parse(_soundData), 'Sound'),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        Text(
-                          'Normal',
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: size.height * 0.025,
-                              ),
-                        ),
+                        checkStatus(double.parse(_lightData), 'Light'),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        Text(
-                          'Normal',
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: size.height * 0.025,
-                              ),
-                        ),
+                        checkStatus(double.parse(_tempData), 'Temperature'),
                         SizedBox(
                           height: size.height * 0.02,
                         ),
-                        Text(
-                          'Normal',
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                                fontSize: size.height * 0.025,
-                              ),
-                        ),
+                        checkStatus(double.parse(_humidityData), 'Humidity'),
                       ],
                     )
                   ],

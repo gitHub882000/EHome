@@ -16,13 +16,10 @@ class StatisticsPage extends StatelessWidget {
   /// ******
   @override
   Widget build(BuildContext context) {
-    // This size provides us total height and width of our screen
-    Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       endDrawer: HomeDrawer(),
       appBar: HomeAppBar(
-        title: 'Statistics',
+        title: 'Weekly Statistics',
         onPressed: _handleBackClick,
       ),
       body: Body(),

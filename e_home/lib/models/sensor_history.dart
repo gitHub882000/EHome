@@ -33,14 +33,17 @@ class SensorHistory {
 
   void convertDocHistory(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
-    DateTime maxFirstDay = DateTime(2021, 1, 1);
+    DateTime maxLastDay = DateTime(2021, 1, 1);
+    int maxSize = -1;
 
     for (var doc in docs) {
-      DateTime firstDay = convertDateFormat(doc.data()['history'][0]['date']);
-      maxFirstDay = firstDay.isAfter(maxFirstDay) ? firstDay : maxFirstDay;
+      DateTime lastDay = convertDateFormat(doc.data()['history'].last['date']);
+      maxLastDay = lastDay.isAfter(maxLastDay) ? lastDay : maxLastDay;
+      maxSize = maxSize < doc.data()['history'].length
+          ? doc.data()['history'].length
+          : maxSize;
     }
 
-    /// Trace every doc, pass data into 4 lists
     for (var doc in docs) {
       if (doc.data()['name'] == 'TEMP-HUMID') {
         historyData['TEMP'] = List.generate(7, (_) => -1.0);
@@ -54,22 +57,31 @@ class SensorHistory {
                 'data': element['data'],
               })
           .toList();
-      if (!convertDateFormat(history[0]['date']).isBefore(maxFirstDay)) {
-        if (doc.data()['name'] == 'TEMP-HUMID') {
-          for (int i = 0; i < history.length; i++) {
-            List<String> splits = history[i]['data'].split('-');
-            historyData['TEMP'][i] = double.parse(splits[0]);
-            historyData['HUMID'][i] = double.parse(splits[1]);
-          }
-        } else {
-          for (int i = 0; i < history.length; i++) {
-            historyData[doc.data()['name']][i] = history[i]['data'];
-          }
+      history = maxSize <= 7
+          ? history
+          : convertDateFormat(history.last['date']).isBefore(maxLastDay)
+              ? history.sublist(history.length - 6)
+              : history.sublist(history.length - 7);
+      if (doc.data()['name'] == 'TEMP-HUMID') {
+        for (int i = 0; i < history.length; i++) {
+          List<String> splits = history[i]['data'].split('-');
+          historyData['TEMP'][i] = double.parse(splits[0]);
+          historyData['HUMID'][i] = double.parse(splits[1]);
+        }
+      } else {
+        for (int i = 0; i < history.length; i++) {
+          historyData[doc.data()['name']][i] = history[i]['data'] is double
+              ? history[i]['data']
+              : history[i]['data'].toDouble();
         }
       }
     }
-    historyData['DATE'] =
-        List.generate(7, (index) => maxFirstDay.add(Duration(days: index)));
+    historyData['DATE'] = maxSize > 7
+        ? List.generate(7, (index) => maxLastDay.add(Duration(days: index - 6)))
+        : List.generate(
+            7,
+            (index) => convertDateFormat(docs[0].data()['history'][0]['date'])
+                .add(Duration(days: index)));
   }
 
   void dispose() {

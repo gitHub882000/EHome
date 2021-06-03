@@ -137,7 +137,6 @@ Future<DeviceModel> sendData(String account, String data, String name,
     'topic': topic,
     'update': update
   };
-  print(json);
   http.Response response = await http.post(Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',

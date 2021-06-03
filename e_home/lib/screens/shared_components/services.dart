@@ -6,8 +6,8 @@ class FirebaseServices extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection('Room list')
-          .doc('PnEjfdlyUw7QYhPoHTmA')
+          .collection('Tam_feed')
+          .doc('bc1EFVcnrsWfJieBsVin')
           .snapshots(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {

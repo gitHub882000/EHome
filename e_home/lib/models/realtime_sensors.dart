@@ -8,26 +8,55 @@ class RealtimeSensors {
             'name',
             isNotEqualTo: 'RELAY',
           );
-  StreamController<Map<String, int>> _controller =
-      StreamController<Map<String, int>>();
+  StreamController<Map<String, double>> _controller =
+      StreamController<Map<String, double>>();
+  StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;
 
-  // TODO: This value may be useful when seeing RealTimeSensors as a provider.
-  Map<String, int> realtimeData = {
-    'LIGHT': 0,
-    'TEMP': 0,
-    'HUMID': 0,
-    'SOUND': 0,
+  Map<String, double> strToIntDictionary = const {
+    'LIGHT': 0.0,
+    'TEMP-HUMID': 1.0,
+    'SOUND': 2.0,
+  };
+
+  bool isInit = false;
+  Map<String, double> realtimeData = {
+    'LIGHT': -1,
+    'TEMP': -1,
+    'HUMID': -1,
+    'SOUND': -1,
+    'CHANGED': -1,
   };
 
   /// Constantly listening to realtime update
   Stream listenToSensors() {
-    _sensorReference.snapshots().listen((snapshot) {
-      snapshot.docChanges.forEach((docChange) {
-        convertDocData(docChange.doc.data());
-        _controller.add(realtimeData);
-      });
-    });
+    _subscription = _sensorReference.snapshots().listen(
+      (snapshot) {
+        if (!isInit) {
+          convertInit(snapshot.docs);
+          if (!_controller.isClosed) _controller.sink.add(realtimeData);
+        } else {
+          snapshot.docChanges.forEach(
+            (docChange) {
+              convertDocData(docChange.doc.data());
+              if (!_controller.isClosed) _controller.sink.add(realtimeData);
+            },
+          );
+        }
+      },
+    );
     return _controller.stream;
+  }
+
+  void convertInit(List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
+    for (var doc in docs) {
+      if (doc.data()['name'] == 'TEMP-HUMID') {
+        List<String> temp_humid = doc.data()['data'].split('-');
+        realtimeData['TEMP'] = double.parse(temp_humid[0]);
+        realtimeData['HUMID'] = double.parse(temp_humid[1]);
+      } else {
+        realtimeData[doc.data()['name']] = double.parse(doc.data()['data']);
+      }
+    }
   }
 
   /// Convert Document Data into Map<String, int> and save at this.realtimeData
@@ -36,15 +65,17 @@ class RealtimeSensors {
 
     // TODO: Only the changed document is presented
     if (sensorData['name'] != 'TEMP-HUMID') {
-      realtimeData[sensorData['name']] = int.parse(data);
+      realtimeData[sensorData['name']] = double.parse(data);
     } else {
       List<String> temp_humid = data.split('-');
-      realtimeData['TEMP'] = int.parse(temp_humid[0]);
-      realtimeData['HUMID'] = int.parse(temp_humid[1]);
+      realtimeData['TEMP'] = double.parse(temp_humid[0]);
+      realtimeData['HUMID'] = double.parse(temp_humid[1]);
     }
+    realtimeData['CHANGED'] = strToIntDictionary[sensorData['name']];
   }
 
   void dispose() {
     _controller.close();
+    _subscription.cancel();
   }
 }

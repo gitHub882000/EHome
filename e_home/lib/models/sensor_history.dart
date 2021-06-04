@@ -31,6 +31,8 @@ class SensorHistory {
     return _controller.stream;
   }
 
+  /// Convert Document Data into Map<String, List<dynamic>>
+  /// and save at this.historyData
   void convertDocHistory(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     DateTime maxLastDay = DateTime(2021, 1, 1);

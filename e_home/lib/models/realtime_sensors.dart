@@ -9,13 +9,19 @@ class RealtimeSensors {
             isNotEqualTo: 'RELAY',
           );
   StreamController<Map<String, double>> _controller =
-      StreamController<Map<String, double>>();
+      StreamController<Map<String, double>>.broadcast();
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;
 
   Map<String, double> strToIntDictionary = const {
     'LIGHT': 0.0,
     'TEMP-HUMID': 1.0,
     'SOUND': 2.0,
+  };
+
+  Map<double, String> intToStrDictionary = {
+    0.0: 'LIGHT',
+    1.0: 'TEMP-HUMID',
+    2.0: 'SOUND',
   };
 
   bool isInit = false;

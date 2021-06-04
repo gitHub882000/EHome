@@ -4,10 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/resident_avt.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'dart:math';
 import 'background.dart';
 import 'roomcard_list.dart';
 import 'package:e_home/models/realtime_sensors.dart';
+
+/// This class is used to support saving realtime data history
+class RtDataCell {
+  double data;
+  DateTime date;
+
+  RtDataCell(this.data, this.date);
+
+  RtDataCell.withData(this.data);
+}
 
 class Body extends StatefulWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
@@ -23,19 +34,31 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   RealtimeSensors _realtimeSensors = RealtimeSensors();
-  List<DateTime> lightTimeHistory = [];
-  List<double> lightDataHistory = [];
-  List<DateTime> temp_humidTimeHistory = [];
-  List<double> tempDataHistory = [];
-  List<double> humidDataHistory = [];
-  List<DateTime> soundTimeHistory = [];
-  List<double> soundDataHistory = [];
-  List<double> temp = [0, 1, 2, 3, 4];
-  int lcDisplayLimit = 5;
+  Map<double, String> i2sMap;
+  Map<String, double> s2iMap;
+  Map<String, List<RtDataCell>> dataHistory = {
+    'LIGHT': [],
+    'TEMP': [],
+    'HUMID': [],
+    'SOUND': [],
+  };
+
+  // List<RtDataCell> lightDataHistory = [];
+  // List<RtDataCell> tempDataHistory = [];
+  // List<RtDataCell> humidDataHistory = [];
+  // List<RtDataCell> soundDataHistory = [];
+  int lcDisplayLimit = 7;
 
   /// ******
   /// Utility methods
   /// ******
+  @override
+  void initState() {
+    i2sMap = _realtimeSensors.intToStrDictionary;
+    s2iMap = _realtimeSensors.strToIntDictionary;
+    super.initState();
+  }
+
   @override
   void dispose() {
     _realtimeSensors.dispose();
@@ -121,23 +144,48 @@ class _BodyState extends State<Body> {
                 if (realtimeMap.connectionState == ConnectionState.waiting)
                   return _circularProgressIndicator;
                 if (!_realtimeSensors.isInit) {
-                  lightDataHistory.add(realtimeMap.data['LIGHT']);
-                  tempDataHistory.add(realtimeMap.data['TEMP']);
-                  humidDataHistory.add(realtimeMap.data['HUMID']);
-                  soundDataHistory.add(realtimeMap.data['SOUND']);
+                  DateTime now = DateTime.now();
+                  dataHistory.forEach(
+                    (key, value) {
+                      value.add(RtDataCell(realtimeMap.data[key], now));
+                    },
+                  );
+                  // lightDataHistory
+                  //     .add(RtDataCell(realtimeMap.data['LIGHT'], now));
+                  // tempDataHistory
+                  //     .add(RtDataCell(realtimeMap.data['TEMP'], now));
+                  // humidDataHistory
+                  //     .add(RtDataCell(realtimeMap.data['HUMID'], now));
+                  // soundDataHistory
+                  //     .add(RtDataCell(realtimeMap.data['SOUND'], now));
                   _realtimeSensors.isInit = true;
                 } else {
-                  if (realtimeMap.data['CHANGED'] ==
+                  double changeCode = realtimeMap.data['CHANGED'];
+                  if (changeCode ==
                       _realtimeSensors.strToIntDictionary['LIGHT']) {
                     if (lightDataHistory.length == lcDisplayLimit) {
                       lightDataHistory.removeAt(0);
                     }
-                    lightDataHistory.add(realtimeMap.data['LIGHT']);
+                    lightDataHistory.add(
+                        RtDataCell(realtimeMap.data['LIGHT'], DateTime.now()));
+                  } else if (changeCode != s2iMap['TEMP-HUMID']) {
+                    var sensorHistory = dataHistory[i2sMap[changeCode]];
+                    if (sensorHistory.length == lcDisplayLimit) {
+                      sensorHistory.removeAt(0);
+                    }
+                    DateTime now = DateTime.now();
+                    sensorHistory.add(
+                        RtDataCell(realtimeMap.data[i2sMap[changeCode]], now));
                   }
                 }
 
                 /// This is for calculating max value of y axis
-                int maxDataAsInt = lightDataHistory.reduce(max).toInt();
+                int maxDataAsInt = lightDataHistory
+                    .reduce(
+                      (a, b) => RtDataCell.withData(max(a.data, b.data)),
+                    )
+                    .data
+                    .toInt();
                 int digitConstant = pow(10, maxDataAsInt.toString().length - 1);
                 int remainder = maxDataAsInt % digitConstant;
                 int quotient = maxDataAsInt ~/ digitConstant;
@@ -151,7 +199,7 @@ class _BodyState extends State<Body> {
                     ? maxData / 2
                     : (maxData + digitConstant / 2) / 2;
                 return LineChart(
-                  mainData(size, halfOfMax, maxData),
+                  mainData(size, halfOfMax, maxData, digitConstant.toDouble()),
                 );
               },
             ),
@@ -212,11 +260,13 @@ class _BodyState extends State<Body> {
     );
   }
 
-  LineChartData mainData(Size size, double halfOfMax, double maxData) {
+  LineChartData mainData(
+      Size size, double halfOfMax, double maxData, double digitConstant) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
         drawVerticalLine: true,
+        checkToShowHorizontalLine: (value) => value % digitConstant == 0,
         getDrawingHorizontalLine: (value) {
           return FlLine(
             color: const Color(0xff37434d),
@@ -229,6 +279,32 @@ class _BodyState extends State<Body> {
             strokeWidth: 1,
           );
         },
+      ),
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          tooltipBgColor: Colors.blueAccent,
+          getTooltipItems: (touchedBarSpots) {
+            return touchedBarSpots
+                .map(
+                  (barSpot) => LineTooltipItem(
+                    DateFormat.Hms()
+                        .format(lightDataHistory[barSpot.x.toInt()].date),
+                    Theme.of(context).textTheme.bodyText1.copyWith(
+                          fontSize: size.height * 0.015,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: '\n${lightDataHistory[barSpot.x.toInt()].data}',
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: size.height * 0.015,
+                            ),
+                      ),
+                    ],
+                  ),
+                )
+                .toList();
+          },
+        ),
       ),
       titlesData: FlTitlesData(
         show: true,
@@ -271,23 +347,28 @@ class _BodyState extends State<Body> {
         LineChartBarData(
           spots: List.generate(
             lightDataHistory.length,
-            (index) => FlSpot(index.toDouble(), lightDataHistory[index]),
+            (index) => FlSpot(index.toDouble(), lightDataHistory[index].data),
+          ),
+          dotData: FlDotData(
+            show: true,
+            getDotPainter: (spot, percent, barData, index) =>
+                FlDotCirclePainter(
+              radius: 5,
+              color: Theme.of(context).cardColor,
+              strokeWidth: 1.0,
+              strokeColor: Theme.of(context).accentColor,
+            ),
           ),
           isCurved: false,
           colors: [
             Theme.of(context).cardColor,
-            Color(0xff02d39a),
           ],
-          barWidth: 5,
+          barWidth: 2,
           isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
           belowBarData: BarAreaData(
             show: true,
             colors: [
               Theme.of(context).cardColor,
-              Color(0xff02d39a),
             ].map((color) => color.withOpacity(0.3)).toList(),
           ),
         ),

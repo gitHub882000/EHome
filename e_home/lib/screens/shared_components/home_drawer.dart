@@ -39,17 +39,17 @@ class _HomeDrawerState extends State<HomeDrawer> {
   /// View method
   /// ******
   @override
-  Widget build1(BuildContext context) {
+  Widget build(BuildContext context) {
     return BlocBuilder<UserCubit, UserState>(builder: (_, state) {
       if (state is UserLoaded) {
-        return build(context, state);
+        return build1(context, state);
       }
       return _loadingWidget();
     });
   }
 
 
-  Widget build(BuildContext context, UserLoaded users) {
+  Widget build1(BuildContext context, UserLoaded users) {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
     final FirebaseAuth auth = FirebaseAuth.instance;

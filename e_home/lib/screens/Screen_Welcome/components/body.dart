@@ -159,7 +159,8 @@ class _BodyState extends State<Body> {
         SizedBox(
           height: 10,
         ),
-         _loginfail ? Text("Incorrect email or password",style: TextStyle(fontSize: 15, color: Colors.red,),):Text("", style: TextStyle(fontSize: 0),),
+         isLoginPage ?(_loginfail ? Text("Incorrect email or password",style: TextStyle(fontSize: 15, color: Colors.red,),):Text("", style: TextStyle(fontSize: 0),))
+                    : (_loginfail ? Text("Email existed",style: TextStyle(fontSize: 15, color: Colors.red,),):Text("", style: TextStyle(fontSize: 0),))
       ],
     );
   }

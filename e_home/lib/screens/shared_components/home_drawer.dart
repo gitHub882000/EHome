@@ -8,6 +8,7 @@ import 'package:e_home/presentation/bloc/auth/auth_cubit.dart';
 import 'package:e_home/presentation/bloc/login/login_cubit.dart';
 import 'package:e_home/presentation/bloc/user/user_cubit.dart';
 import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 class HomeDrawer extends StatefulWidget {
   final String uid;
 
@@ -112,22 +113,17 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
   Widget _loadingWidget() {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.indigo[400],
-                    Colors.blue[300],
-                  ],
-                )),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          ),
-        ],
+      backgroundColor: Color.fromRGBO(33, 35, 50, 1.0),
+      body: Center(
+          child: SpinKitFadingCircle(
+            itemBuilder: (BuildContext context, int index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.white70,
+                ),
+              );
+            },
+          )
       ),
     );
   }

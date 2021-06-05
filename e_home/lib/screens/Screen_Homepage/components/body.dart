@@ -41,7 +41,7 @@ class _BodyState extends State<Body> {
     Icons.lightbulb,
     Icons.thermostat_outlined,
     Water_drop.water_drop_black_24dp,
-    Icons.surround_sound,
+    Icons.volume_up,
   ];
   final _chartIconColors = [
     Colors.yellowAccent,
@@ -165,7 +165,7 @@ class _BodyState extends State<Body> {
                 _chartFeatures.length,
                 (index) => Container(
                   width: size.width - 20.0,
-                  height: size.height * 0.5,
+                  height: size.height * 0.45,
                   margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
                   decoration: BoxDecoration(
@@ -187,6 +187,30 @@ class _BodyState extends State<Body> {
           ),
           SizedBox(
             height: size.height * 0.01,
+          ),
+          TextWithPreIcon(
+            spaceSize: size.width * 0.015,
+            indentSize: 10.0,
+            icon: Container(
+              width: size.height * 0.026,
+              height: size.height * 0.026,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.home,
+                size: size.height * 0.022,
+                color: Color.fromRGBO(9, 94, 231, 1.0),
+              ),
+            ),
+            text: Text(
+              'Rooms',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: size.height * 0.022,
+                  ),
+            ),
           ),
           RoomCardList(
               /* onRoomTap: () => this.handleRoomClick(context), */

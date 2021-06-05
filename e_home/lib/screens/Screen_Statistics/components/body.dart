@@ -13,7 +13,7 @@ class Body extends StatefulWidget {
     Icons.lightbulb,
     Icons.thermostat_outlined,
     Water_drop.water_drop_black_24dp,
-    Icons.surround_sound,
+    Icons.volume_up,
   ];
   final _chartIconColors = [
     Colors.yellowAccent,
@@ -285,8 +285,8 @@ class _BodyState extends State<Body> {
             text: Text(
               'Dashboard',
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                fontSize: size.height * 0.022,
-              ),
+                    fontSize: size.height * 0.022,
+                  ),
             ),
           ),
           SizedBox(

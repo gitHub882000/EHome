@@ -105,7 +105,7 @@ class RoomCardList extends StatelessWidget {
   //]),),],),),);});})); */
 
     return SizedBox(
-        height: size.height * 0.4,
+        height: size.height * 0.38,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: 1,

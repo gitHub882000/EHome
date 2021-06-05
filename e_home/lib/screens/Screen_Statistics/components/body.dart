@@ -19,7 +19,7 @@ class Body extends StatefulWidget {
     Colors.yellowAccent,
     Colors.orangeAccent,
     Colors.blueAccent,
-    Colors.indigoAccent,
+    Colors.lightBlueAccent,
   ];
 
   @override

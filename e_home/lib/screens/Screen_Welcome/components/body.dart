@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_home/presentation/bloc/auth/auth_cubit.dart';
 import 'package:e_home/presentation/bloc/login/login_cubit.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   final _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
+  bool _showpassword = false;
   String email;
   String password;
 
@@ -50,29 +51,7 @@ class _BodyState extends State<Body> {
   /// ******
   /// Controller methods
   /// ******
-  void _handleLoginClick(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
-      try {
-        final userCredential = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
-      } catch (e) {
-        print(e);
-      }
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.pushReplacementNamed(context, '/homepage-screen');
-    }
-  }
+
 
   /// ******
   /// View method
@@ -94,13 +73,6 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Widget _imageWidget() {
-    return Container(
-      height: 60,
-      width: 60,
-      child: Image.asset("assets/profile_default.png"),
-    );
-  }
 
 
   Widget _fromWidget() {
@@ -162,12 +134,23 @@ class _BodyState extends State<Body> {
           child: TextField(
             controller: _passwordController,
             style: TextStyle(color: Colors.white),
-            obscureText: true,
+            obscureText: !_showpassword,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: "Password",
               hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
               prefixIcon: Icon(Icons.lock_outline,color: Colors.white,),
+              suffixIcon: GestureDetector(
+                onTap: (){
+                  setState(() {
+                    _showpassword = !_showpassword;
+                  });
+                },
+                child: Icon(
+                  _showpassword ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
         ),
@@ -222,7 +205,21 @@ class _BodyState extends State<Body> {
   }
 
   Widget _loadingWidget(){
-    return Text("Loading...");
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(33, 35, 50, 1.0),
+      body: Center(
+        child: SpinKitFadingCircle(
+          itemBuilder: (BuildContext context, int index) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white70,
+              ),
+            );
+          },
+        )
+        ),
+      )
+    ;
   }
   Widget _buttonWidget() {
     return InkWell(

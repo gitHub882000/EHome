@@ -61,6 +61,7 @@ class StateHistoryBarChart extends StatelessWidget {
           children: <Widget>[
             IconCoin(
               borderRadius: 5,
+              isCircle: true,
               padding: EdgeInsets.all(3.0),
               height: size.width * 0.07,
               width: size.width * 0.07,
@@ -68,7 +69,7 @@ class StateHistoryBarChart extends StatelessWidget {
               child: Icon(
                 icon,
                 color: iconColor,
-                size: size.width * 0.045,
+                size: size.width * 0.04,
               ),
             ),
             SizedBox(

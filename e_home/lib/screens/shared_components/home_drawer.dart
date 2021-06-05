@@ -163,8 +163,8 @@ class _DrawerListTile extends StatelessWidget {
       title: Text(
         this.title,
         style: Theme.of(context).textTheme.headline2.copyWith(
-              fontSize: size.height * 0.022,
-            ),
+          fontSize: size.height * 0.022,
+        ),
       ),
     );
   }

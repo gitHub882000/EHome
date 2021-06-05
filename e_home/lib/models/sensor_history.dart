@@ -6,9 +6,9 @@ class SensorHistory {
   /// This is for fetching history
   final _sensorReference =
       FirebaseFirestore.instance.collection('Tam_feed').where(
-            'name',
-            isNotEqualTo: 'RELAY',
-          );
+    'name',
+    whereIn: ['LIGHT', 'TEMP-HUMID', 'SOUND'],
+  );
   StreamController<Map<String, List<dynamic>>> _controller =
       StreamController<Map<String, List<dynamic>>>.broadcast();
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;
@@ -31,6 +31,8 @@ class SensorHistory {
     return _controller.stream;
   }
 
+  /// Convert Document Data into Map<String, List<dynamic>>
+  /// and save at this.historyData
   void convertDocHistory(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) {
     DateTime maxLastDay = DateTime(2021, 1, 1);

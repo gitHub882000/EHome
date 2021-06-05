@@ -20,8 +20,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final _auth = FirebaseAuth.instance;
-  final _formKey = GlobalKey<FormState>();
+  bool _loginfail = false;
   bool _showpassword = false;
   String email;
   String password;
@@ -68,6 +67,9 @@ class _BodyState extends State<Body> {
       listener: (context, state) {
         if (state is LoginSuccess) {
           BlocProvider.of<AuthCubit>(context).loggedIn();
+        }
+        else{
+          _loginfail = true;
         }
       },
     );
@@ -154,6 +156,10 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
+        SizedBox(
+          height: 10,
+        ),
+         _loginfail ? Text("Incorrect email or password",style: TextStyle(fontSize: 15, color: Colors.red,),):Text("", style: TextStyle(fontSize: 0),),
       ],
     );
   }

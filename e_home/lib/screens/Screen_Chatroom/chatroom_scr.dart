@@ -263,7 +263,7 @@ class _ChatroomPageState extends State<ChatroomPage> {
         height: 40,
         width: 40,
         decoration: BoxDecoration(
-            color: Colors.green,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(Radius.circular(40))),
         child: Icon(
           Icons.send,

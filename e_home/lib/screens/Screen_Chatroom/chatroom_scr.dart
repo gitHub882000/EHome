@@ -86,9 +86,16 @@ class _ChatroomPageState extends State<ChatroomPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+
           Row(
             children: [
-
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_sharp,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
               Text(
                 "Chat Room",
                 style: TextStyle(

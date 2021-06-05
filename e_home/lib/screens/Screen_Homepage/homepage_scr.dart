@@ -5,8 +5,6 @@ import 'package:e_home/screens/shared_components/home_drawer.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final String uid;
-  HomePage({Key key, this.uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

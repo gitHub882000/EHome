@@ -2,37 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:e_home/screens/shared_components/icon_coin.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:e_home/data/model/user_model.dart';
-import 'package:e_home/presentation/bloc/auth/auth_cubit.dart';
-import 'package:e_home/presentation/bloc/login/login_cubit.dart';
-import 'package:e_home/presentation/bloc/user/user_cubit.dart';
-import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
-class HomeDrawer extends StatefulWidget {
-  final String uid;
 
-  const HomeDrawer({Key key, this.uid}) : super(key: key);
-  @override
-  _HomeDrawerState createState() => _HomeDrawerState();
-}
-
-class _HomeDrawerState extends State<HomeDrawer> {
+class HomeDrawer extends StatelessWidget {
   /// ******
   /// Controller methods
   /// ******
-  @override
-  void initState() {
-    BlocProvider.of<UserCubit>(context).getUsers();
-    super.initState();
-  }
   void _handleChatroomClick(BuildContext context) {
     Navigator.pushNamed(context, '/chatroom-screen');
   }
 
   void _handleLogoutClick(BuildContext context) async {
-    BlocProvider.of<AuthCubit>(context).loggedOut();
-    BlocProvider.of<LoginCubit>(context).submitSignOut();
-    // Navigator.pushReplacementNamed(context, '/welcome-screen');
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacementNamed(context, '/welcome-screen');
   }
 
   /// ******
@@ -40,21 +21,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   /// ******
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCubit, UserState>(builder: (_, state) {
-      if (state is UserLoaded) {
-        return build1(context, state);
-      }
-      return _loadingWidget();
-    });
-  }
-
-
-  Widget build1(BuildContext context, UserLoaded users) {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final user = users.users.firstWhere((user) => user.uid == auth.currentUser.uid,
-        orElse: () => UserModel());
+
     return Drawer(
       child: Container(
         decoration: BoxDecoration(
@@ -85,17 +54,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               _DrawerListTile(
                 title: 'Chatroom',
                 iconData: Icons.chat_bubble,
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatroomPage(
-                        userName: user.name,
-                        uid: user.uid,
-                      ),
-                    ),
-                  );
-                },
+                press: () => _handleChatroomClick(context),
                 size: size,
               ),
               _DrawerListTile(
@@ -107,27 +66,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
             ],
           ),
         ),
-      ),
-    );
-  }
-  Widget _loadingWidget() {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.indigo[400],
-                    Colors.blue[300],
-                  ],
-                )),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: CircularProgressIndicator(),
-          ),
-        ],
       ),
     );
   }

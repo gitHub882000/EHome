@@ -5,9 +5,9 @@ class RealtimeSensors {
   /// This is for listening realtime update
   final _sensorReference =
       FirebaseFirestore.instance.collection('Tam_feed').where(
-            'name',
-            isNotEqualTo: 'RELAY',
-          );
+    'name',
+    whereIn: ['LIGHT', 'TEMP-HUMID', 'SOUND'],
+  );
   StreamController<Map<String, double>> _controller =
       StreamController<Map<String, double>>.broadcast();
   StreamSubscription<QuerySnapshot<Map<String, dynamic>>> _subscription;

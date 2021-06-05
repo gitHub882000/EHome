@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:custom_switch/custom_switch.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:e_home/screens/shared_components/icon_coin.dart';
 
 // Import models
 import 'package:e_home/models/DeviceModel.dart';
@@ -69,14 +69,12 @@ class _DevicesViewState extends State<DevicesView> {
                                 width: size.height * 0.06,
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
-                                    color: Color.fromRGBO(130, 130, 130, 1.0),
+                                    color: Colors.yellowAccent.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(5)),
-                                child:
-                                    //fitIcon()
-                                    Icon(
+                                child: Icon(
                                   Icons.lightbulb,
                                   size: size.height * 0.04,
-                                  color: Colors.white,
+                                  color: Colors.yellowAccent,
                                 ))),
                         SizedBox(
                           height: size.height * 0.025,

@@ -77,12 +77,8 @@ class _ChatroomPageState extends State<ChatroomPage> {
       height: 70,
       width: double.infinity,
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.indigo[400],
-              Colors.blue[300],
-            ],
-          )),
+          color: Color.fromRGBO(33, 35, 50, 1.0),
+          ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -109,7 +105,7 @@ class _ChatroomPageState extends State<ChatroomPage> {
             "${widget.userName}",
             style: TextStyle(
               fontSize: 22,
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
             ),
           )
         ],
@@ -181,7 +177,7 @@ class _ChatroomPageState extends State<ChatroomPage> {
           children: [
             Row(
               children: [
-                _emojiWidget(),
+              //  _emojiWidget(),
                 SizedBox(
                   width: 8,
                 ),
@@ -190,7 +186,7 @@ class _ChatroomPageState extends State<ChatroomPage> {
             ),
             Row(
               children: [
-                _micWidget(),
+             //   _micWidget(),
                 SizedBox(
                   width: 8,
                 ),
@@ -246,7 +242,7 @@ class _ChatroomPageState extends State<ChatroomPage> {
                 maxLines: null,
                 decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: "Type Here Dude ..."),
+                    hintText: "Type Here ..."),
               ),
             ),
           ),

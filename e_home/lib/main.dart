@@ -39,7 +39,8 @@ class EHome extends StatelessWidget {
         ChangeNotifierProvider<UserProfile>(create: (context) => UserProfile()),
         ChangeNotifierProxyProvider<UserProfile, Auth>(
           create: (context) => Auth(),
-          update: (context, userProfile, auth) => auth..setUserProfile(userProfile),
+          update: (context, userProfile, auth) =>
+              auth..setUserProfile(userProfile),
         ),
       ],
       child: MaterialApp(

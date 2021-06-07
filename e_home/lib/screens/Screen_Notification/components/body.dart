@@ -92,6 +92,21 @@ class _BodyState extends State<Body> {
                   ),
                   SwitchListTile(
                     title: Text(
+                      'Switch',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: doc['relay'],
+                    onChanged: (bool toggle) {
+                      updateData(snapshot, index, 'relay', toggle);
+                      if (toggle) {
+                        firebase.subscribeTopic('RELAY');
+                      } else {
+                        firebase.unsubScribeTopic('RELAY');
+                      }
+                    },
+                  ),
+                  SwitchListTile(
+                    title: Text(
                       'Sound',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -99,9 +114,9 @@ class _BodyState extends State<Body> {
                     onChanged: (bool toggle) {
                       updateData(snapshot, index, 'sound', toggle);
                       if (toggle) {
-                        firebase.subscribeTopic('sound');
+                        firebase.subscribeTopic('SOUND');
                       } else {
-                        firebase.unsubScribeTopic('sound');
+                        firebase.unsubScribeTopic('SOUND');
                       }
                     },
                   ),
@@ -114,9 +129,9 @@ class _BodyState extends State<Body> {
                     onChanged: (bool toggle) {
                       updateData(snapshot, index, 'light', toggle);
                       if (toggle) {
-                        firebase.subscribeTopic('light');
+                        firebase.subscribeTopic('LIGHT');
                       } else {
-                        firebase.unsubScribeTopic('light');
+                        firebase.unsubScribeTopic('LIGHT');
                       }
                     },
                   ),
@@ -132,21 +147,6 @@ class _BodyState extends State<Body> {
                         firebase.subscribeTopic('temperature');
                       } else {
                         firebase.unsubScribeTopic('temperature');
-                      }
-                    },
-                  ),
-                  SwitchListTile(
-                    title: Text(
-                      'Humidity',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    value: doc['humidity'],
-                    onChanged: (bool toggle) {
-                      updateData(snapshot, index, 'humidity', toggle);
-                      if (toggle) {
-                        firebase.subscribeTopic('humidity');
-                      } else {
-                        firebase.unsubScribeTopic('humidity');
                       }
                     },
                   ),

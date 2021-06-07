@@ -20,7 +20,7 @@ class RoomPage extends StatelessWidget {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
 
-    //Get data from Homepage
+    /* //Get data from Homepage
     String _roomId = ModalRoute.of(context).settings.arguments as String;
 
     return StreamBuilder(
@@ -43,6 +43,15 @@ class RoomPage extends StatelessWidget {
               body: Body(),
             );
           }
-        });
+        }); */
+
+    return Scaffold(
+      endDrawer: HomeDrawer(),
+      appBar: HomeAppBar(
+        title: 'Living room',
+        onPressed: _handleBackClick,
+      ),
+      body: Body(),
+    );
   }
 }

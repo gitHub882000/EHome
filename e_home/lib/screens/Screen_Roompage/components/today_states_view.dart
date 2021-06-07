@@ -27,8 +27,8 @@ class TodayStatesView extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     //Get today date in expected format
-    var date = new DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
-    String finalDate = date.toString();
+    String finalDate =
+        new DateFormat.yMMMMd('en_US').format(DateTime.now()).toString();
 
     return Container(
         height: size.height * 0.18,

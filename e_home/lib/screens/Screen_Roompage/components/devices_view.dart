@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:custom_switch/custom_switch.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
+import 'package:e_home/screens/shared_components/icon_coin.dart';
 
 // Import models
 import 'package:e_home/models/DeviceModel.dart';
@@ -15,161 +16,125 @@ class DevicesView extends StatefulWidget {
 }
 
 class _DevicesViewState extends State<DevicesView> {
-  Future<DeviceModel> _deviceModel;
+  //Future<DeviceModel> _deviceModel;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    String _roomId = widget.roomId;
+    //String _roomId = widget.roomId;
 
     return SizedBox(
         height: size.height * 0.25,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('roomList')
-              .doc('${_roomId}')
-              .collection('devices')
+              .collection('Tam_feed')
+              .doc('bc1EFVcnrsWfJieBsVin')
               .snapshots(),
           builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) return const CircularProgressIndicator();
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: snapshot.data.size,
-              itemBuilder: (context, index) {
-                // Get current device
-                dynamic _device = snapshot.data.docs[index];
-                String _deviceId = snapshot.data.docs[index].id;
+              (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+            if (!snapshot.hasData)
+              return const CircularProgressIndicator();
+            else {
+              // Get the state of the current device as boolean
+              String _relayData = snapshot.data.get('data').toString();
+              bool stringToBool(String a) => a == '0' ? false : true;
+              bool switch_state = stringToBool(_relayData);
 
-                // Get the type of device to choose icon
-                Widget fitIcon() {
-                  if (_device.get('type') == 'Air Conditioner') {
-                    return Icon(
-                      Icons.ac_unit,
-                      size: size.height * 0.04,
-                      color: Colors.white,
-                    );
-                  } else {
-                    return Icon(
-                      Icons.lightbulb,
-                      size: size.height * 0.04,
-                      color: Colors.white,
-                    );
-                  }
-                }
+              Future<DeviceModel> _futureDevice;
 
-                // Get the state of the current device as boolean
-                bool switchState;
-                if (_device.get('isActive') == true)
-                  switchState = true;
-                else
-                  switchState = false;
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  //Get update string in expected format
+                  String update = new DateFormat('HH:mm:ss MM-dd-yy')
+                      .format(DateTime.now())
+                      .toString();
 
-                return Container(
-                    margin: EdgeInsets.all(10.0),
-                    padding: EdgeInsets.all(5.0),
-                    height: size.height * 0.3,
-                    width: size.width * 0.4,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(children: [
-                      Container(
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
-                          child: Container(
-                              height: size.height * 0.05,
-                              width: size.height * 0.06,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(130, 130, 130, 1.0),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: fitIcon())),
-                      SizedBox(
-                        height: size.height * 0.025,
+                  return Container(
+                      margin: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(5.0),
+                      height: size.height * 0.3,
+                      width: size.width * 0.4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            '${_device.get('name')}',
-                            style:
-                                Theme.of(context).textTheme.headline5.copyWith(
-                                      fontSize: size.height * 0.023,
-                                    ),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.025,
-                          ),
-                          /* CustomSwitch(
-                            value: switchState,
-                            activeColor: Colors.blue[600],
-                            onChanged: (value) {
-                              setState(() {
-                                switchState = value;
-                                if (switchState) {
-                                  _deviceModel = sendData(
-                                      '${_device.get('name')}',
-                                      'true',
-                                      '${_device.get('type')}');
-                                } else {
-                                  _deviceModel = sendData(
-                                      '${_device.get('name')}',
-                                      'false',
-                                      '${_device.get('type')}');
-                                }
-                              });
-                            },
-                          ), */
-                          CustomSwitch(
-                            value: switchState,
-                            activeColor: Colors.blue[600],
-                            onChanged: (value) {
-                              setState(() {
-                                switchState = value;
-                                if (switchState) {
-                                  FirebaseFirestore.instance
-                                      .collection('roomList')
-                                      .doc('${_roomId}')
-                                      .collection('devices')
-                                      .doc('${_deviceId}')
-                                      .update({
-                                    'isActive': 'true'
-                                  }).then((value) => print(
-                                          "${_deviceId} Updated: ${switchState}"));
-                                } else {
-                                  FirebaseFirestore.instance
-                                      .collection('roomList')
-                                      .doc('${_roomId}')
-                                      .collection('devices')
-                                      .doc('${_deviceId}')
-                                      .update({
-                                    'isActive': 'false'
-                                  }).then((value) => print(
-                                          "${_deviceId} Updated: ${switchState}"));
-                                }
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    ]));
-              },
-            );
+                      child: Column(children: [
+                        Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                            child: Container(
+                                height: size.height * 0.05,
+                                width: size.height * 0.06,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellowAccent.withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Icon(
+                                  Icons.lightbulb,
+                                  size: size.height * 0.04,
+                                  color: Colors.yellowAccent,
+                                ))),
+                        SizedBox(
+                          height: size.height * 0.025,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Light',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5
+                                  .copyWith(
+                                    fontSize: size.height * 0.023,
+                                  ),
+                            ),
+                            SizedBox(
+                              height: size.height * 0.025,
+                            ),
+                            Switch(
+                              value: switch_state,
+                              activeColor: Colors.blue[600],
+                              onChanged: (bool val) {
+                                setState(() {
+                                  switch_state = val;
+                                  if (switch_state == true) {
+                                    _futureDevice = sendData('CSE_BBC1', '1',
+                                        'RELAY', 'bk-iot-relay', update);
+                                  } else {
+                                    _futureDevice = sendData('CSE_BBC1', '0',
+                                        'RELAY', 'bk-iot-relay', update);
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ]));
+                },
+              );
+            }
           },
         ));
   }
 }
 
-Future<DeviceModel> sendData(String name, String isActive, String type) async {
+Future<DeviceModel> sendData(String account, String data, String name,
+    String topic, String update) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  String apiUrl = 'https://ehomee.azurewebsites.net/publisher/khang';
+  String apiUrl = "https://ehomee.azurewebsites.net/publisher/Tam";
 
-  final json = {'name': name, 'isActive': isActive, 'type': type};
-  print(json);
+  final json = {
+    'account': account,
+    'data': data,
+    'name': name,
+    'topic': topic,
+    'update': update
+  };
   http.Response response = await http.post(Uri.parse(apiUrl),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -179,7 +144,6 @@ Future<DeviceModel> sendData(String name, String isActive, String type) async {
     // If the server did return a 201 response,
     // then parse the JSON.
     print(response.body);
-
     return DeviceModel.fromJson(jsonDecode(response.body));
   } else {
     // If the server did not return a 201 response,

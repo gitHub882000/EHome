@@ -24,7 +24,7 @@ import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
 import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
 import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
-
+import 'package:e_home/screens/Screen_Chatbot/chatbot_scr.dart';
 // TODO: Here you import the models
 import 'package:e_home/models/auth.dart';
 import 'package:e_home/models/user_profile.dart';
@@ -158,6 +158,7 @@ class EHome extends StatelessWidget {
             '/chatroom-screen': (context) => ChatroomPage(),
             '/room-screen': (context) => RoomPage(),
             '/statistics-screen': (context) => StatisticsPage(),
+            '/chatbot-screen': (context) => ChatBotPage(),
           },
         ),
       ),

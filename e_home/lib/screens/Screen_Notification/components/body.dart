@@ -15,15 +15,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   FirebaseNotification firebase = FirebaseNotification();
   CollectionReference ref;
-  Auth _auth;
+  String uid;
 
   handleAsyn() async {
     String token = await firebase.getToken();
     print("Firebase token: $token");
   }
-
-  List<bool> bedroomDevice = [true, false, true];
-  bool _value = false;
 
   Widget _buildList(DocumentSnapshot snapshot, String room) {
     var s = Map<String, dynamic>.from(snapshot.get(room)).entries.toList();
@@ -63,10 +60,10 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     firebase.initialize();
-    _auth = Provider.of<Auth>(context, listen: false);
+    uid = FirebaseAuth.instance.currentUser.uid;
     ref = FirebaseFirestore.instance
         .collection('users')
-        .doc(_auth.user.uid)
+        .doc(uid)
         .collection('notification');
     handleAsyn();
   }
@@ -92,36 +89,6 @@ class _BodyState extends State<Body> {
                   ),
                   SwitchListTile(
                     title: Text(
-                      'Switch',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    value: doc['relay'],
-                    onChanged: (bool toggle) {
-                      updateData(snapshot, index, 'relay', toggle);
-                      if (toggle) {
-                        firebase.subscribeTopic('RELAY');
-                      } else {
-                        firebase.unsubScribeTopic('RELAY');
-                      }
-                    },
-                  ),
-                  SwitchListTile(
-                    title: Text(
-                      'Sound',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    value: doc['sound'],
-                    onChanged: (bool toggle) {
-                      updateData(snapshot, index, 'sound', toggle);
-                      if (toggle) {
-                        firebase.subscribeTopic('SOUND');
-                      } else {
-                        firebase.unsubScribeTopic('SOUND');
-                      }
-                    },
-                  ),
-                  SwitchListTile(
-                    title: Text(
                       'Light',
                       style: TextStyle(color: Colors.white),
                     ),
@@ -129,9 +96,9 @@ class _BodyState extends State<Body> {
                     onChanged: (bool toggle) {
                       updateData(snapshot, index, 'light', toggle);
                       if (toggle) {
-                        firebase.subscribeTopic('LIGHT');
+                        firebase.subscribeTopic('RELAY');
                       } else {
-                        firebase.unsubScribeTopic('LIGHT');
+                        firebase.unsubScribeTopic('RELAY');
                       }
                     },
                   ),
@@ -144,9 +111,9 @@ class _BodyState extends State<Body> {
                     onChanged: (bool toggle) {
                       updateData(snapshot, index, 'temperature', toggle);
                       if (toggle) {
-                        firebase.subscribeTopic('temperature');
+                        firebase.subscribeTopic('TEMP-HUMID');
                       } else {
-                        firebase.unsubScribeTopic('temperature');
+                        firebase.unsubScribeTopic('TEMP-HUMID');
                       }
                     },
                   ),

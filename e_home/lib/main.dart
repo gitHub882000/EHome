@@ -10,6 +10,7 @@ import 'package:e_home/presentation/bloc/auth/auth_cubit.dart';
 import 'presentation/bloc/communication/communication_cubit.dart';
 import 'presentation/bloc/login/login_cubit.dart';
 import 'presentation/bloc/user/user_cubit.dart';
+
 /// Note: If you have widgets that are shared among more than 1 screens,
 /// put those widget definition files into shared_components directory.
 /// Otherwise, put them into the directories whose files need those widgets.
@@ -24,6 +25,7 @@ import 'package:e_home/screens/Screen_Signup/signup_scr.dart';
 import 'package:e_home/screens/Screen_Homepage/homepage_scr.dart';
 import 'package:e_home/screens/Screen_Chatroom/chatroom_scr.dart';
 import 'package:e_home/screens/Screen_Roompage/roompage_scr.dart';
+import 'package:e_home/screens/Screen_Notification/notification_scr.dart';
 
 // TODO: Here you import the models
 import 'package:e_home/models/auth.dart';
@@ -45,7 +47,8 @@ class EHome extends StatelessWidget {
         ChangeNotifierProvider<UserProfile>(create: (context) => UserProfile()),
         ChangeNotifierProxyProvider<UserProfile, Auth>(
           create: (context) => Auth(),
-          update: (context, userProfile, auth) => auth..setUserProfile(userProfile),
+          update: (context, userProfile, auth) =>
+              auth..setUserProfile(userProfile),
         ),
       ],
       child: MultiBlocProvider(
@@ -137,12 +140,12 @@ class EHome extends StatelessWidget {
             // Default Dialog Theme
             dialogTheme: DialogTheme(),
           ),
-          home: BlocBuilder<AuthCubit,AuthState>(
-            builder: (context,authState){
-              if (authState is Authenticated){
-                return HomePage(uid:authState.uid);
+          home: BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, authState) {
+              if (authState is Authenticated) {
+                return HomePage(uid: authState.uid);
               }
-              if (authState is UnAuthenticated){
+              if (authState is UnAuthenticated) {
                 return WelcomePage();
               }
               return Container();
@@ -158,6 +161,7 @@ class EHome extends StatelessWidget {
             '/chatroom-screen': (context) => ChatroomPage(),
             '/room-screen': (context) => RoomPage(),
             '/statistics-screen': (context) => StatisticsPage(),
+            '/notification-screen': (context) => NotificationPage(),
           },
         ),
       ),

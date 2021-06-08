@@ -30,6 +30,10 @@ class _HomeDrawerState extends State<HomeDrawer> {
     Navigator.pushNamed(context, '/chatroom-screen');
   }
 
+  void _handleNotificationClick(BuildContext context) {
+    Navigator.pushNamed(context, '/notification-screen');
+  }
+
   void _handleLogoutClick(BuildContext context) async {
     BlocProvider.of<AuthCubit>(context).loggedOut();
     BlocProvider.of<LoginCubit>(context).submitSignOut();
@@ -97,6 +101,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ),
                   );
                 },
+                size: size,
+              ),
+              _DrawerListTile(
+                title: 'Notification',
+                iconData: Icons.notifications,
+                press: () => _handleNotificationClick(context),
                 size: size,
               ),
               _DrawerListTile(

@@ -28,12 +28,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
     DetectIntentResponse response = await dialogFlowtter.detectIntent(
       queryInput: queryInput,
     );
-    //  AuthGoogle authGoogle = await AuthGoogle(
-    //      fileJson: "assets/service.json")
-    //      .build();
-    //  Dialogflow dialogflow =
-    //  Dialogflow(authGoogle: authGoogle, language: Language.english);
-    //  AIResponse aiResponse = await dialogflow.detectIntent(query);
     setState(() {
       messsages.insert(0, {"data": 0, "message": response.text});
     });

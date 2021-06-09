@@ -1,5 +1,4 @@
-import 'dart:ffi';
-
+import 'package:e_home/icons/water_drop_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -127,12 +126,12 @@ class RoomStatesView extends StatelessWidget {
                               width: size.height * 0.03,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.blue[600],
+                                color: Colors.lightBlueAccent.withOpacity(0.1),
                               ),
                               child: Icon(
                                 Icons.volume_up,
-                                size: size.height * 0.02,
-                                color: Colors.white,
+                                size: size.height * 0.025,
+                                color: Colors.lightBlueAccent,
                               )),
                           text: Text(
                             'Sound',
@@ -153,12 +152,12 @@ class RoomStatesView extends StatelessWidget {
                               width: size.height * 0.03,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.blue[600],
+                                color: Colors.yellowAccent.withOpacity(0.1),
                               ),
                               child: Icon(
                                 Icons.lightbulb,
-                                size: size.height * 0.02,
-                                color: Colors.white,
+                                size: size.height * 0.025,
+                                color: Colors.yellowAccent,
                               )),
                           text: Text(
                             'Light',
@@ -179,12 +178,12 @@ class RoomStatesView extends StatelessWidget {
                               width: size.height * 0.03,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.blue[600],
+                                color: Colors.orangeAccent.withOpacity(0.1),
                               ),
                               child: Icon(
-                                Icons.device_thermostat,
-                                size: size.height * 0.02,
-                                color: Colors.white,
+                                Icons.thermostat_outlined,
+                                size: size.height * 0.025,
+                                color: Colors.orangeAccent,
                               )),
                           text: Text(
                             'Temperature',
@@ -205,12 +204,12 @@ class RoomStatesView extends StatelessWidget {
                               width: size.height * 0.03,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.blue[600],
+                                color: Colors.blueAccent.withOpacity(0.1),
                               ),
                               child: Icon(
-                                Icons.opacity,
-                                size: size.height * 0.02,
-                                color: Colors.white,
+                                Water_drop.water_drop_black_24dp,
+                                size: size.height * 0.025,
+                                color: Colors.blueAccent,
                               )),
                           text: Text(
                             'Humidity',

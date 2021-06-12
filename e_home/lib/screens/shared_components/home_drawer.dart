@@ -35,9 +35,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   void _handleLogoutClick(BuildContext context) async {
+    Navigator.popUntil(context, (route) => route.isFirst);
     BlocProvider.of<AuthCubit>(context).loggedOut();
     BlocProvider.of<LoginCubit>(context).submitSignOut();
-    // Navigator.pushReplacementNamed(context, '/welcome-screen');
   }
 
   /// ******

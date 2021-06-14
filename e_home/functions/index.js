@@ -46,21 +46,24 @@ functions.firestore.document("Tam_feed/bc1EFVcnrsWfJieBsVin")
     });
 
 exports.initNotificationSettings =
-functions.firestore.document("users/{userId}/notification/{notificationId}")
+functions.firestore.document("users/{userId}")
     .onCreate((snap, context) => {
       const userId = context.params.userId;
+      const notification =
+      admin.firestore().collection("users")
+          .doc(userId).collection("notification");
       const message = {
         notification: {
-          title: "Registerd successfully",
-          body: "You are now a resident of EHome.",
+          title: "Registered FCM successfully",
+          body: "You can now configure your notification subscription.",
         },
-        token: admin.firestore().collection("user").doc(userId).get("uid"),
+        token: snap.data().token,
       };
-      // const notificationId = snap.data();
-      return snap.ref.set({
-        name: "Living Room",
+
+      return notification.add({
+        room: "Living Room",
         light: false,
-        sound: false,
+        temperature: false,
       }).then(() => {
         return admin.messaging().send(message);
       });

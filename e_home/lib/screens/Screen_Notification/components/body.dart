@@ -19,6 +19,9 @@ class _BodyState extends State<Body> {
 
   handleAsyn() async {
     String token = await firebase.getToken();
+    FirebaseFirestore.instance.collection('users').doc(uid).update({
+      "token": token,
+    });
     print("Firebase token: $token");
   }
 

@@ -2,8 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c49fcf02-1b54-4deb-a565-6ba9e20799c7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/e_home/.firebaserc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/android/app/src/main/kotlin/com/example/e_home/Application.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/firebase.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/firestore.rules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/functions/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/functions/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/functions/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/functions/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/functions/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/realtime_line_chart.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/rt_data_cell.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Notification/components/background.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Notification/components/body.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Notification/components/firebaseCloudMessaging.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Notification/notification_scr.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/e_home/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/models/realtime_sensors.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/models/realtime_sensors.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/models/sensor_history.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/models/sensor_history.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/roomcard_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Homepage/components/roomcard_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Roompage/components/devices_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Roompage/components/devices_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Roompage/components/room_states_view.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Roompage/components/room_states_view.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Statistics/components/body.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Statistics/components/body.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/lib/screens/Screen_Statistics/components/state_history_barchart.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/Screen_Statistics/components/state_history_barchart.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/e_home/lib/screens/shared_components/home_drawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/lib/screens/shared_components/home_drawer.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_home/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/e_home/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,22 +125,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621423524488" />
-    <state width="1491" height="147" key="GridCell.Tab.0.bottom" timestamp="1622898672194">
+    <state width="1491" height="147" key="GridCell.Tab.0.bottom" timestamp="1623210880204">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1622898672194" />
-    <state width="1491" height="147" key="GridCell.Tab.0.center" timestamp="1622898672194">
+    <state width="1491" height="147" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1623210880204" />
+    <state width="1491" height="147" key="GridCell.Tab.0.center" timestamp="1623210880204">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1622898672194" />
-    <state width="1491" height="147" key="GridCell.Tab.0.left" timestamp="1622898672194">
+    <state width="1491" height="147" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1623210880204" />
+    <state width="1491" height="147" key="GridCell.Tab.0.left" timestamp="1623210880203">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1622898672194" />
-    <state width="1491" height="147" key="GridCell.Tab.0.right" timestamp="1622898672194">
+    <state width="1491" height="147" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1623210880203" />
+    <state width="1491" height="147" key="GridCell.Tab.0.right" timestamp="1623210880204">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1622898672194" />
+    <state width="1491" height="147" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1623210880204" />
     <state x="277" y="55" key="SettingsEditor" timestamp="1621439142491">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -118,9 +149,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="168" y="120" width="1200" height="584" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1536.824@0.0.1536.824" timestamp="1621518204998" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1621518122117">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1623210982477">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1621518122117" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1623210982477" />
   </component>
 </project>

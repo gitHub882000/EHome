@@ -1,3 +1,4 @@
+import 'package:e_home/screens/Screen_Chatbot/chatbot_scr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'components/body.dart';
@@ -17,7 +18,15 @@ class HomePage extends StatelessWidget {
       ),
       endDrawer: HomeDrawer(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ChatBotPage()
+              ),
+
+          );
+        },
         child: Container(
           height: double.infinity,
           width: double.infinity,

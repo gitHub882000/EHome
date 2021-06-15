@@ -4,27 +4,42 @@ admin.initializeApp(functions.config().firebase);
 
 exports.sendNotificationToTemperature =
 functions.firestore.document("Tam_feed/84TBH23hP7M0ltBAXHCo")
-    .onUpdate((change) => {
+    .onUpdate(async (change) => {
       const after = change.after.data();
-      const valueAfter = after.data.split("-")[0];
+      const valueAfter = parseFloat(after.data.split("-")[0]);
       const valueBefore = parseFloat(change.before.data().data.split("-")[0]);
-      let title;
-      if (parseFloat(valueAfter) < 16 && valueBefore > 18) {
-        title = "Low";
-      } else if (parseFloat(valueAfter) > 32 && valueBefore < 30) {
-        title = "High";
-      } else {
-        return;
+
+      const token = [];
+      const userRef = await admin.firestore().collection("users").get();
+      for (const user of userRef.docs) {
+        const notiRef = await admin.firestore().collection("users")
+            .doc(user.id).collection("notification").get();
+        for (const noti of notiRef.docs) {
+          const minThreshold = noti.data().temperature["min"];
+          const maxThreshold = noti.data().temperature["max"];
+          const subscribed = noti.data().temperature["subscribed"];
+          if (
+            ((valueAfter < minThreshold && valueBefore > minThreshold + 1) ||
+            (valueAfter > maxThreshold && valueBefore < maxThreshold - 1)) &&
+            subscribed == true
+          ) {
+            token.push(user.data().token);
+            break;
+          }
+        }
       }
       const payload = {
         notification: {
-          title: title + " temperature",
-          body: "Current room's temperature: " + valueAfter + "°C.",
+          title: "TEMPERATURE",
+          body: "Current room's temperature: " + valueAfter.toString() + "°C.",
           sound: "default",
         },
       };
 
-      return admin.messaging().sendToTopic(after.name, payload);
+      console.log("token = ", token);
+      if (token.length > 0) {
+        return admin.messaging().sendToDevice(token, payload);
+      } else return null;
     });
 
 exports.sendNotificationToLight =
@@ -33,7 +48,7 @@ functions.firestore.document("Tam_feed/bc1EFVcnrsWfJieBsVin")
       const after = change.after.data();
       const payload = {
         notification: {
-          title: "Flipped",
+          title: "FLIPPED",
           body: "Someone just turned on the light.",
           sound: "default",
         },
@@ -42,25 +57,32 @@ functions.firestore.document("Tam_feed/bc1EFVcnrsWfJieBsVin")
       if (after.data == "1") {
         return admin.messaging().sendToTopic(after.name, payload);
       }
-      return;
+      return null;
     });
 
 exports.initNotificationSettings =
-functions.firestore.document("users/{userId}/notification/{notificationId}")
+functions.firestore.document("users/{userId}")
     .onCreate((snap, context) => {
       const userId = context.params.userId;
+      const notification =
+      admin.firestore().collection("users")
+          .doc(userId).collection("notification");
       const message = {
         notification: {
-          title: "Registerd successfully",
-          body: "You are now a resident of EHome.",
+          title: "Registered FCM successfully",
+          body: "You can now configure your notification subscription.",
         },
-        token: admin.firestore().collection("user").doc(userId).get("uid"),
+        token: snap.data().token,
       };
-      // const notificationId = snap.data();
-      return snap.ref.set({
-        name: "Living Room",
+
+      return notification.add({
+        room: "Living Room",
         light: false,
-        sound: false,
+        temperature: {
+          subscribed: false,
+          min: 16,
+          max: 32,
+        },
       }).then(() => {
         return admin.messaging().send(message);
       });

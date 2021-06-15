@@ -16,6 +16,7 @@ class _BodyState extends State<Body> {
   FirebaseNotification firebase = FirebaseNotification();
   CollectionReference ref;
   String uid;
+  RangeValues _temperatureValues;
 
   handleAsyn() async {
     String token = await firebase.getToken();
@@ -53,6 +54,13 @@ class _BodyState extends State<Body> {
   }
 
   updateData(AsyncSnapshot<QuerySnapshot> snapshot, int index, String key,
+      bool value) {
+    snapshot.data.docs[index].reference.update({
+      key: value,
+    });
+  }
+
+  updateDataRange(AsyncSnapshot<QuerySnapshot> snapshot, int index, String key,
       bool value) {
     snapshot.data.docs[index].reference.update({
       key: value,
@@ -97,7 +105,11 @@ class _BodyState extends State<Body> {
                     ),
                     value: doc['light'],
                     onChanged: (bool toggle) {
-                      updateData(snapshot, index, 'light', toggle);
+                      setState(() {
+                        snapshot.data.docs[index].reference.update({
+                          'light': toggle,
+                        });
+                      });
                       if (toggle) {
                         firebase.subscribeTopic('RELAY');
                       } else {
@@ -110,15 +122,46 @@ class _BodyState extends State<Body> {
                       'Temperature',
                       style: TextStyle(color: Colors.white),
                     ),
-                    value: doc['temperature'],
+                    value: doc['temperature']['subscribed'],
                     onChanged: (bool toggle) {
-                      updateData(snapshot, index, 'temperature', toggle);
+                      setState(() {
+                        snapshot.data.docs[index].reference.update({
+                          'temperature': {
+                            'subscribed': toggle,
+                            'min': doc['temperature']['min'],
+                            'max': doc['temperature']['max'],
+                          },
+                        });
+                      });
                       if (toggle) {
                         firebase.subscribeTopic('TEMP-HUMID');
                       } else {
                         firebase.unsubScribeTopic('TEMP-HUMID');
                       }
                     },
+                  ),
+                  Visibility(
+                    visible: doc['temperature']['subscribed'],
+                    child: RangeSlider(
+                      values: RangeValues(doc['temperature']['min'].toDouble(),
+                          doc['temperature']['max'].toDouble()),
+                      min: 0,
+                      max: 100,
+                      divisions: 101,
+                      labels: RangeLabels(doc['temperature']['min'].toString(),
+                          doc['temperature']['max'].toString()),
+                      onChanged: (RangeValues values) {
+                        setState(() {
+                          snapshot.data.docs[index].reference.update({
+                            'temperature': {
+                              'subscribed': doc['temperature']['subscribed'],
+                              'min': values.start.round(),
+                              'max': values.end.round(),
+                            }
+                          });
+                        });
+                      },
+                    ),
                   ),
                 ],
               );

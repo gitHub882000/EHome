@@ -163,6 +163,52 @@ class _BodyState extends State<Body> {
                       },
                     ),
                   ),
+                  SwitchListTile(
+                    title: Text(
+                      'Humidity',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    value: doc['humidity']['subscribed'],
+                    onChanged: (bool toggle) {
+                      setState(() {
+                        snapshot.data.docs[index].reference.update({
+                          'humidity': {
+                            'subscribed': toggle,
+                            'min': doc['humidity']['min'],
+                            'max': doc['humidity']['max'],
+                          },
+                        });
+                      });
+                      if (toggle) {
+                        firebase.subscribeTopic('TEMP-HUMID');
+                      } else {
+                        firebase.unsubScribeTopic('TEMP-HUMID');
+                      }
+                    },
+                  ),
+                  Visibility(
+                    visible: doc['humidity']['subscribed'],
+                    child: RangeSlider(
+                      values: RangeValues(doc['humidity']['min'].toDouble(),
+                          doc['humidity']['max'].toDouble()),
+                      min: 0,
+                      max: 100,
+                      divisions: 101,
+                      labels: RangeLabels(doc['humidity']['min'].toString(),
+                          doc['humidity']['max'].toString()),
+                      onChanged: (RangeValues values) {
+                        setState(() {
+                          snapshot.data.docs[index].reference.update({
+                            'humidity': {
+                              'subscribed': doc['humidity']['subscribed'],
+                              'min': values.start.round(),
+                              'max': values.end.round(),
+                            }
+                          });
+                        });
+                      },
+                    ),
+                  ),
                 ],
               );
             },

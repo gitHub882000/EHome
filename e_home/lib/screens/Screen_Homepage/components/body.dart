@@ -1,4 +1,5 @@
 import 'package:e_home/icons/water_drop_icons.dart';
+import 'package:e_home/screens/Screen_Homepage/components/energy_line_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:e_home/screens/shared_components/text_with_pre_icon.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'background.dart';
 import 'roomcard_list.dart';
 import 'package:e_home/models/realtime_sensors.dart';
+import 'package:e_home/models/device_history.dart';
 import 'realtime_line_chart.dart';
 import 'rt_data_cell.dart';
 
@@ -48,6 +50,7 @@ class _BodyState extends State<Body> {
     Colors.blueAccent,
     Colors.lightBlueAccent,
   ];
+  final _deviceHistory = DeviceHistory();
 
   /// ******
   /// Utility methods
@@ -59,6 +62,7 @@ class _BodyState extends State<Body> {
         element.dispose();
       },
     );
+    _deviceHistory.dispose();
     super.dispose();
   }
 
@@ -155,7 +159,7 @@ class _BodyState extends State<Body> {
                 _chartFeatures.length,
                 (index) => Container(
                   width: size.width - 20.0,
-                  height: size.height * 0.45,
+                  height: size.height * 0.4,
                   margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 15.0),
                   decoration: BoxDecoration(
@@ -173,6 +177,50 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
+          TextWithPreIcon(
+            spaceSize: size.width * 0.015,
+            indentSize: 10.0,
+            icon: Container(
+              width: size.height * 0.026,
+              height: size.height * 0.026,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.bolt,
+                size: size.height * 0.022,
+                color: Color.fromRGBO(9, 94, 231, 1.0),
+              ),
+            ),
+            text: Text(
+              'Energy consumption (kWh)',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    fontSize: size.height * 0.022,
+                  ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          Container(
+            width: size.width - 20.0,
+            height: size.height * 0.36,
+            margin: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 20.0),
+            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 15.0),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: EnergyLineChart(
+              size: size,
+              deviceHistory: _deviceHistory,
             ),
           ),
           SizedBox(

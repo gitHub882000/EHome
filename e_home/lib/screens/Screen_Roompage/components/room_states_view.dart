@@ -18,52 +18,58 @@ class RoomStatesView extends StatelessWidget {
           color: Colors.red[600]);
 
       String minTemp, maxTemp, minHumid, maxHumid;
-      return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('users')
-            .doc(_uid)
-            .collection('notification')
-            .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          var doc = snapshot.data.docs.first.data() as Map<String, dynamic>;
+      return Container(
+          height: size.height * 0.03,
+          width: size.width * 0.22,
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(_uid)
+                .collection('notification')
+                .snapshots(),
+            builder:
+                (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (!snapshot.hasData) return CircularProgressIndicator();
+              var doc = snapshot.data.docs.first.data() as Map<String, dynamic>;
 
-          minTemp = doc['temperature']['min'].toString();
-          maxTemp = doc['temperature']['max'].toString();
-          minHumid = doc['humidity']['min'].toString();
-          maxHumid = doc['humidity']['max'].toString();
+              minTemp = doc['temperature']['min'].toString();
+              maxTemp = doc['temperature']['max'].toString();
+              minHumid = doc['humidity']['min'].toString();
+              maxHumid = doc['humidity']['max'].toString();
 
-          if (type == 'Temperature') {
-            if (data >= double.parse(minTemp) && data <= double.parse(maxTemp))
-              return Text(
-                'Normal',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(fontSize: size.height * 0.025),
-              );
-            return Text(
-              'Warning',
-              style: warning.copyWith(fontSize: size.height * 0.025),
-            );
-          }
+              if (type == 'Temperature') {
+                if (data >= double.parse(minTemp) &&
+                    data <= double.parse(maxTemp))
+                  return Text(
+                    'Normal',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(fontSize: size.height * 0.025),
+                  );
+                return Text(
+                  'Warning',
+                  style: warning.copyWith(fontSize: size.height * 0.025),
+                );
+              }
 
-          if (type == 'Humidity') {
-            if (data >= double.parse(minHumid) &&
-                data <= double.parse(maxHumid))
-              return Text(
-                'Normal',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(fontSize: size.height * 0.025),
-              );
-            return Text(
-              'Warning',
-              style: warning.copyWith(fontSize: size.height * 0.025),
-            );
-          }
-        },
-      );
+              if (type == 'Humidity') {
+                if (data >= double.parse(minHumid) &&
+                    data <= double.parse(maxHumid))
+                  return Text(
+                    'Normal',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        .copyWith(fontSize: size.height * 0.025),
+                  );
+                return Text(
+                  'Warning',
+                  style: warning.copyWith(fontSize: size.height * 0.025),
+                );
+              }
+            },
+          ));
     }
 
     return Container(

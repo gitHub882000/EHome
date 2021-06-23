@@ -19,6 +19,7 @@ class RoomStatesView extends StatelessWidget {
 
       String minTemp, maxTemp, minHumid, maxHumid;
       return Container(
+          height: size.height * 0.03,
           width: size.width * 0.22,
           child: StreamBuilder(
             stream: FirebaseFirestore.instance

@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:e_home/screens/shared_components/rounded_input_field.dart';
-import 'package:e_home/screens/shared_components/rounded_password_field.dart';
-import 'package:e_home/screens/shared_components/rounded_button.dart';
-import 'package:e_home/screens/shared_components/already_have_account_check.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'background.dart';
-import 'package:lottie/lottie.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:e_home/presentation/bloc/auth/auth_cubit.dart';

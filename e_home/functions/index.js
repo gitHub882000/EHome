@@ -89,7 +89,7 @@ functions.firestore.document("Tam_feed/bc1EFVcnrsWfJieBsVin")
       const payload = {
         notification: {
           title: "FLIPPED",
-          body: "Someone just turned on the light.",
+          body: "Someone just turned on device.",
           sound: "default",
         },
       };
@@ -116,7 +116,7 @@ functions.firestore.document("users/{userId}")
       };
 
       return notification.add({
-        room: "Living Room",
+        name: "Living Room",
         light: false,
         temperature: {
           subscribed: false,

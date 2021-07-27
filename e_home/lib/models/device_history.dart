@@ -46,9 +46,10 @@ class DeviceHistory {
             ? history[i]['data'] * 24.0
             : history[i]['data'].toDouble() * 24.0;
       }
+
       final lastDay = convertDateFormat(history.last['date']);
       final firstDay = convertDateFormat(history.first['date']);
-      historyData['DATE'] = history.length > 7
+      historyData['DATE'] = history.length == 7
           ? List.generate(7, (index) => lastDay.add(Duration(days: index - 6)))
           : List.generate(7, (index) => firstDay.add(Duration(days: index)));
     }

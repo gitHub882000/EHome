@@ -84,7 +84,7 @@ class _DevicesViewState extends State<DevicesView> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              'Light',
+                              'Relay',
                               style: Theme.of(context)
                                   .textTheme
                                   .headline5

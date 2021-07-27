@@ -126,7 +126,7 @@ Future<DeviceModel> sendData(String account, String data, String name,
     String topic, String update) async {
   // var url = Uri.parse('localhost:5000/publisher/khang');
   // var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
-  String apiUrl = "https://ehomee.azurewebsites.net/publisher/khang";
+  String apiUrl = "https://ehomee.azurewebsites.net/publisher/Tam";
   // String apiUrl = "http://10.0.2.2:5000/publisher/khang";
   final json = {
     'account': account,

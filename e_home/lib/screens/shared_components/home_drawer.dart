@@ -26,9 +26,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
     BlocProvider.of<UserCubit>(context).getUsers();
     super.initState();
   }
-  void _handleChatroomClick(BuildContext context) {
-    Navigator.pushNamed(context, '/chatroom-screen');
-  }
 
   void _handleNotificationClick(BuildContext context) {
     Navigator.pushNamed(context, '/notification-screen');
@@ -80,12 +77,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     color: Theme.of(context).cardColor,
                   ),
                 ),
-              ),
-              _DrawerListTile(
-                title: 'Profile',
-                iconData: Icons.person,
-                press: () {},
-                size: size,
               ),
               _DrawerListTile(
                 title: 'Chatroom',

@@ -20,31 +20,6 @@ class RoomPage extends StatelessWidget {
     // This size provides us total height and width of our screen
     Size size = MediaQuery.of(context).size;
 
-    /* //Get data from Homepage
-    String _roomId = ModalRoute.of(context).settings.arguments as String;
-
-    return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('roomList')
-            .doc('${_roomId}')
-            .snapshots(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (!snapshot.hasData)
-            return const CircularProgressIndicator();
-          else {
-            dynamic _room = snapshot.data.data();
-            return Scaffold(
-              endDrawer: HomeDrawer(),
-              appBar: HomeAppBar(
-                title: '${_room['name']}',
-                onPressed: _handleBackClick,
-              ),
-              body: Body(),
-            );
-          }
-        }); */
-
     return Scaffold(
       endDrawer: HomeDrawer(),
       appBar: HomeAppBar(

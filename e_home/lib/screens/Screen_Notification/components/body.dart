@@ -100,7 +100,7 @@ class _BodyState extends State<Body> {
                   ),
                   SwitchListTile(
                     title: Text(
-                      'Light',
+                      'Device',
                       style: TextStyle(color: Colors.white),
                     ),
                     value: doc['light'],
